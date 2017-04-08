@@ -22,6 +22,7 @@ module.exports = {
             { test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
             { test: /\.css$/, loader: 'style!css!autoprefixer'},
             { test: /\.scss$/, loader: 'style!css!sass?sourceMap'},
+            {test: /\.less$/, loader: 'style-loader!css-loader!less-loader'},
             { test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=8192'},
             { test: /\.(html|tpl)$/, loader: 'html-loader' }
         ]

@@ -1,41 +1,24 @@
 
 <template>
-    <div class="index">
-        <Row type="flex" justify="center" align="middle">
-            <i-col span="24">
-                <a href="" v-link="{path:'/login'}">登录</a>
-                <h1>
-                    <img src="../images/logo.png">
-                </h1>
-                <h2>一套111基于 Vue.js 的高质量UI组件库1122244444555333332222</h2>
-                <h2>222333</h2>
-            </i-col>
-        </Row>
-    </div>
+    <!--网页头部-->
+    <Row justify="center" align="middle" class="header-bg">
+        <i-col span="3" offset="2">
+            您好，欢迎来到古韵婚纱店
+        </i-col>
+        <i-col span="11">
+            <i-button v-link="{path:'/login'}" type="text" class="header-login" id="color">hi，请登录</i-button>
+            <i-button v-link="{path:'/register'}" type="text" class="header-hover">免费注册</i-button>
+        </i-col>
+        <i-col span="8">
+            <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>
+            <i-button v-link="{path:'/personCenter'}" type="text" class="header-hover">个人中心</i-button>
+            <i-button v-link="{path:'/cart'}" type="text" class="header-hover">我的购物车</i-button>
+        </i-col>
+    </Row>
+
 </template>
 <style scoped>
-    .index{
-        width: 100%;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        text-align: center;
 
-    }
-    h1{
-        height: 150px;
-
-    }
-    h1 img{
-        height: 100%;
-    }
-    h2{
-        color: #666;
-    }
-    .ivu-row{
-        height: 100%;
-    }
 </style>
 <script>
     export default {
@@ -44,16 +27,11 @@
         },
         data () {
             return {
-
+                search:''
             }
         },
         methods: {
-            bindUser(){
 
-            },
-            register(){
-
-            }
         },
         ready () {
 

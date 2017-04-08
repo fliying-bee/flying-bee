@@ -11,6 +11,21 @@ const routers = {
         component (resolve) {
             require(['./views/login.vue'], resolve);
         }
-    }
+    },
+    '/register':{
+        component (resolve) {
+            require(['./views/register.vue'], resolve);
+        }
+    },
+    '/personCenter':{
+        component (resolve) {
+            require(['./views/personCenter.vue'], resolve);
+        }
+    },
+    '/cart':{
+        component (resolve) {
+            require(['./views/cart.vue'], resolve);
+        }
+    },
 };
 export default routers;

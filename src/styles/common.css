@@ -1,0 +1,9 @@
+.header-bg{
+    color: #666;
+    background-color: #F5F5F5;
+    line-height: 35px;
+    border-bottom: 1px solid #eee;
+}
+.ivu-btn.header-login,.header-hover:hover{
+    color: #C80000;
+}

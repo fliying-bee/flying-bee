@@ -8,6 +8,7 @@ import Routers from './router';
 import Env from './config/env';
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
+import './myTheme/index.less';
 
 Vue.use(VueRouter);
 Vue.use(iView);
