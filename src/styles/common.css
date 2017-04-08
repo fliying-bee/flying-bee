@@ -1,3 +1,13 @@
+/*公共常用样式*/
+.clearfix:after,.clearfix:before{
+    clear:both;
+    content:"";
+    display: table;
+}
+*{
+    font-size: 12px;
+}
+/*网页头部*/
 .header-bg{
     color: #666;
     background-color: #F5F5F5;
@@ -6,4 +16,55 @@
 }
 .ivu-btn.header-login,.header-hover:hover{
     color: #C80000;
+}
+/*网页nav*/
+.front-nav .ivu-menu-light{
+    height: 80px;
+    line-height: 80px;
+}
+.front-nav-logo{
+    float:left;
+    height: 80px;
+    padding: 0 0 0 100px;
+}
+.front-nav-logopic{
+    height: 70px;
+    margin: 5px 0;
+}
+.front-nav-item{
+    float:right;
+    height:80px;
+}
+/*网页底部*/
+.ivu-row.front-footer{
+    height: 157px;
+    padding-top: 36px;
+    background: #D7D7D7;
+    border-bottom: 1px solid #C1C1C1;
+    border-top: 1px solid #C1C1C1;
+}
+.front-footer-logo{
+    padding: 0 0 0 100px;
+}
+.front-footer-nav{
+    color: #333;
+}
+.front-footer-address{
+    padding-top: 10px;
+    color: #333;
+    line-height: 25px;
+}
+.front-footer-navitem{
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: #fff;
+    display: block;
+    float: left;
+    margin-right: 20px;
+}
+.front-footer-navitem:hover{
+    background: #C80000;
+    color: #fff;
 }
