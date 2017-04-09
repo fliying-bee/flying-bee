@@ -57,7 +57,7 @@
     <Carousel >
         <Carousel-item>
             <div class="carousel-item">
-                <img src="../images/carousel_1.jpg" alt="" class="carousel-itempic">
+                <img src="../images/carousel_1.png" alt="" class="carousel-itempic">
             </div>
         </Carousel-item>
         <Carousel-item>

@@ -1,3 +1,123 @@
 <template>
-    <div>1111登录</div>
+    <Row justify="center" align="bottom" class="head-login">
+        <i-col span="4" offset="3">
+            <div class="front-login-logo">
+                <!--<img src="../images/guyun_logo.png" class="front-nav-logopic">-->
+                <img src="../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
+            </div>
+        </i-col>
+        <i-col span="11" class="login-nav-font">登录</i-col>
+        <i-col span="4" class="login-nav">
+            <i-button v-link="{path:'/index'}" type="text" id="color">返回首页</i-button>
+            |
+            <i-button v-link="{path:''}" type="text">服务条款</i-button>
+        </i-col>
+    </Row>
+    <Row class="body-login">
+        <i-col span="11" offset="3" >
+            <div class="login-body-left">
+                <img src="../images/guyun_logo_B.png" class="front-login-logo-B">
+            </div>
+        </i-col>
+        <i-col span="7" class="login-body-right">
+            <div >
+                <Tabs active-key="key1">
+                    <Tab-pane label="用户登录" key="key1">
+                        <i-form v-ref:form-custom :model="formCustom" :rules="ruleCustom" :label-width="80">
+                            <Form-item label="用户名" prop="userId">
+                                <i-input type="text" :value.sync="formCustom.userId" number></i-input>
+                            </Form-item>
+                            <Form-item label="密码" prop="passwd">
+                                <i-input type="password" :value.sync="formCustom.passwd"></i-input>
+                            </Form-item>
+                            <Form-item>
+                                <i-button type="primary" @click="handleSubmit('formCustom')"  size="large">登录</i-button>
+                                <i-button type="ghost" @click="handleReset('formCustom')" style="margin-left: 8px"  size="large">注册</i-button>
+                            </Form-item>
+                        </i-form>
+                    </Tab-pane>
+                    <Tab-pane label="员工登录" key="key2">
+                        <i-form v-ref:form-custom :model="formCustom" :rules="ruleCustom" :label-width="80">
+                            <Form-item label="员工名" prop="userId">
+                                <i-input type="text" :value.sync="formCustom.empId" number></i-input>
+                            </Form-item>
+                            <Form-item label="密码" prop="passwd">
+                                <i-input type="password" :value.sync="formCustom.passwd"></i-input>
+                            </Form-item>
+                            <Form-item>
+                                <i-button type="primary" @click="handleSubmit('formCustom')">登录</i-button>
+                            </Form-item>
+                    </Tab-pane>
+                </Tabs>
+            </div>
+            <div>
+
+            </div>
+            <div></div>
+        </i-col>
+    </Row>
+    <div class="login-footer">
+        古韵婚纱版权所有&nbsp;&nbsp;&nbsp;&nbsp;古韵婚纱有限公司 沪ICP备17001234号
+    </div>
 </template>
+<style scoped>
+.ivu-row.head-login{
+    height: 86px;
+    background-color: #F5F5F5;
+    /*line-height: 86px;*/
+}
+.front-login-logo{
+    height: 80px;
+}
+.login-nav-font{
+    font-size: 24px;
+    padding-top: 40px;
+}
+.login-nav{
+    padding-top: 45px;
+}
+.login-body-left{
+    background-color: #F5F5F5;
+    padding: 10%;
+    margin-right: 10px;
+    height: 480px;
+}
+.front-login-logo-B{
+    margin: 0 10%;
+    width: 80%;
+    height: 100%;
+}
+.login-body-right{
+    background-color: #F5F5F5;
+    padding: 50px;
+    height: 480px;
+}
+
+.body-login{
+    margin-top: 20px;
+}
+.login-footer{
+    text-align: center;
+    margin-top: 20px;
+    color: #C1C1C1;
+}
+</style>
+<script>
+    export default {
+        components: {
+
+        },
+        data () {
+            return {
+                search:''
+            }
+        },
+        methods: {
+
+        },
+        ready () {
+
+        }
+    }
+</script>
