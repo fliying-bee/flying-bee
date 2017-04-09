@@ -28,8 +28,8 @@
     padding: 0 0 0 100px;
 }
 .front-nav-logopic{
-    height: 70px;
-    margin: 5px 0;
+    height: 50px;
+    margin: 15px 0;
 }
 .front-nav-item{
     float:right;
@@ -67,4 +67,48 @@
 .front-footer-navitem:hover{
     background: #C80000;
     color: #fff;
+}
+/*轮播图*/
+.carousel-item{
+    height: 500px;
+    line-height: 200px;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    background: #506b9e;
+}
+.carousel-itempic{
+    width: 100%;
+    height: 500px;
+}
+/*网页内容*/
+.content-title{
+    height: 60px;
+    width: 300px;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+    background: url("../images/border.png") no-repeat center bottom;
+    background-size:300px 15px;
+    margin: 0 auto;
+}
+.front-content{
+    padding: 20px 50px;
+}
+.product-card{
+    width: 90%;
+    height: 400px;
+    margin: 0 auto;
+}
+.product-cardpic{
+    width: 246px;
+    height: 270px;
+}
+.product-card-title{
+    font-size: 16px;
+    margin-top: 10px;
+}
+.product-card-desc{
+
 }

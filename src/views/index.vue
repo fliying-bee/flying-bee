@@ -15,9 +15,12 @@
             <i-button v-link="{path:'/cart'}" type="text" class="header-hover">我的购物车</i-button>
         </i-col>
     </Row>
+
+    <!--首页nav-->
     <div class="front-nav">
         <Menu mode="horizontal" active-key="1">
             <div class="front-nav-logo">
+                <img src="../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
                 <img src="../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
             </div>
             <div class="front-nav-item">
@@ -50,13 +53,161 @@
         </Menu>
     </div>
 
+    <!--轮播图-->
+    <Carousel >
+        <Carousel-item>
+            <div class="carousel-item">
+                <img src="../images/carousel_1.jpg" alt="" class="carousel-itempic">
+            </div>
+        </Carousel-item>
+        <Carousel-item>
+            <div class="carousel-item">
+                <img src="../images/carousel_2.png" alt="" class="carousel-itempic">
+            </div>
+        </Carousel-item>
+        <Carousel-item>
+            <div class="carousel-item">
+                <img src="../images/carousel_3.jpg" alt="" class="carousel-itempic">
+            </div>
+        </Carousel-item>
+        <Carousel-item>
+            <div class="carousel-item">
+                <img src="../images/carousel_4.png" alt="" class="carousel-itempic">
+            </div>
+        </Carousel-item>
+    </Carousel>
 
-    
+    <!--最新活动-->
+    <Row justify="center" align="middle">
+        <i-col span="24">
+            <div class="content-title">
+                最新活动
+            </div>
+        </i-col>
+    </Row>
+    <Row justify="start" align="middle" class="front-content">
+        <i-col span="6">
+            <Card class="product-card">
+                <div>
+                    <img src="../images/yangtu.png" class="product-cardpic">
+                    <div class="product-card-title">
+                        一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                    <div class="product-card-desc">
+                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                </div>
+            </Card>
+        </i-col>
+        <i-col span="6">
+            <Card class="product-card">
+                <div>
+                    <img src="../images/yangtu.png" class="product-cardpic">
+                    <div class="product-card-title">
+                        一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                    <div class="product-card-desc">
+                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                </div>
+            </Card>
+        </i-col>
+        <i-col span="6">
+            <Card class="product-card">
+                <div>
+                    <img src="../images/yangtu.png" class="product-cardpic">
+                    <div class="product-card-title">
+                        一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                    <div class="product-card-desc">
+                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                </div>
+            </Card>
+        </i-col>
+        <i-col span="6">
+            <Card class="product-card">
+                <div>
+                    <img src="../images/yangtu.png" class="product-cardpic">
+                    <div class="product-card-title">
+                        一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                    <div class="product-card-desc">
+                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                </div>
+            </Card>
+        </i-col>
+    </Row>
 
+    <!--婚纱作品-->
+    <Row justify="center" align="middle">
+        <i-col span="24">
+            <div class="content-title">
+                婚纱作品
+            </div>
+        </i-col>
+    </Row>
+    <Row justify="start" align="middle" class="front-content">
+        <i-col span="6">
+            <Card class="product-card">
+                <div>
+                    <img src="../images/yangtu.png" class="product-cardpic">
+                    <div class="product-card-title">
+                        一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                    <div class="product-card-desc">
+                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                </div>
+            </Card>
+        </i-col>
+        <i-col span="6">
+            <Card class="product-card">
+                <div>
+                    <img src="../images/yangtu.png" class="product-cardpic">
+                    <div class="product-card-title">
+                        一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                    <div class="product-card-desc">
+                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                </div>
+            </Card>
+        </i-col>
+        <i-col span="6">
+            <Card class="product-card">
+                <div>
+                    <img src="../images/yangtu.png" class="product-cardpic">
+                    <div class="product-card-title">
+                        一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                    <div class="product-card-desc">
+                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                </div>
+            </Card>
+        </i-col>
+        <i-col span="6">
+            <Card class="product-card">
+                <div>
+                    <img src="../images/yangtu.png" class="product-cardpic">
+                    <div class="product-card-title">
+                        一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                    <div class="product-card-desc">
+                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                </div>
+            </Card>
+        </i-col>
+    </Row>
 
+    <Back-top></Back-top>
     <Row class="front-footer">
         <i-col span="10">
             <div class="front-footer-logo">
+                <img src="../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
                 <img src="../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
             </div>
         </i-col>
