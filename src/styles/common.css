@@ -112,3 +112,43 @@
 .product-card-desc{
 
 }
+/*登录与注册*/
+.ivu-row.head-login{
+    height: 86px;
+    background-color: #F5F5F5;
+}
+.front-login-logo{
+    height: 80px;
+}
+.login-nav-font{
+    font-size: 24px;
+    padding-top: 40px;
+}
+.login-nav{
+    padding-top: 45px;
+}
+.login-body-left{
+    background-color: #F5F5F5;
+    padding: 10%;
+    margin-right: 10px;
+    height: 480px;
+}
+.front-login-logo-B{
+    margin: 0 10%;
+    width: 80%;
+    height: 100%;
+}
+.login-body-right{
+    background-color: #F5F5F5;
+    padding: 50px;
+    height: 480px;
+}
+
+.body-login{
+    margin-top: 20px;
+}
+.login-footer{
+    text-align: center;
+    margin-top: 20px;
+    color: #C1C1C1;
+}
