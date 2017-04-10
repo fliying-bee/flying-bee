@@ -46,7 +46,7 @@
                                 <i-input type="password" :value.sync=""></i-input>
                             </Form-item>
                             <Form-item>
-                                <i-button type="primary" >登录</i-button>
+                                <i-button type="primary" v-link="{path:'/backIndex'}">登录</i-button>
                             </Form-item>
                     </Tab-pane>
                 </Tabs>

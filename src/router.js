@@ -27,5 +27,10 @@ const routers = {
             require(['./views/cart.vue'], resolve);
         }
     },
+    '/backIndex':{
+        component (resolve) {
+            require(['./views/back/backIndex.vue'], resolve);
+        }
+    },
 };
 export default routers;
