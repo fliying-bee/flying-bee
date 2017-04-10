@@ -23,7 +23,7 @@
                 <img src="../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
             </div>
             <div class="front-nav-item">
-                <Menu-item key="1">
+                <Menu-item key="1" v-link="{path:'/index'}">
                     <Icon type="home"></Icon>
                     首页
                 </Menu-item>
@@ -51,13 +51,31 @@
             </div>
         </Menu>
     </div>
-    <div>
-        
+    <div class="contact-center"></div>
+    <div class="contact-us-img"></div>
+    <div class="login-footer">
+        古韵婚纱版权所有&nbsp;&nbsp;&nbsp;&nbsp;古韵婚纱有限公司 沪ICP备17001234号
     </div>
 </template>
 
 <style scoped>
-
+.contact-center{
+    margin: 10px 170px;
+    background-color: #F5F5F5;
+    background: url("../images/flower1.png");
+    background-size: 1009px 460px;
+    background-repeat:no-repeat;
+    width: calc(100% - 340 );
+    height: 460px;
+}
+.contact-us-img{
+    background: url("../images/contact-img.png");
+    background-size: 1009px;
+    background-repeat:no-repeat;
+    margin: 10px 170px;
+    width: calc(100% - 340 );
+    height: 100px;
+}
 </style>
 
 <script>
