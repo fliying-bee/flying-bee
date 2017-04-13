@@ -24,7 +24,7 @@ const routers = {
     },
     '/cart':{
         component (resolve) {
-            require(['./views/cart.vue'], resolve);
+            require(['./views/front/cart.vue'], resolve);
         }
     },
     '/backIndex':{
@@ -34,8 +34,13 @@ const routers = {
     },
     '/contact':{
         component (resolve) {
-            require(['./views/contact.vue'], resolve);
+            require(['./views/front/contact.vue'], resolve);
         }
-    }
+    },
+    '/front/design':{
+        component (resolve) {
+            require(['./views/front/setDesign.vue'], resolve);
+        }
+    },
 };
 export default routers;
