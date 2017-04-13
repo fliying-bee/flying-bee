@@ -4,9 +4,6 @@
     content:"";
     display: table;
 }
-*{
-    font-size: 12px;
-}
 /*网页头部*/
 .header-bg{
     color: #666;
@@ -16,6 +13,9 @@
 }
 .ivu-btn.header-login,.header-hover:hover{
     color: #C80000;
+}
+.header-drop{
+    line-height: 1.5;
 }
 /*网页nav*/
 .front-nav .ivu-menu-light{
