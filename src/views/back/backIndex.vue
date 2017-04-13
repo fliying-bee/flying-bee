@@ -69,52 +69,6 @@
 </template>
 
 <style scoped>
-    /*后台首页*/
-    .front-index-bg{
-        border: 1px solid #d7dde4;
-        background: #f5f7f9;
-        position: relative;
-    }
-    /*后台头部*/
-    .back-index-header{
-        background: #fff;
-    }
-    .back-header-logo{
-        height: 40px;
-        padding: 5px 10px 5px 100px;
-        float: left;
-    }
-    .back-header-logopic{
-        height: 30px;
-    }
-    .back-header-nav{
-        float: right;
-        height: 40px;
-        padding: 4px 0;
-    }
-    /*后台首页左侧菜单*/
-    .back-menu-left{
-        background: #fff;
-    }
-    /*后台首页右侧*/
-    .back-breadcrumb{
-        padding: 10px 15px 0;
-    }
-    .back-content{
-        min-height: 200px;
-        margin: 15px;
-        overflow: hidden;
-        background: #fff;
-        border-radius: 4px;
-    }
-    .back-content-main{
-        padding: 10px;
-    }
-    .back-copy{
-        text-align: center;
-        padding: 10px 0 20px;
-        color: #9ea7b4;
-    }
 
 </style>
 

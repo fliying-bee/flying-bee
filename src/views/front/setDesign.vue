@@ -106,12 +106,7 @@
 </template>
 
 <style scoped>
-    .front-design{
-        padding: 50px 300px;
-    }
-    .frint-design-name{
-        width: 50%;
-    }
+
 </style>
 
 <script>
