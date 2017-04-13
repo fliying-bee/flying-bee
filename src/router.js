@@ -32,5 +32,10 @@ const routers = {
             require(['./views/back/backIndex.vue'], resolve);
         }
     },
+    '/contact':{
+        component (resolve) {
+            require(['./views/contact.vue'], resolve);
+        }
+    }
 };
 export default routers;

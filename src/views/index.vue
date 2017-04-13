@@ -56,7 +56,7 @@
                     <Icon type="ios-flame"></Icon>
                     优惠活动
                 </Menu-item>
-                <Menu-item key="5">
+                <Menu-item key="5" v-link="{path:'/contact'}">
                     <Icon type="android-call"></Icon>
                     联系我们
                 </Menu-item>
