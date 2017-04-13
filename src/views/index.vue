@@ -48,7 +48,7 @@
                     <Menu-item key="2-2">购买</Menu-item>
                     <Menu-item key="2-3">租赁</Menu-item>
                 </Submenu>
-                <Menu-item key="3">
+                <Menu-item key="3" v-link="{path:'/front/design'}">
                     <Icon type="ios-copy"></Icon>
                     设计投稿
                 </Menu-item>

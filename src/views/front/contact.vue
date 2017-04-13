@@ -19,8 +19,8 @@
     <div class="front-nav">
         <Menu mode="horizontal" active-key="5">
             <div class="front-nav-logo">
-                <img src="../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
-                <img src="../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
+                <img src="../../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="../../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
             </div>
             <div class="front-nav-item">
                 <Menu-item key="1" v-link="{path:'/index'}">
@@ -36,7 +36,7 @@
                     <Menu-item key="2-2">购买</Menu-item>
                     <Menu-item key="2-3">租赁</Menu-item>
                 </Submenu>
-                <Menu-item key="3">
+                <Menu-item key="3" v-link="{path:'/front/design'}">
                     <Icon type="ios-copy"></Icon>
                     设计投稿
                 </Menu-item>
@@ -62,14 +62,14 @@
 .contact-center{
     margin: 10px 170px;
     background-color: #F5F5F5;
-    background: url("../images/flower1.png");
+    background: url("../../images/flower1.png");
     background-size: 1009px 460px;
     background-repeat:no-repeat;
     width: calc(100% - 340 );
     height: 460px;
 }
 .contact-us-img{
-    background: url("../images/contact-img.png");
+    background: url("../../images/contact-img.png");
     background-size: 1009px;
     background-repeat:no-repeat;
     margin: 10px 170px;
