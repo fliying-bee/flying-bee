@@ -34,7 +34,7 @@
                 <img src="../../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
             </div>
             <div class="front-nav-item">
-                <Menu-item key="1">
+                <Menu-item key="1" v-link="{path:'/index'}">
                     <Icon type="home"></Icon>
                     首页
                 </Menu-item>
@@ -66,7 +66,7 @@
     <!--网页内容-->
     <div class="front-design">
         <i-form :model="formItem" :label-width="80">
-            <Form-item label="稿件名称">
+            <Form-item label="稿件名称" class="frint-design-name">
                 <i-input :value.sync="" placeholder="请输入"></i-input>
             </Form-item>
 
@@ -81,19 +81,12 @@
             <Form-item label="稿件设计图">
                 <Upload
                         v-ref:upload
-                        :show-upload-list="false"
-                        :default-file-list="defaultList"
-                        :on-success="handleSuccess"
-                        :format="['jpg','jpeg','png']"
-                        :max-size="2048"
-                        :on-format-error="handleFormatError"
-                        :on-exceeded-size="handleMaxSize"
-                        :before-upload="handleBeforeUpload"
+                        :show-upload-list="true"
                         multiple
                         type="drag"
                         action="//jsonplaceholder.typicode.com/posts/"
-                        style="display: inline-block;width:100px;">
-                    <div style="width: 100px;height:100px;line-height: 100px;font-size: 50px;">
+                        style="display: inline-block;width:150px;">
+                    <div style="width: 150px;height:100px;line-height: 100px;font-size: 50px;">
                         <Icon type="ios-plus-empty"></Icon>
                     </div>
                 </Upload>
@@ -111,6 +104,9 @@
 <style scoped>
     .front-design{
         padding: 50px 300px;
+    }
+    .frint-design-name{
+        width: 50%;
     }
 </style>
 

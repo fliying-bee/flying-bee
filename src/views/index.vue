@@ -35,7 +35,7 @@
                 <img src="../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
             </div>
             <div class="front-nav-item">
-                <Menu-item key="1">
+                <Menu-item key="1" v-link="{path:'/index'}">
                     <Icon type="home"></Icon>
                     首页
                 </Menu-item>
