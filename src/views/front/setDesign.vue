@@ -28,7 +28,7 @@
 
     <!--首页nav-->
     <div class="front-nav">
-        <Menu mode="horizontal" active-key="1">
+        <Menu mode="horizontal" active-key="3">
             <div class="front-nav-logo">
                 <img src="../../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
                 <img src="../../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
@@ -67,6 +67,10 @@
     <div class="front-design">
         <i-form :model="formItem" :label-width="80">
             <Form-item label="稿件名称" class="frint-design-name">
+                <i-input :value.sync="" placeholder="请输入"></i-input>
+            </Form-item>
+
+            <Form-item label="作者" class="frint-design-name">
                 <i-input :value.sync="" placeholder="请输入"></i-input>
             </Form-item>
 

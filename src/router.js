@@ -42,5 +42,10 @@ const routers = {
             require(['./views/front/setDesign.vue'], resolve);
         }
     },
+    '/front/events':{
+        component (resolve) {
+            require(['./views/front/events.vue'], resolve);
+        }
+    },
 };
 export default routers;
