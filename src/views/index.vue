@@ -11,8 +11,19 @@
         </i-col>
         <i-col span="8">
             <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>
-            <i-button v-link="{path:'/personCenter'}" type="text" class="header-hover">个人中心</i-button>
             <i-button v-link="{path:'/cart'}" type="text" class="header-hover">我的购物车</i-button>
+            <Dropdown>
+                <i-button type="text" class="header-hover">
+                    您好，XXX
+                    <Icon type="arrow-down-b"></Icon>
+                </i-button>
+                <Dropdown-menu slot="list" class="header-drop">
+                    <Dropdown-item v-link="{path:'/personCenter'}">个人中心</Dropdown-item>
+                    <Dropdown-item>退出</Dropdown-item>
+                </Dropdown-menu>
+            </Dropdown>
+            <!--<i-button v-link="{path:'/personCenter'}" type="text" class="header-hover">个人中心</i-button>-->
+
         </i-col>
     </Row>
 
