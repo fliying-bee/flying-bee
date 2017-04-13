@@ -14,6 +14,54 @@
             <i-button v-link="{path:'/index'}" type="text" id="color">返回首页</i-button>
         </i-col>
     </Row>
+    <div class="front-index-bg">
+        <Row type="flex">
+            <i-col span="5" class="back-menu-left">
+
+                <Menu active-key="1-1" width="auto" :open-keys="['1']">
+
+                    <Submenu key="1">
+                        <template slot="title">
+                            <Icon type="ios-navigate"></Icon>
+                            信息管理
+                        </template>
+                        <Menu-item key="1-1">个人基本信息管理</Menu-item>
+                    </Submenu>
+                    <Submenu key="2">
+                        <template slot="title">
+                            <Icon type="ios-keypad"></Icon>
+                            订单管理
+                        </template>
+                        <Menu-item key="2-1">购买管理</Menu-item>
+                        <Menu-item key="2-2">定制管理</Menu-item>
+                        <Menu-item key="2-3">租赁管理</Menu-item>
+                    </Submenu>
+                    <Submenu key="3">
+                        <template slot="title">
+                            <Icon type="ios-keypad"></Icon>
+                            投稿管理
+                        </template>
+                        <Menu-item key="3-1">投稿管理</Menu-item>
+                    </Submenu>
+                </Menu>
+            </i-col>
+            <i-col span="19">
+                <div class="back-breadcrumb">
+                    <Breadcrumb>
+                        <Breadcrumb-item href="#">首页</Breadcrumb-item>
+                        <Breadcrumb-item href="#">应用中心</Breadcrumb-item>
+                        <Breadcrumb-item>某应用</Breadcrumb-item>
+                    </Breadcrumb>
+                </div>
+                <div class="back-content">
+                    <div class="back-content-main">内容区域</div>
+                </div>
+                <div class="back-copy">
+                    2016-2017 &copy; 古韵婚纱
+                </div>
+            </i-col>
+        </Row>
+    </div>
 
 </template>
 
