@@ -1,15 +1,5 @@
 <template>
     <!--网页头部-->
-    <!--<Row justify="center" align="middle" class="header-bg">-->
-        <!--<i-col span="5">-->
-
-        <!--</i-col>-->
-        <!--<i-col span="19">-->
-            <!--<i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>-->
-            <!--<i-button v-link="{path:'/personCenter'}" type="text" class="header-hover">个人中心</i-button>-->
-            <!--<i-button v-link="{path:'/cart'}" type="text" class="header-hover">我的购物车</i-button>-->
-        <!--</i-col>-->
-    <!--</Row>-->
     <div class="back-index-header clearfix">
         <div class="back-header-logo">
             <img src="../../images/guyun_logo_z.png" alt="logo" class="back-header-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -17,28 +7,115 @@
         </div>
         <div class="back-header-nav">
             <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>
-            <i-button v-link="{path:'/personCenter'}" type="text" class="header-hover">个人中心</i-button>
-            个人中心</i-button>
+            <Dropdown>
+                <i-button type="text" class="header-hover">
+                    您好，XXX
+                    <Icon type="arrow-down-b"></Icon>
+                </i-button>
+                <Dropdown-menu slot="list">
+                    <Dropdown-item v-link="{path:'/personCenter'}">个人中心</Dropdown-item>
+                    <Dropdown-item>退出</Dropdown-item>
+                </Dropdown-menu>
+            </Dropdown>
+            <!--<i-button  >个人中心</i-button>-->
         </div>
+    </div>
+
+    <div class="front-index-bg">
+        <Row type="flex">
+            <i-col span="5" class="back-menu-left">
+
+                <Menu active-key="1-1" width="auto" :open-keys="['1']">
+
+                    <Submenu key="1">
+                        <template slot="title">
+                            <Icon type="ios-navigate"></Icon>
+                            客户管理
+                        </template>
+                        <Menu-item key="1-1">订单管理</Menu-item>
+                        <Menu-item key="1-2">设计收稿</Menu-item>
+                        <Menu-item key="1-3">信息管理</Menu-item>
+                    </Submenu>
+                    <Submenu key="2">
+                        <template slot="title">
+                            <Icon type="ios-keypad"></Icon>
+                            运营管理
+                        </template>
+                        <Menu-item key="2-1">商品管理</Menu-item>
+                        <Menu-item key="2-2">采购管理</Menu-item>
+                        <Menu-item key="2-3">厂家管理</Menu-item>
+                        <Menu-item key="2-4">员工管理</Menu-item>
+                        <Menu-item key="2-5">报表管理</Menu-item>
+                    </Submenu>
+                </Menu>
+            </i-col>
+            <i-col span="19">
+                <div class="back-breadcrumb">
+                    <Breadcrumb>
+                        <Breadcrumb-item href="#">首页</Breadcrumb-item>
+                        <Breadcrumb-item href="#">应用中心</Breadcrumb-item>
+                        <Breadcrumb-item>某应用</Breadcrumb-item>
+                    </Breadcrumb>
+                </div>
+                <div class="back-content">
+                    <div class="back-content-main">内容区域</div>
+                </div>
+                <div class="back-copy">
+                    2016-2017 &copy; 古韵婚纱
+                </div>
+            </i-col>
+        </Row>
     </div>
 </template>
 
 <style scoped>
+    /*后台首页*/
+    .front-index-bg{
+        border: 1px solid #d7dde4;
+        background: #f5f7f9;
+        position: relative;
+    }
+    /*后台头部*/
     .back-index-header{
-        background: #464c5b;
-        padding: 10px 0;
+        background: #fff;
     }
     .back-header-logo{
         height: 40px;
+        padding: 5px 10px 5px 100px;
         float: left;
     }
     .back-header-logopic{
-        height: 40px;
+        height: 30px;
     }
     .back-header-nav{
         float: right;
-        line-height: 40px;
+        height: 40px;
+        padding: 4px 0;
     }
+    /*后台首页左侧菜单*/
+    .back-menu-left{
+        background: #fff;
+    }
+    /*后台首页右侧*/
+    .back-breadcrumb{
+        padding: 10px 15px 0;
+    }
+    .back-content{
+        min-height: 200px;
+        margin: 15px;
+        overflow: hidden;
+        background: #fff;
+        border-radius: 4px;
+    }
+    .back-content-main{
+        padding: 10px;
+    }
+    .back-copy{
+        text-align: center;
+        padding: 10px 0 20px;
+        color: #9ea7b4;
+    }
+
 </style>
 
 <script>
