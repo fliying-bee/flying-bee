@@ -52,7 +52,14 @@
                     </Breadcrumb>
                 </div>
                 <div class="back-content">
-                    <div class="back-content-main">内容区域</div>
+                    <div class="back-content-main">
+                        <Steps :current="1">
+                            <Step title="未完成" content="这里是该步骤的描述信息"></Step>
+                            <Step title="待付款" content="这里是该步骤的描述信息"></Step>
+                            <Step title="已完成" content="这里是该步骤的描述信息"></Step>
+                            <Step title="待进行" content="这里是该步骤的描述信息"></Step>
+                        </Steps>
+                    </div>
                 </div>
                 <div class="back-copy">
                     2016-2017 &copy; 古韵婚纱
@@ -60,6 +67,7 @@
             </i-col>
         </Row>
     </div>
+
 </template>
 
 <style scoped>

@@ -28,7 +28,7 @@
 
     <!--首页nav-->
     <div class="front-nav">
-        <Menu mode="horizontal" active-key="1">
+        <Menu mode="horizontal" active-key="2">
             <div class="front-nav-logo">
                 <img src="../../../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
                 <img src="../../../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
@@ -62,7 +62,114 @@
             </div>
         </Menu>
     </div>
+    <div class="front-content ">
+        <Tabs type="card">
+            <Tab-pane label="可定制婚纱礼服">
+                <!--类型一-->
+                <Row justify="center" align="middle">
+                    <i-col span="24">
+                        <div class="content-title">
+                            锦绣良缘
+                        </div>
+                    </i-col>
+                </Row>
+                <Row justify="start" align="middle" class="front-content">
+                    <i-col span="6">
+                        <Card class="product-card">
+                            <div>
+                                <img src="../../../images/yangtu.png" class="product-cardpic">
+                                <div class="product-card-title">
+                                    一套基于 Vue.js 的高质量UI组件库
+                                </div>
+                                <div class="product-card-desc">
+                                    一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                                </div>
+                            </div>
+                        </Card>
+                    </i-col>
+                    <i-col span="6">
+                        <Card class="product-card">
+                            <div>
+                                <img src="../../../images/yangtu.png" class="product-cardpic">
+                                <div class="product-card-title">
+                                    一套基于 Vue.js 的高质量UI组件库
+                                </div>
+                                <div class="product-card-desc">
+                                    一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                                </div>
+                            </div>
+                        </Card>
+                    </i-col>
+                    <i-col span="6">
+                        <Card class="product-card">
+                            <div>
+                                <img src="../../../images/yangtu.png" class="product-cardpic">
+                                <div class="product-card-title">
+                                    一套基于 Vue.js 的高质量UI组件库
+                                </div>
+                                <div class="product-card-desc">
+                                    一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                                </div>
+                            </div>
+                        </Card>
+                    </i-col>
+                    <i-col span="6">
+                        <Card class="product-card">
+                            <div>
+                                <img src="../../../images/yangtu.png" class="product-cardpic">
+                                <div class="product-card-title">
+                                    一套基于 Vue.js 的高质量UI组件库
+                                </div>
+                                <div class="product-card-desc">
+                                    一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                                </div>
+                            </div>
+                        </Card>
+                    </i-col>
+                </Row>
+            </Tab-pane>
+            <Tab-pane label="自定义定制">
+                <div class="front-design">
+                    <i-form :model="formItem" :label-width="80">
+                        <Form-item label="稿件名称" class="frint-design-name">
+                            <i-input :value.sync="" placeholder="请输入"></i-input>
+                        </Form-item>
 
+                        <Form-item label="作者" class="frint-design-name">
+                            <i-input :value.sync="" placeholder="请输入"></i-input>
+                        </Form-item>
+
+                        <Form-item label="稿件描述">
+                            <i-input :value.sync="" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></i-input>
+                        </Form-item>
+
+                        <!--<Form-item label="稿件价格">-->
+                            <!--<Input-number :max="10" :min="1" :step="100" :value="0"></Input-number>-->
+                        <!--</Form-item>-->
+
+                        <Form-item label="稿件设计图">
+                            <Upload
+                                    v-ref:upload
+                                    :show-upload-list="true"
+                                    multiple
+                                    type="drag"
+                                    action="//jsonplaceholder.typicode.com/posts/"
+                                    style="display: inline-block;width:150px;">
+                                <div style="width: 150px;height:100px;line-height: 100px;font-size: 50px;">
+                                    <Icon type="ios-plus-empty"></Icon>
+                                </div>
+                            </Upload>
+                        </Form-item>
+
+                        <Form-item>
+                            <i-button type="primary">提交</i-button>
+                            <i-button type="ghost" style="margin-left: 8px">取消</i-button>
+                        </Form-item>
+                    </i-form>
+                </div>
+            </Tab-pane>
+        </Tabs>
+    </div>
 </template>
 
 <style scoped>
