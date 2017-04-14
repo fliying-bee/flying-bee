@@ -14,7 +14,7 @@
                 </i-button>
                 <Dropdown-menu slot="list">
                     <Dropdown-item v-link="{path:'/personCenter'}">个人中心</Dropdown-item>
-                    <Dropdown-item>退出</Dropdown-item>
+                    <Dropdown-item >退出</Dropdown-item>
                 </Dropdown-menu>
             </Dropdown>
             <!--<i-button  >个人中心</i-button>-->

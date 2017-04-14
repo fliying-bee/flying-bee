@@ -97,7 +97,7 @@
     padding: 20px 50px;
 }
 .product-card{
-    width: 90%;
+
     height: 400px;
     margin: 0 auto;
 }
@@ -110,6 +110,33 @@
     margin-top: 10px;
 }
 .product-card-desc{
+
+}
+/*最新活动*/
+.product-card-event{
+    width: 100%;
+    height: 400px;
+    margin: 0 auto;
+}
+.product-card-eventpic{
+    width: 650px;
+    height: 370px;
+}
+.product-card-event-content{
+    height: 370px;
+    background-color: linen;
+    padding: 20px;
+}
+.product-card-event-title{
+    font-size: 28px;
+    width: 100%;
+    height: 32px;
+}
+.product-card-event-desc{
+    font-size: 16px;
+    width: 100%;
+    height: 250px;
+    padding: 20px 0px;
 
 }
 /*登录、注册*/

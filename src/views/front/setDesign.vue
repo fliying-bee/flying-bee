@@ -51,8 +51,8 @@
                     <Icon type="ios-copy"></Icon>
                     设计投稿
                 </Menu-item>
-                <Menu-item key="4">
-                    <Icon type="ios-flame"></Icon>
+                <Menu-item key="4" v-link="{path:'/front/events'}">
+                    <Icon type="ios-flame" ></Icon>
                     优惠活动
                 </Menu-item>
                 <Menu-item key="5" v-link="{path:'/contact'}">

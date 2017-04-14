@@ -62,6 +62,76 @@
             </div>
         </Menu>
     </div>
+    <Row justify="start" align="middle" class="front-content">
+        <Card class="product-card-event">
+            <i-col span="13">
+                <div>
+                    <img src="../../images/newevent.png" class="product-card-eventpic">
+                </div>
+            </i-col>
+            <i-col span="11">
+                <div class="product-card-event-content">
+                    <div class="product-card-event-title">最新活动一</div>
+                    <div class="product-card-event-desc">一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库</div>
+                </div>
+            </i-col>
+        </Card>
+    </Row>
+    <Row justify="start" align="middle" class="front-content">
+        <i-col span="6">
+            <Card class="product-card">
+                <div>
+                    <img src="../../images/yangtu.png" class="product-cardpic">
+                    <div class="product-card-title">
+                        一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                    <div class="product-card-desc">
+                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                </div>
+            </Card>
+        </i-col>
+        <i-col span="6">
+            <Card class="product-card">
+                <div>
+                    <img src="../../images/yangtu.png" class="product-cardpic">
+                    <div class="product-card-title">
+                        一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                    <div class="product-card-desc">
+                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                </div>
+            </Card>
+        </i-col>
+        <i-col span="6">
+            <Card class="product-card">
+                <div>
+                    <img src="../../images/yangtu.png" class="product-cardpic">
+                    <div class="product-card-title">
+                        一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                    <div class="product-card-desc">
+                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                </div>
+            </Card>
+        </i-col>
+        <i-col span="6">
+            <Card class="product-card">
+                <div>
+                    <img src="../../images/yangtu.png" class="product-cardpic">
+                    <div class="product-card-title">
+                        一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                    <div class="product-card-desc">
+                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                </div>
+            </Card>
+        </i-col>
+    </Row>
+
 </template>
 
 <style scoped>
