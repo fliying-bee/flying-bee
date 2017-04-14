@@ -30,8 +30,8 @@
     <div class="front-nav">
         <Menu mode="horizontal" active-key="1">
             <div class="front-nav-logo">
-                <img src="../../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
-                <img src="../../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
+                <img src="../../../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="../../../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
             </div>
             <div class="front-nav-item">
                 <Menu-item key="1" v-link="{path:'/index'}">
@@ -43,9 +43,9 @@
                         <Icon type="tshirt"></Icon>
                         婚纱礼服
                     </template>
-                    <Menu-item key="2-1">定制</Menu-item>
-                    <Menu-item key="2-2">购买</Menu-item>
-                    <Menu-item key="2-3">租赁</Menu-item>
+                    <Menu-item key="2-1" v-link="{path:'/front/wedding/design'}">定制</Menu-item>
+                    <Menu-item key="2-2" v-link="{path:'/front/wedding/buy'}">购买</Menu-item>
+                    <Menu-item key="2-3" v-link="{path:'/front/wedding/rent'}">租赁</Menu-item>
                 </Submenu>
                 <Menu-item key="3" v-link="{path:'/front/design'}">
                     <Icon type="ios-copy"></Icon>

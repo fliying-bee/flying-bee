@@ -17,9 +17,7 @@
     <div class="front-index-bg">
         <Row type="flex">
             <i-col span="5" class="back-menu-left">
-
-                <Menu active-key="1-1" width="auto" :open-keys="['1']">
-
+                <Menu active-key="2-1" width="auto" :open-keys="['2']">
                     <Submenu key="1">
                         <template slot="title">
                             <Icon type="ios-navigate"></Icon>
@@ -48,9 +46,9 @@
             <i-col span="19">
                 <div class="back-breadcrumb">
                     <Breadcrumb>
-                        <Breadcrumb-item href="#">首页</Breadcrumb-item>
-                        <Breadcrumb-item href="#">应用中心</Breadcrumb-item>
-                        <Breadcrumb-item>某应用</Breadcrumb-item>
+                        <Breadcrumb-item href="#">个人中心</Breadcrumb-item>
+                        <Breadcrumb-item href="#">订单管理</Breadcrumb-item>
+                        <Breadcrumb-item>购买管理</Breadcrumb-item>
                     </Breadcrumb>
                 </div>
                 <div class="back-content">
@@ -62,7 +60,6 @@
             </i-col>
         </Row>
     </div>
-
 </template>
 
 <style scoped>
@@ -71,17 +68,11 @@
 
 <script>
     export default {
-        components: {
-
-        },
+        components: {},
         data () {
-            return {
-
-            }
+            return {}
         },
-        methods: {
-
-        },
+        methods: {},
         ready () {
 
         }
