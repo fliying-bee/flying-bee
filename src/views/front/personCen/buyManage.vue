@@ -54,10 +54,10 @@
                 <div class="back-content">
                     <div class="back-content-main">
                         <Steps :current="1">
-                            <Step title="未完成" content="这里是该步骤的描述信息"></Step>
-                            <Step title="待付款" content="这里是该步骤的描述信息"></Step>
-                            <Step title="已完成" content="这里是该步骤的描述信息"></Step>
-                            <Step title="待进行" content="这里是该步骤的描述信息"></Step>
+                            <Step title="未完成" content="待商家审核订单"></Step>
+                            <Step title="待付款" content="待买家付款"></Step>
+                            <Step title="已完成" content="已完成订单"></Step>
+                            <!--<Step title="待进行" content="这里是该步骤的描述信息"></Step>-->
                         </Steps>
                     </div>
                 </div>

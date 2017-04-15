@@ -32,11 +32,6 @@ const routers = {
             require(['./views/clause.vue'], resolve);
         }
     },
-    '/backIndex':{
-        component (resolve) {
-            require(['./views/back/backIndex.vue'], resolve);
-        }
-    },
     '/contact':{
         component (resolve) {
             require(['./views/front/contact.vue'], resolve);
@@ -50,6 +45,11 @@ const routers = {
     '/front/events':{
         component (resolve) {
             require(['./views/front/events.vue'], resolve);
+        }
+    },
+    '/front/product':{
+        component (resolve) {
+            require(['./views/front/product.vue'], resolve);
         }
     },
     '/front/personCen/personInformation':{
@@ -90,6 +90,56 @@ const routers = {
     '/front/wedding/rent':{
         component (resolve) {
             require(['./views/front/wedding/rent.vue'], resolve);
+        }
+    },
+    '/backIndex':{
+        component (resolve) {
+            require(['./views/back/backIndex.vue'], resolve);
+        }
+    },
+    '/back/backPersonInfor':{
+        component (resolve) {
+            require(['./views/back/backPersonInfor.vue'], resolve);
+        }
+    },
+    '/back/collectDraftMng':{
+        component (resolve) {
+            require(['./views/back/collectDraftMng.vue'], resolve);
+        }
+    },
+    '/back/commodityMng':{
+        component (resolve) {
+            require(['./views/back/commodityMng.vue'], resolve);
+        }
+    },
+    '/back/empMng':{
+        component (resolve) {
+            require(['./views/back/empMng.vue'], resolve);
+        }
+    },
+    '/back/factoryMng':{
+        component (resolve) {
+            require(['./views/back/factoryMng.vue'], resolve);
+        }
+    },
+    '/back/formMng':{
+        component (resolve) {
+            require(['./views/back/formMng.vue'], resolve);
+        }
+    },
+    '/back/inforMng':{
+        component (resolve) {
+            require(['./views/back/inforMng.vue'], resolve);
+        }
+    },
+    '/back/orderMng':{
+        component (resolve) {
+            require(['./views/back/orderMng.vue'], resolve);
+        }
+    },
+    '/back/purchaseMng':{
+        component (resolve) {
+            require(['./views/back/purchaseMng.vue'], resolve);
         }
     },
 

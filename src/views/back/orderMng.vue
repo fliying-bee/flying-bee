@@ -53,8 +53,8 @@
                 <div class="back-breadcrumb">
                     <Breadcrumb>
                         <Breadcrumb-item href="#">后台管理</Breadcrumb-item>
-                        <!--<Breadcrumb-item href="#"></Breadcrumb-item>-->
-                        <!--<Breadcrumb-item>某应用</Breadcrumb-item>-->
+                        <Breadcrumb-item href="#">客户管理</Breadcrumb-item>
+                        <Breadcrumb-item>订单管理</Breadcrumb-item>
                     </Breadcrumb>
                 </div>
                 <div class="back-content">
@@ -74,17 +74,11 @@
 
 <script>
     export default {
-        components: {
-
-        },
+        components: {},
         data () {
-            return {
-
-            }
+            return {}
         },
-        methods: {
-
-        },
+        methods: {},
         ready () {
 
         }
