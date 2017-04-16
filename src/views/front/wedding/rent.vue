@@ -1,4 +1,3 @@
-
 <template>
     <!--网页头部-->
     <Row justify="center" align="middle" class="header-bg">
@@ -29,10 +28,10 @@
 
     <!--首页nav-->
     <div class="front-nav">
-        <Menu mode="horizontal" active-key="1">
+        <Menu mode="horizontal" active-key="2">
             <div class="front-nav-logo">
-                <img src="../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
-                <img src="../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
+                <img src="../../../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="../../../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
             </div>
             <div class="front-nav-item">
                 <Menu-item key="1" v-link="{path:'/index'}">
@@ -64,35 +63,11 @@
         </Menu>
     </div>
 
-    <!--轮播图-->
-    <Carousel >
-        <Carousel-item>
-            <div class="carousel-item">
-                <img src="../images/carousel_1.png" alt="" class="carousel-itempic">
-            </div>
-        </Carousel-item>
-        <Carousel-item>
-            <div class="carousel-item">
-                <img src="../images/carousel_2.png" alt="" class="carousel-itempic">
-            </div>
-        </Carousel-item>
-        <Carousel-item>
-            <div class="carousel-item">
-                <img src="../images/carousel_3.jpg" alt="" class="carousel-itempic">
-            </div>
-        </Carousel-item>
-        <Carousel-item>
-            <div class="carousel-item">
-                <img src="../images/carousel_4.png" alt="" class="carousel-itempic">
-            </div>
-        </Carousel-item>
-    </Carousel>
-
-    <!--最新活动-->
+    <!--类型一-->
     <Row justify="center" align="middle">
         <i-col span="24">
             <div class="content-title">
-                最新活动
+                婚纱礼服
             </div>
         </i-col>
     </Row>
@@ -100,7 +75,7 @@
         <i-col span="6">
             <Card class="product-card">
                 <div>
-                    <img src="../images/yangtu.png" class="product-cardpic">
+                    <img src="../../../images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
                         一套基于 Vue.js 的高质量UI组件库
                     </div>
@@ -113,7 +88,7 @@
         <i-col span="6">
             <Card class="product-card">
                 <div>
-                    <img src="../images/yangtu.png" class="product-cardpic">
+                    <img src="../../../images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
                         一套基于 Vue.js 的高质量UI组件库
                     </div>
@@ -126,7 +101,7 @@
         <i-col span="6">
             <Card class="product-card">
                 <div>
-                    <img src="../images/yangtu.png" class="product-cardpic">
+                    <img src="../../../images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
                         一套基于 Vue.js 的高质量UI组件库
                     </div>
@@ -139,7 +114,69 @@
         <i-col span="6">
             <Card class="product-card">
                 <div>
-                    <img src="../images/yangtu.png" class="product-cardpic">
+                    <img src="../../../images/yangtu.png" class="product-cardpic">
+                    <div class="product-card-title">
+                        一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                    <div class="product-card-desc">
+                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                </div>
+            </Card>
+        </i-col>
+    </Row>
+    <!--类型二-->
+    <Row justify="center" align="middle">
+        <i-col span="24">
+            <div class="content-title">
+                精品套餐
+            </div>
+        </i-col>
+    </Row>
+    <Row justify="start" align="middle" class="front-content">
+        <i-col span="6">
+            <Card class="product-card">
+                <div>
+                    <img src="../../../images/yangtu.png" class="product-cardpic">
+                    <div class="product-card-title">
+                        一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                    <div class="product-card-desc">
+                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                </div>
+            </Card>
+        </i-col>
+        <i-col span="6">
+            <Card class="product-card">
+                <div>
+                    <img src="../../../images/yangtu.png" class="product-cardpic">
+                    <div class="product-card-title">
+                        一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                    <div class="product-card-desc">
+                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                </div>
+            </Card>
+        </i-col>
+        <i-col span="6">
+            <Card class="product-card">
+                <div>
+                    <img src="../../../images/yangtu.png" class="product-cardpic">
+                    <div class="product-card-title">
+                        一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                    <div class="product-card-desc">
+                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                    </div>
+                </div>
+            </Card>
+        </i-col>
+        <i-col span="6">
+            <Card class="product-card">
+                <div>
+                    <img src="../../../images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
                         一套基于 Vue.js 的高质量UI组件库
                     </div>
@@ -151,11 +188,11 @@
         </i-col>
     </Row>
 
-    <!--婚纱作品-->
+    <!--类型三-->
     <Row justify="center" align="middle">
         <i-col span="24">
             <div class="content-title">
-                婚纱作品
+                唯美配饰
             </div>
         </i-col>
     </Row>
@@ -163,7 +200,7 @@
         <i-col span="6">
             <Card class="product-card">
                 <div>
-                    <img src="../images/yangtu.png" class="product-cardpic">
+                    <img src="../../../images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
                         一套基于 Vue.js 的高质量UI组件库
                     </div>
@@ -176,7 +213,7 @@
         <i-col span="6">
             <Card class="product-card">
                 <div>
-                    <img src="../images/yangtu.png" class="product-cardpic">
+                    <img src="../../../images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
                         一套基于 Vue.js 的高质量UI组件库
                     </div>
@@ -189,7 +226,7 @@
         <i-col span="6">
             <Card class="product-card">
                 <div>
-                    <img src="../images/yangtu.png" class="product-cardpic">
+                    <img src="../../../images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
                         一套基于 Vue.js 的高质量UI组件库
                     </div>
@@ -202,7 +239,7 @@
         <i-col span="6">
             <Card class="product-card">
                 <div>
-                    <img src="../images/yangtu.png" class="product-cardpic">
+                    <img src="../../../images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
                         一套基于 Vue.js 的高质量UI组件库
                     </div>
@@ -218,8 +255,8 @@
     <Row class="front-footer">
         <i-col span="10">
             <div class="front-footer-logo">
-                <img src="../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
-                <img src="../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
+                <img src="../../../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="../../../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
             </div>
         </i-col>
         <i-col span="14">
@@ -238,22 +275,18 @@
         </i-col>
     </Row>
 </template>
+
 <style scoped>
 
 </style>
+
 <script>
     export default {
-        components: {
-
-        },
+        components: {},
         data () {
-            return {
-                search:''
-            }
+            return {}
         },
-        methods: {
-
-        },
+        methods: {},
         ready () {
 
         }

@@ -17,9 +17,7 @@
     <div class="front-index-bg">
         <Row type="flex">
             <i-col span="5" class="back-menu-left">
-
-                <Menu active-key="1-1" width="auto" :open-keys="['1']">
-
+                <Menu active-key="2-1" width="auto" :open-keys="['2']">
                     <Submenu key="1">
                         <template slot="title">
                             <Icon type="ios-navigate"></Icon>
@@ -49,12 +47,19 @@
                 <div class="back-breadcrumb">
                     <Breadcrumb>
                         <Breadcrumb-item href="#">个人中心</Breadcrumb-item>
-                        <!--<Breadcrumb-item href="#"></Breadcrumb-item>-->
-                        <!--<Breadcrumb-item>某应用</Breadcrumb-item>-->
+                        <Breadcrumb-item href="#">订单管理</Breadcrumb-item>
+                        <Breadcrumb-item>购买管理</Breadcrumb-item>
                     </Breadcrumb>
                 </div>
                 <div class="back-content">
-                    <div class="back-content-main">内容区域</div>
+                    <div class="back-content-main">
+                        <Steps :current="1">
+                            <Step title="未完成" content="待商家审核订单"></Step>
+                            <Step title="待付款" content="待买家付款"></Step>
+                            <Step title="已完成" content="已完成订单"></Step>
+                            <!--<Step title="待进行" content="这里是该步骤的描述信息"></Step>-->
+                        </Steps>
+                    </div>
                 </div>
                 <div class="back-copy">
                     2016-2017 &copy; 古韵婚纱
@@ -71,17 +76,11 @@
 
 <script>
     export default {
-        components: {
-
-        },
+        components: {},
         data () {
-            return {
-
-            }
+            return {}
         },
-        methods: {
-
-        },
+        methods: {},
         ready () {
 
         }

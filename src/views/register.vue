@@ -11,7 +11,7 @@
         <i-col span="4" class="login-nav">
             <i-button v-link="{path:'/index'}" type="text" id="color">返回首页</i-button>
             |
-            <i-button v-link="{path:''}" type="text">服务条款</i-button>
+            <i-button v-link="{path:'/clause'}" type="text">服务条款</i-button>
         </i-col>
     </Row>
     <Row class="body-login">

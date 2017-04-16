@@ -49,8 +49,8 @@
                 <div class="back-breadcrumb">
                     <Breadcrumb>
                         <Breadcrumb-item href="#">个人中心</Breadcrumb-item>
-                        <!--<Breadcrumb-item href="#"></Breadcrumb-item>-->
-                        <!--<Breadcrumb-item>某应用</Breadcrumb-item>-->
+                        <Breadcrumb-item href="#">信息管理</Breadcrumb-item>
+                        <Breadcrumb-item>个人基本信息管理</Breadcrumb-item>
                     </Breadcrumb>
                 </div>
                 <div class="back-content">
@@ -62,7 +62,6 @@
             </i-col>
         </Row>
     </div>
-
 </template>
 
 <style scoped>
@@ -71,17 +70,11 @@
 
 <script>
     export default {
-        components: {
-
-        },
+        components: {},
         data () {
-            return {
-
-            }
+            return {}
         },
-        methods: {
-
-        },
+        methods: {},
         ready () {
 
         }

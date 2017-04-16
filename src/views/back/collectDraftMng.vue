@@ -25,7 +25,7 @@
         <Row type="flex">
             <i-col span="5" class="back-menu-left">
 
-                <Menu active-key="1-1" width="auto" :open-keys="['1']">
+                <Menu active-key="1-2" width="auto" :open-keys="['1']">
 
                     <Submenu key="1">
                         <template slot="title">
@@ -53,8 +53,8 @@
                 <div class="back-breadcrumb">
                     <Breadcrumb>
                         <Breadcrumb-item href="#">后台管理</Breadcrumb-item>
-                        <!--<Breadcrumb-item href="#"></Breadcrumb-item>-->
-                        <!--<Breadcrumb-item>某应用</Breadcrumb-item>-->
+                        <Breadcrumb-item href="#">客户管理</Breadcrumb-item>
+                        <Breadcrumb-item>设计收稿</Breadcrumb-item>
                     </Breadcrumb>
                 </div>
                 <div class="back-content">
@@ -74,17 +74,11 @@
 
 <script>
     export default {
-        components: {
-
-        },
+        components: {},
         data () {
-            return {
-
-            }
+            return {}
         },
-        methods: {
-
-        },
+        methods: {},
         ready () {
 
         }
