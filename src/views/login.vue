@@ -26,13 +26,13 @@
                     <Tab-pane label="用户登录" key="key1">
                         <i-form v-ref:form-custom :model="" :rules="" :label-width="80">
                             <Form-item label="用户名">
-                                <i-input type="text" :value.sync="" number></i-input>
+                                <i-input type="text" :value.sync="username" number></i-input>
                             </Form-item>
                             <Form-item label="密码">
-                                <i-input type="password" :value.sync=""></i-input>
+                                <i-input type="password" :value.sync="password"></i-input>
                             </Form-item>
                             <Form-item>
-                                <i-button type="primary" size="large">登录</i-button>
+                                <i-button type="primary" size="large" @click="login()">登录</i-button>
                                 <i-button type="ghost" v-link="{path:'/register'}"style="margin-left: 8px"  size="large">注册</i-button>
                             </Form-item>
                         </i-form>
@@ -40,13 +40,13 @@
                     <Tab-pane label="员工登录" key="key2">
                         <i-form v-ref:form-custom :model="" :rules="" :label-width="80">
                             <Form-item label="员工名" >
-                                <i-input type="text" :value.sync="" number></i-input>
+                                <i-input type="text" :value.sync="emUsername" number></i-input>
                             </Form-item>
                             <Form-item label="密码" >
-                                <i-input type="password" :value.sync=""></i-input>
+                                <i-input type="password" :value.sync="emPassword"></i-input>
                             </Form-item>
                             <Form-item>
-                                <i-button type="primary" v-link="{path:'/backIndex'}">登录</i-button>
+                                <i-button type="primary" @click="emLogin()">登录</i-button>
                             </Form-item>
                     </Tab-pane>
                 </Tabs>
@@ -71,11 +71,39 @@
         },
         data () {
             return {
-                search:''
+                search:'',
+                username:'',
+                password:'',
+                emUsername:'',
+                emPassword:'',
             }
         },
         methods: {
+            login(){
+                var self = this;
+                var data = {
+                    username:self.username,
+                    password:self.password
+                };
+                self.$http({
+                    method:'GET',
+                    url:'/api/queryUserByName',
+                    params:data
+                }).then(function(res){
+                    if(JSON.parse(res.bodyText).code="OK"){
+                        self.$Message.success('登录成功！');
+                        localStorage.setItem('USERDATA',JSON.parse(res.bodyText).data.id);
+                        setTimeout(()=>{
+                            self.$router.go('/index');
+                        },1000);
 
+                    }
+                })
+            },
+            emLogin(){
+                var self = this;
+                self.$router.go('/backIndex');
+            }
         },
         ready () {
 

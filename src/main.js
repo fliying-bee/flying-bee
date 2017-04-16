@@ -9,7 +9,9 @@ import Env from './config/env';
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 import './myTheme/index.less';
+import vueResource from 'vue-resource';
 
+Vue.use(vueResource);
 Vue.use(VueRouter);
 Vue.use(iView);
 
