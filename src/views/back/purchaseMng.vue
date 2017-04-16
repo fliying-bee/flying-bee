@@ -56,9 +56,10 @@
                         <Breadcrumb-item href="#">运营管理</Breadcrumb-item>
                         <Breadcrumb-item>采购管理</Breadcrumb-item>
                     </Breadcrumb>
-                </div>
                 <div class="back-content">
-                    <div class="back-content-main">内容区域</div>
+                    <div class="back-content-main">
+
+                    </div>
                 </div>
                 <div class="back-copy">
                     2016-2017 &copy; 古韵婚纱

@@ -58,7 +58,13 @@
                     </Breadcrumb>
                 </div>
                 <div class="back-content">
-                    <div class="back-content-main">内容区域</div>
+                    <div class="back-content-main">
+                        <Tabs type="card">
+                            <Tab-pane label="报表一">标签一的内容</Tab-pane>
+                            <Tab-pane label="报表二">标签二的内容</Tab-pane>
+                            <Tab-pane label="报表三">标签三的内容</Tab-pane>
+                        </Tabs>
+                    </div>
                 </div>
                 <div class="back-copy">
                     2016-2017 &copy; 古韵婚纱

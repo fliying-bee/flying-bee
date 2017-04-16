@@ -30,8 +30,8 @@
     <div class="front-nav">
         <Menu mode="horizontal" active-key="1">
             <div class="front-nav-logo">
-                <img src="../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
-                <img src="../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
+                <img src="../../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="../../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
             </div>
             <div class="front-nav-item">
                 <Menu-item key="1" v-link="{path:'/index'}">
