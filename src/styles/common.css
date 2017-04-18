@@ -97,7 +97,7 @@
     padding: 20px 50px;
 }
 .product-card{
-
+    width: 280px;
     height: 400px;
     margin: 0 auto;
 }
