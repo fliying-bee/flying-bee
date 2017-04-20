@@ -10,7 +10,7 @@
         </i-col>
         <i-col span="8">
             <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>
-            <i-button v-link="{path:'/cart'}" type="text" class="header-hover">我的购物车</i-button>
+            <i-button v-link="{path:'/cart'}" type="text" class="header-hover" target="_blank">我的购物车</i-button>
             <Dropdown>
                 <i-button type="text" class="header-hover">
                     您好，XXX
@@ -33,6 +33,9 @@
                 <img src="../../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
                 <img src="../../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
             </div>
+            <span class="front-nav-text">
+                购物车
+            </span>
             <div class="front-nav-item">
                 <Menu-item key="1" v-link="{path:'/index'}">
                     <Icon type="home"></Icon>
@@ -63,10 +66,105 @@
         </Menu>
     </div>
 
+    <Row type="flex" justify="center" align="middle">
+        <i-col span="18">
+            <Tabs type="card" class="front-tab">
+                <Tab-pane label="商品购买">
+                    <Row type="flex" align="middle" justify="center" class="front-cart-title">
+                        <i-col span="4">
+                            <Checkbox
+                            :indeterminate="indeterminate"
+                            :checked="checkAll"
+                            @click.prevent="handleCheckAll">全选
+                            </Checkbox>
+                        </i-col>
+                        <i-col span="7">商品信息</i-col>
+                        <i-col span="3">单价</i-col>
+                        <i-col span="3">数量</i-col>
+                        <i-col span="3">金额</i-col>
+                        <i-col span="3">操作</i-col>
+                    </Row>
+                    <Row type="flex" align="middle" justify="center" class="front-cart-item">
+                        <i-col span="1">
+                            <Checkbox
+                                    :indeterminate="indeterminate"
+                                    :checked="checkAll"
+                                    @click.prevent="handleCheckAll">
+                            </Checkbox>
+                        </i-col>
+                        <i-col span="3">
+                            <img src="../../images/guyun_logo_z.png" alt="logo" class="front-cart-itempic">
+                        </i-col>
+                        <i-col span="7">商品1xxxxxxxxxxxxxxxxxxxxx</i-col>
+                        <i-col span="3">299.90</i-col>
+                        <i-col span="3">
+                            <Input-number :min="0" :value="1"></Input-number>
+                        </i-col>
+                        <i-col span="3">299.90</i-col>
+                        <i-col span="3">删除</i-col>
+                    </Row>
+                    <Row type="flex" align="middle" class="front-cart-bottom">
+                        <i-col span="2">
+                            <Checkbox
+                                    :indeterminate="indeterminate"
+                                    :checked="checkAll"
+                                    @click.prevent="handleCheckAll">全选
+                            </Checkbox>
+                        </i-col>
+                        <i-col span="2">
+                            <i-button type="text">删除</i-button>
+                        </i-col>
+                        <i-col span="3" offset="15">
+                            已选择商品1件
+                        </i-col>
+                        <i-col span="2">
+                            <i-button type="primary">结算</i-button>
+                        </i-col>
+                    </Row>
+                </Tab-pane>
+                <Tab-pane label="商品租赁">
+
+                </Tab-pane>
+                <Tab-pane label="商品定制">
+
+                </Tab-pane>
+            </Tabs>
+        </i-col>
+    </Row>
+
+
+
 </template>
 
 <style scoped>
-
+    .front-nav-text{
+        float: left;
+        font-size: 20px;
+        padding-top: 15px;
+        padding-left: 10px;
+        height: 50px;
+    }
+    .front-tab{
+        margin-top: 20px;
+    }
+    .front-cart-title{
+        padding: 0 10px;
+    }
+    .front-cart-item{
+        border: 1px solid #d7dde4;
+        margin-top: 10px;
+        padding: 10px;
+    }
+    .front-cart-itempic{
+        height: 100px;
+    }
+    .front-cart-bottom{
+        margin-top: 20px;
+        line-height: 30px;
+        background-color: rgb(245, 247, 249);
+        padding: 10px;
+        border: 1px solid #d7dde4;
+    }
 </style>
 
 <script>
