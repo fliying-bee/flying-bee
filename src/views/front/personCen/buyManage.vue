@@ -53,12 +53,54 @@
                 </div>
                 <div class="back-content">
                     <div class="back-content-main">
-                        <Steps :current="1">
-                            <Step title="未完成" content="待商家审核订单"></Step>
-                            <Step title="待付款" content="待买家付款"></Step>
-                            <Step title="已完成" content="已完成订单"></Step>
-                            <!--<Step title="待进行" content="这里是该步骤的描述信息"></Step>-->
-                        </Steps>
+                        <Row type="flex" align="middle" justify="center" class="front-order-title">
+                            <i-col span="9">商品名</i-col>
+                            <i-col span="5">单价</i-col>
+                            <i-col span="5">数量</i-col>
+                            <i-col span="5">型号</i-col>
+                        </Row>
+                        <div>
+                            <Row type="flex" align="middle" class="front-order-item-title">
+                                <i-col span="1">
+                                    <Checkbox
+                                            :indeterminate="indeterminate"
+                                            :checked="checkAll"
+                                            @click.prevent="handleCheckAll">
+                                    </Checkbox>
+                                </i-col>
+                                <i-col span="2">
+                                    <span class="bold">
+                                        2017-04-22
+                                    </span>
+                                </i-col>
+                                <i-col span="4">
+                                    订单号：<span>D201704220001</span>
+                                </i-col>
+                                <i-col span="2">
+                                    已付款
+                                </i-col>
+                                <i-col span="3">
+                                    金额：<span>599.80</span>
+                                </i-col>
+                                <i-col span="1" offset="9">
+                                    <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                    <!--<i-button type="text">付款</i-button>-->
+                                </i-col>
+                            </Row>
+
+                            <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                <i-col span="9">商品1xxxxxxxxxxxxxxxxxxxxx</i-col>
+                                <i-col span="5">299.90</i-col>
+                                <i-col span="5">1</i-col>
+                                <i-col span="5">L</i-col>
+                            </Row>
+                            <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                <i-col span="9">商品2xxxxxxxxxxxxxxxxxxxxx</i-col>
+                                <i-col span="5">299.90</i-col>
+                                <i-col span="5">1</i-col>
+                                <i-col span="5">M</i-col>
+                            </Row>
+                        </div>
                     </div>
                 </div>
                 <div class="back-copy">
