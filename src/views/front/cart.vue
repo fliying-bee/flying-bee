@@ -68,7 +68,7 @@
 
     <Row type="flex" justify="center" align="middle">
         <i-col span="18">
-            <Tabs type="card" class="front-tab">
+            <Tabs type="card" class="front-cart-tab">
                 <Tab-pane label="商品购买">
                     <Row type="flex" align="middle" justify="center" class="front-cart-title">
                         <i-col span="4">
@@ -137,34 +137,7 @@
 </template>
 
 <style scoped>
-    .front-nav-text{
-        float: left;
-        font-size: 20px;
-        padding-top: 15px;
-        padding-left: 10px;
-        height: 50px;
-    }
-    .front-tab{
-        margin-top: 20px;
-    }
-    .front-cart-title{
-        padding: 0 10px;
-    }
-    .front-cart-item{
-        border: 1px solid #d7dde4;
-        margin-top: 10px;
-        padding: 10px;
-    }
-    .front-cart-itempic{
-        height: 100px;
-    }
-    .front-cart-bottom{
-        margin-top: 20px;
-        line-height: 30px;
-        background-color: rgb(245, 247, 249);
-        padding: 10px;
-        border: 1px solid #d7dde4;
-    }
+
 </style>
 
 <script>
