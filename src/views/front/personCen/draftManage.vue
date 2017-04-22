@@ -54,7 +54,53 @@
                     </Breadcrumb>
                 </div>
                 <div class="back-content">
-                    <div class="back-content-main">内容区域</div>
+                    <div class="back-content-main">
+                        <Row type="flex" align="middle" justify="center" class="front-order-title">
+                            <i-col span="9">稿件名</i-col>
+                            <i-col span="5">价格</i-col>
+                            <i-col span="5">作者</i-col>
+                        </Row>
+                        <div>
+                            <Row type="flex" align="middle" class="front-order-item-title">
+                                <i-col span="1">
+                                    <Checkbox
+                                            :indeterminate="indeterminate"
+                                            :checked="checkAll"
+                                            @click.prevent="handleCheckAll">
+                                    </Checkbox>
+                                </i-col>
+                                <i-col span="2">
+                                    <span class="bold">
+                                        2017-04-22
+                                    </span>
+                                </i-col>
+                                <i-col span="4">
+                                    稿件号：<span>D201704220001</span>
+                                </i-col>
+                                <i-col span="2">
+                                    已付款
+                                </i-col>
+                                <i-col span="3">
+                                    金额：<span>599.80</span>
+                                </i-col>
+                                <i-col span="1" offset="10">
+                                    <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                    <!--<i-button type="text">付款</i-button>-->
+                                </i-col>
+                            </Row>
+
+                            <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                <i-col span="9">稿件1xxxxxxxxxxxxxxxxxxxxx</i-col>
+                                <i-col span="5">299.90</i-col>
+                                <i-col span="5">XXX</i-col>
+                            </Row>
+                            <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                <i-col span="9">稿件2xxxxxxxxxxxxxxxxxxxxx</i-col>
+                                <i-col span="5">299.90</i-col>
+                                <i-col span="5">XXX</i-col>
+                            </Row>
+                        </div>
+                    </div>
                 </div>
                 <div class="back-copy">
                     2016-2017 &copy; 古韵婚纱
