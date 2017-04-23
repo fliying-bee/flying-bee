@@ -242,6 +242,124 @@
     font-size: 20px;
 }
 
+/*产品详情*/
+.front-product-wrap{
+    margin-bottom: 40px;
+}
+.front-product-intro{
+    margin-top: 40px;
+}
+.front-product-mpic-wrap{
+    border: 1px solid #d7dde4;
+}
+.front-product-mpic{
+    width: 418px;
+    height: 418px;
+}
+.front-product-introl{
+    padding-left: 20px;
+}
+.front-product-title{
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+}
+.front-product-pricewrap{
+    margin-top: 40px;
+    background-color: #e9e9e9;
+    padding: 10px;
+}
+.front-product-price{
+    padding: 5px;
+}
+.front-product-symbol{
+    margin-left: 50px;
+    color: #333;
+}
+.front-product-pricep{
+    font-size: 14px;
+    color: #333;
+    text-decoration: line-through;
+}
+.front-product-prices{
+    padding: 5px;
+}
+.front-product-symbols{
+    margin-left: 40px;
+    font-size: 18px;
+    color: #c40000;
+    font-weight: bolder;
+    font-family: Arial;
+}
+.front-product-pricesp{
+    font-size: 30px;
+    color: #c40000;
+    font-weight: bolder;
+    font-family: Arial;
+}
+.front-product-typewrap,.front-product-sumwrap{
+    height: 36px;
+    line-height: 36px;
+    margin-top: 40px;
+}
+.front-product-type,.front-product-sum{
+    padding-left: 20px;
+}
+.front-product-sum-item{
+    margin-left: 10px;
+}
+.front-product-type-item{
+    margin-left: 10px;
+    padding: 9px 10px;
+    border: 1px solid #b8b7bd;
+    color: #000;
+}
+.front-product-type-selected{
+    border: 2px solid #c40000;
+}
+.front-product-btnwrap{
+    margin-top: 40px;
+    text-align: center;
+}
+.front-product-btn{
+    display: inline-block;
+    width: 178px;
+    background-color: #ffeded;
+    border: 1px solid #c40000;
+    color: #c40000;
+    font-family: 'Microsoft Yahei';
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 16px;
+}
+.front-product-btncart{
+    margin-left: 20px;
+    display: inline-block;
+    width: 178px;
+    background-color: #c40000;
+    border: 1px solid #c40000;
+    color: #fff;
+    font-family: 'Microsoft Yahei';
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 16px;
+}
+.front-product-introt{
+    background-color: #e9e9e9;
+    padding: 10px;
+}
+.front-product-introd{
+    padding: 10px 20px;
+    line-height: 30px;
+    color: #666;
+}
+.front-product-introdpic{
+    text-align: center;
+}
+
 /*后台首页*/
 .front-index-bg{
     border: 1px solid #d7dde4;
