@@ -6,7 +6,7 @@
             您好，欢迎来到古韵婚纱店
         </i-col>
         <i-col span="11">
-            <i-button type="text" class="header-login" id="color">hi，请登录</i-button>
+            <i-button v-link="{path:'/login'}"  type="text" class="header-login" id="color">hi，请登录</i-button>
             <i-button v-link="{path:'/register'}" type="text" class="header-hover">免费注册</i-button>
         </i-col>
         <i-col span="8">
