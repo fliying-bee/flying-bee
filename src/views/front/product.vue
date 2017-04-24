@@ -64,6 +64,81 @@
     </div>
 
     <!--商品详情-->
+    <div class="front-product-wrap">
+        <Row class="front-product-intro">
+            <i-col span="8" offset="2">
+                <div class="front-product-mpic-wrap">
+                    <img src="../../images/test0.jpg" alt="" class="front-product-mpic">
+                </div>
+            </i-col>
+            <i-col span="12" class="front-product-introl">
+                <div class="front-product-title">
+                    honeyGIRL2017夏季新款女鞋粗跟高跟鞋女中跟鞋一字扣带凉鞋包跟
+                </div>
+                <div class="front-product-pricewrap">
+                    <div class="front-product-price">
+                        价格：
+                        <span class="front-product-symbol">¥</span>
+                        <span class="front-product-pricep">282.00</span>
+                    </div>
+                    <div class="front-product-prices">
+                        促销价：
+                        <span class="front-product-symbols">¥</span>
+                        <span class="front-product-pricesp">169.00</span>
+                    </div>
+                </div>
+                <div class="front-product-typewrap">
+                    <span class="front-product-type">尺码：</span>
+                    <span class="front-product-type-item front-product-type-selected">S</span>
+                    <span class="front-product-type-item">M</span>
+                    <span class="front-product-type-item">L</span>
+                    <span class="front-product-type-item">X L</span>
+                </div>
+                <div class="front-product-sumwrap">
+                    <span class="front-product-sum">数量：</span>
+                    <span class="front-product-sum-item">
+                    <Input-number :min="1" :value="1"></Input-number>
+                </span>
+                    <span class="front-product-sum-item">库存 5290 件</span>
+                </div>
+                <div class="front-product-btnwrap">
+                    <a href="" class="front-product-btn">立刻购买</a>
+                    <a href="" class="front-product-btncart">加入购物车</a>
+                </div>
+            </i-col>
+        </Row>
+
+        <Row class="front-product-intro">
+            <i-col span="20" offset="2" class="front-product-introt">
+                商品详情
+            </i-col>
+        </Row>
+        <Row>
+            <i-col span="20" offset="2" class="front-product-introd">
+                <div>
+                    <span>商品名：</span>
+                    <span>
+                    商品名1XXXXXXXXXXXXXXXX
+                </span>
+                </div>
+                <div>
+                    <span>商品描述：</span>
+                    <span>
+                    商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述
+                    商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述
+                </span>
+                </div>
+            </i-col>
+        </Row>
+        <Row>
+            <i-col span="20" offset="2" class="front-product-introd">
+                <div class="front-product-introdpic">
+                    <img src="../../images/test1.jpg" alt="">
+                </div>
+            </i-col>
+        </Row>
+    </div>
+
 </template>
 
 <style scoped>
