@@ -142,6 +142,11 @@ const routers = {
             require(['./views/back/purchaseMng.vue'], resolve);
         }
     },
+    '/back/powerMng':{
+        component (resolve) {
+            require(['./views/back/powerMng.vue'], resolve);
+        }
+    },
 
 };
 export default routers;

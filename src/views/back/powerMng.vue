@@ -25,7 +25,7 @@
         <Row type="flex">
             <i-col span="5" class="back-menu-left">
 
-                <Menu active-key="2-1" width="auto" :open-keys="['2']">
+                <Menu active-key="2-6" width="auto" :open-keys="['2']">
 
                     <Submenu key="1">
                         <template slot="title">
@@ -55,22 +55,14 @@
                     <Breadcrumb>
                         <Breadcrumb-item href="#">后台管理</Breadcrumb-item>
                         <Breadcrumb-item href="#">运营管理</Breadcrumb-item>
-                        <Breadcrumb-item>商品管理</Breadcrumb-item>
+                        <Breadcrumb-item>权限管理</Breadcrumb-item>
                     </Breadcrumb>
-                </div>
-                <div class="back-content">
-                    <div class="back-content-main">
-                        <Tabs type="card">
-                            <Tab-pane label="所有商品">标签一的内容</Tab-pane>
-                            <Tab-pane label="婚纱礼服">标签二的内容</Tab-pane>
-                            <Tab-pane label="配饰">标签三的内容</Tab-pane>
-                            <Tab-pane label="优惠套餐">标签三的内容</Tab-pane>
-                        </Tabs>
+                    <div class="back-content">
+
                     </div>
-                </div>
-                <div class="back-copy">
-                    2016-2017 &copy; 古韵婚纱
-                </div>
+                    <div class="back-copy">
+                        2016-2017 &copy; 古韵婚纱
+                    </div>
             </i-col>
         </Row>
     </div>

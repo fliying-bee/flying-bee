@@ -46,6 +46,7 @@
                         <Menu-item key="2-3" v-link="{path:'/back/factoryMng'}">厂家管理</Menu-item>
                         <Menu-item key="2-4" v-link="{path:'/back/empMng'}">员工管理</Menu-item>
                         <Menu-item key="2-5" v-link="{path:'/back/formMng'}">报表管理</Menu-item>
+                        <Menu-item key="2-6" v-link="{path:'/back/powerMng'}">权限管理</Menu-item>
                     </Submenu>
                 </Menu>
             </i-col>

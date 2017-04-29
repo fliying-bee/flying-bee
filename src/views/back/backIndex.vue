@@ -46,6 +46,7 @@
                         <Menu-item key="2-3" v-link="{path:'/back/factoryMng'}">厂家管理</Menu-item>
                         <Menu-item key="2-4" v-link="{path:'/back/empMng'}">员工管理</Menu-item>
                         <Menu-item key="2-5" v-link="{path:'/back/formMng'}">报表管理</Menu-item>
+                        <Menu-item key="2-6" v-link="{path:'/back/powerMng'}">权限管理</Menu-item>
                     </Submenu>
                 </Menu>
             </i-col>
@@ -58,7 +59,13 @@
                     </Breadcrumb>
                 </div>
                 <div class="back-content">
-                    <div class="back-content-main">内容区域</div>
+                    <div class="back-content-main">
+                        <Tabs type="card">
+                            <Tab-pane label="购买单管理">标签一的内容</Tab-pane>
+                            <Tab-pane label="定制单管理">标签二的内容</Tab-pane>
+                            <Tab-pane label="租赁单管理">标签三的内容</Tab-pane>
+                        </Tabs>
+                    </div>
                 </div>
                 <div class="back-copy">
                     2016-2017 &copy; 古韵婚纱
