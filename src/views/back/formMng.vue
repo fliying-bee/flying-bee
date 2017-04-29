@@ -63,7 +63,7 @@
                         <Tabs type="card">
                             <Tab-pane label="报表一">标签一的内容</Tab-pane>
                             <Tab-pane label="报表二">标签二的内容</Tab-pane>
-                            <Tab-pane label="报表三">标签三的内容</Tab-pane>
+                            <!--<Tab-pane label="报表三">标签三的内容</Tab-pane>-->
                         </Tabs>
                     </div>
                 </div>

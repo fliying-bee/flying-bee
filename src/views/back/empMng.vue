@@ -59,7 +59,74 @@
                     </Breadcrumb>
                 </div>
                 <div class="back-content">
-                    <div class="back-content-main">内容区域</div>
+                    <div class="back-content-main">
+                        <div class="back-order-search">
+                            <row>
+                                <i-col span="2">员工编码</i-col>
+                                <i-col span="4">
+                                    <i-input type="text"></i-input>
+                                </i-col>
+                                <i-col span="1" offset="17">
+                                    <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                    <!--<i-button type="text">付款</i-button>-->
+                                </i-col>
+                            </row>
+                            <div>
+                                <Row type="flex" align="middle" class="front-order-item-title">
+                                    <i-col span="1">
+                                        <Checkbox
+                                                :indeterminate="indeterminate"
+                                                :checked="checkAll"
+                                                @click.prevent="handleCheckAll">
+                                        </Checkbox>
+                                    </i-col>
+                                    <i-col span="4">员工编码</i-col>
+                                    <i-col span="4">姓名</i-col>
+                                    <i-col span="4">性别</i-col>
+                                    <i-col span="3">联系方式</i-col>
+                                    <i-col span="5">权限</i-col>
+                                    <i-col span="3">操作</i-col>
+                                </Row>
+
+                                <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                    <i-col span="1">
+                                        <Checkbox
+                                                :indeterminate="indeterminate"
+                                                :checked="checkAll"
+                                                @click.prevent="handleCheckAll">
+                                        </Checkbox>
+                                    </i-col>
+                                    <i-col span="4">E201704290001</i-col>
+                                    <i-col span="4">张三</i-col>
+                                    <i-col span="4">男</i-col>
+                                    <i-col span="3">1870260000</i-col>
+                                    <i-col span="5">查看报表；查看厂家信息</i-col>
+                                    <i-col span="3">
+                                        <Icon type="edit"></Icon>
+                                        <Icon type="ios-trash"></Icon>
+                                    </i-col>
+                                </Row>
+                                <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                    <i-col span="1">
+                                        <Checkbox
+                                                :indeterminate="indeterminate"
+                                                :checked="checkAll"
+                                                @click.prevent="handleCheckAll">
+                                        </Checkbox>
+                                    </i-col>
+                                    <i-col span="4">E201704290002</i-col>
+                                    <i-col span="4">李四</i-col>
+                                    <i-col span="4">男</i-col>
+                                    <i-col span="3">1870260001</i-col>
+                                    <i-col span="5">查看商品信息；查看客户信息；审核稿件；审核订单</i-col>
+                                    <i-col span="3">
+                                        <Icon type="edit"></Icon>
+                                        <Icon type="ios-trash"></Icon>
+                                    </i-col>
+                                </Row>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="back-copy">
                     2016-2017 &copy; 古韵婚纱

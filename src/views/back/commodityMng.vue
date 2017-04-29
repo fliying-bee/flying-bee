@@ -61,10 +61,358 @@
                 <div class="back-content">
                     <div class="back-content-main">
                         <Tabs type="card">
-                            <Tab-pane label="所有商品">标签一的内容</Tab-pane>
-                            <Tab-pane label="婚纱礼服">标签二的内容</Tab-pane>
-                            <Tab-pane label="配饰">标签三的内容</Tab-pane>
-                            <Tab-pane label="优惠套餐">标签三的内容</Tab-pane>
+                            <Tab-pane label="所有商品">
+                                <div class="back-order-search">
+                                    <row>
+                                        <i-col span="2">商品</i-col>
+                                        <i-col span="4">
+                                            <i-input type="text"></i-input>
+                                        </i-col>
+                                        <i-col span="1" offset="17">
+                                            <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                            <!--<i-button type="text">付款</i-button>-->
+                                        </i-col>
+                                    </row>
+                                    <div>
+                                        <Row type="flex" align="middle" class="front-order-item-title">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">商品编码</i-col>
+                                            <i-col span="2">图片</i-col>
+                                            <i-col span="2">名称</i-col>
+                                            <i-col span="2">数量</i-col>
+                                            <i-col span="2">进价</i-col>
+                                            <i-col span="2">售价</i-col>
+                                            <i-col span="2">标价</i-col>
+                                            <i-col span="2">稿件</i-col>
+                                            <i-col span="2">操作</i-col>
+                                            <i-col span="3">商品明细</i-col>
+                                        </Row>
+
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">Pt123456789</i-col>
+                                            <i-col span="2">
+                                                <img src="../../images/guyun_logo_z.png" alt="logo" class="back-cart-itempic">
+                                            </i-col>
+                                            <i-col span="2">商品一</i-col>
+                                            <i-col span="2">28</i-col>
+                                            <i-col span="2">￥80</i-col>
+                                            <i-col span="2">￥200</i-col>
+                                            <i-col span="2">￥160</i-col>
+                                            <i-col span="2">D123456789</i-col>
+                                            <i-col span="2">
+                                                <Icon type="edit"></Icon>
+                                                <Icon type="ios-trash"></Icon>
+                                            </i-col>
+                                            <i-col span="3">
+                                                <i-button>查看商品明细</i-button>
+                                            </i-col>
+                                        </Row>
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">Pt123456789</i-col>
+                                            <i-col span="2">
+                                                <img src="../../images/guyun_logo_z.png" alt="logo" class="back-cart-itempic">
+                                            </i-col>
+                                            <i-col span="2">商品二</i-col>
+                                            <i-col span="2">28</i-col>
+                                            <i-col span="2">￥80</i-col>
+                                            <i-col span="2">￥200</i-col>
+                                            <i-col span="2">￥160</i-col>
+                                            <i-col span="2">D123456789</i-col>
+                                            <i-col span="2">
+                                                <Icon type="edit"></Icon>
+                                                <Icon type="ios-trash"></Icon>
+                                            </i-col>
+                                            <i-col span="3">
+                                                <i-button>查看商品明细</i-button>
+                                            </i-col>
+                                        </Row>
+                                    </div>
+                                </div>
+                            </Tab-pane>
+                            <Tab-pane label="婚纱礼服">
+                                <div class="back-order-search">
+                                    <row>
+                                        <i-col span="2">商品</i-col>
+                                        <i-col span="4">
+                                            <i-input type="text"></i-input>
+                                        </i-col>
+                                        <i-col span="1" offset="17">
+                                            <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                            <!--<i-button type="text">付款</i-button>-->
+                                        </i-col>
+                                    </row>
+                                    <div>
+                                        <Row type="flex" align="middle" class="front-order-item-title">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">商品编码</i-col>
+                                            <i-col span="2">图片</i-col>
+                                            <i-col span="2">名称</i-col>
+                                            <i-col span="2">数量</i-col>
+                                            <i-col span="2">进价</i-col>
+                                            <i-col span="2">售价</i-col>
+                                            <i-col span="2">标价</i-col>
+                                            <i-col span="2">稿件</i-col>
+                                            <i-col span="2">操作</i-col>
+                                            <i-col span="3">商品明细</i-col>
+                                        </Row>
+
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">Pt123456789</i-col>
+                                            <i-col span="2">
+                                                <img src="../../images/guyun_logo_z.png" alt="logo" class="back-cart-itempic">
+                                            </i-col>
+                                            <i-col span="2">商品一</i-col>
+                                            <i-col span="2">28</i-col>
+                                            <i-col span="2">￥80</i-col>
+                                            <i-col span="2">￥200</i-col>
+                                            <i-col span="2">￥160</i-col>
+                                            <i-col span="2">D123456789</i-col>
+                                            <i-col span="2">
+                                                <Icon type="edit"></Icon>
+                                                <Icon type="ios-trash"></Icon>
+                                            </i-col>
+                                            <i-col span="3">
+                                                <i-button>查看商品明细</i-button>
+                                            </i-col>
+                                        </Row>
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">Pt123456789</i-col>
+                                            <i-col span="2">
+                                                <img src="../../images/guyun_logo_z.png" alt="logo" class="back-cart-itempic">
+                                            </i-col>
+                                            <i-col span="2">商品二</i-col>
+                                            <i-col span="2">28</i-col>
+                                            <i-col span="2">￥80</i-col>
+                                            <i-col span="2">￥200</i-col>
+                                            <i-col span="2">￥160</i-col>
+                                            <i-col span="2">D123456789</i-col>
+                                            <i-col span="2">
+                                                <Icon type="edit"></Icon>
+                                                <Icon type="ios-trash"></Icon>
+                                            </i-col>
+                                            <i-col span="3">
+                                                <i-button>查看商品明细</i-button>
+                                            </i-col>
+                                        </Row>
+                                    </div>
+                                </div>
+                            </Tab-pane>
+                            <Tab-pane label="配饰">
+                                <div class="back-order-search">
+                                    <row>
+                                        <i-col span="2">商品</i-col>
+                                        <i-col span="4">
+                                            <i-input type="text"></i-input>
+                                        </i-col>
+                                        <i-col span="1" offset="17">
+                                            <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                            <!--<i-button type="text">付款</i-button>-->
+                                        </i-col>
+                                    </row>
+                                    <div>
+                                        <Row type="flex" align="middle" class="front-order-item-title">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">商品编码</i-col>
+                                            <i-col span="2">图片</i-col>
+                                            <i-col span="2">名称</i-col>
+                                            <i-col span="2">数量</i-col>
+                                            <i-col span="2">进价</i-col>
+                                            <i-col span="2">售价</i-col>
+                                            <i-col span="2">标价</i-col>
+                                            <i-col span="2">稿件</i-col>
+                                            <i-col span="2">操作</i-col>
+                                            <i-col span="3">商品明细</i-col>
+                                        </Row>
+
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">Pt123456789</i-col>
+                                            <i-col span="2">
+                                                <img src="../../images/guyun_logo_z.png" alt="logo" class="back-cart-itempic">
+                                            </i-col>
+                                            <i-col span="2">商品一</i-col>
+                                            <i-col span="2">28</i-col>
+                                            <i-col span="2">￥80</i-col>
+                                            <i-col span="2">￥200</i-col>
+                                            <i-col span="2">￥160</i-col>
+                                            <i-col span="2">D123456789</i-col>
+                                            <i-col span="2">
+                                                <Icon type="edit"></Icon>
+                                                <Icon type="ios-trash"></Icon>
+                                            </i-col>
+                                            <i-col span="3">
+                                                <i-button>查看商品明细</i-button>
+                                            </i-col>
+                                        </Row>
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">Pt123456789</i-col>
+                                            <i-col span="2">
+                                                <img src="../../images/guyun_logo_z.png" alt="logo" class="back-cart-itempic">
+                                            </i-col>
+                                            <i-col span="2">商品二</i-col>
+                                            <i-col span="2">28</i-col>
+                                            <i-col span="2">￥80</i-col>
+                                            <i-col span="2">￥200</i-col>
+                                            <i-col span="2">￥160</i-col>
+                                            <i-col span="2">D123456789</i-col>
+                                            <i-col span="2">
+                                                <Icon type="edit"></Icon>
+                                                <Icon type="ios-trash"></Icon>
+                                            </i-col>
+                                            <i-col span="3">
+                                                <i-button>查看商品明细</i-button>
+                                            </i-col>
+                                        </Row>
+                                    </div>
+                                </div>
+                            </Tab-pane>
+                            <Tab-pane label="优惠套餐">
+                                <div class="back-order-search">
+                                    <row>
+                                        <i-col span="2">商品</i-col>
+                                        <i-col span="4">
+                                            <i-input type="text"></i-input>
+                                        </i-col>
+                                        <i-col span="1" offset="17">
+                                            <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                            <!--<i-button type="text">付款</i-button>-->
+                                        </i-col>
+                                    </row>
+                                    <div>
+                                        <Row type="flex" align="middle" class="front-order-item-title">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">商品编码</i-col>
+                                            <i-col span="2">图片</i-col>
+                                            <i-col span="2">名称</i-col>
+                                            <i-col span="2">数量</i-col>
+                                            <i-col span="2">进价</i-col>
+                                            <i-col span="2">售价</i-col>
+                                            <i-col span="2">标价</i-col>
+                                            <i-col span="2">稿件</i-col>
+                                            <i-col span="2">操作</i-col>
+                                            <i-col span="3">商品明细</i-col>
+                                        </Row>
+
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">Pt123456789</i-col>
+                                            <i-col span="2">
+                                                <img src="../../images/guyun_logo_z.png" alt="logo" class="back-cart-itempic">
+                                            </i-col>
+                                            <i-col span="2">商品一</i-col>
+                                            <i-col span="2">28</i-col>
+                                            <i-col span="2">￥80</i-col>
+                                            <i-col span="2">￥200</i-col>
+                                            <i-col span="2">￥160</i-col>
+                                            <i-col span="2">D123456789</i-col>
+                                            <i-col span="2">
+                                                <Icon type="edit"></Icon>
+                                                <Icon type="ios-trash"></Icon>
+                                            </i-col>
+                                            <i-col span="3">
+                                                <i-button>查看商品明细</i-button>
+                                            </i-col>
+                                        </Row>
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">Pt123456789</i-col>
+                                            <i-col span="2">
+                                                <img src="../../images/guyun_logo_z.png" alt="logo" class="back-cart-itempic">
+                                            </i-col>
+                                            <i-col span="2">商品二</i-col>
+                                            <i-col span="2">28</i-col>
+                                            <i-col span="2">￥80</i-col>
+                                            <i-col span="2">￥200</i-col>
+                                            <i-col span="2">￥160</i-col>
+                                            <i-col span="2">D123456789</i-col>
+                                            <i-col span="2">
+                                                <Icon type="edit"></Icon>
+                                                <Icon type="ios-trash"></Icon>
+                                            </i-col>
+                                            <i-col span="3">
+                                                <i-button>查看商品明细</i-button>
+                                            </i-col>
+                                        </Row>
+                                    </div>
+                                </div>
+                            </Tab-pane>
                         </Tabs>
                     </div>
                 </div>
@@ -77,7 +425,9 @@
 </template>
 
 <style scoped>
-
+.back-cart-itempic{
+    height: 50px;
+}
 </style>
 
 <script>

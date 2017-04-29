@@ -59,7 +59,78 @@
                     </Breadcrumb>
                 </div>
                 <div class="back-content">
-                    <div class="back-content-main">内容区域</div>
+                    <div class="back-content-main">
+                        <div class="back-order-search">
+                            <row>
+                                <i-col span="2">厂家编码</i-col>
+                                <i-col span="4">
+                                    <i-input type="text"></i-input>
+                                </i-col>
+                                <i-col span="1" offset="17">
+                                    <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                    <!--<i-button type="text">付款</i-button>-->
+                                </i-col>
+                            </row>
+                            <div>
+                                <Row type="flex" align="middle" class="front-order-item-title">
+                                    <i-col span="1">
+                                        <Checkbox
+                                                :indeterminate="indeterminate"
+                                                :checked="checkAll"
+                                                @click.prevent="handleCheckAll">
+                                        </Checkbox>
+                                    </i-col>
+                                    <i-col span="4">厂家编码</i-col>
+                                    <i-col span="4">厂家名</i-col>
+                                    <i-col span="4">联系方式</i-col>
+                                    <i-col span="5">地址</i-col>
+                                    <i-col span="3">操作</i-col>
+                                    <i-col span="3">更多</i-col>
+                                </Row>
+
+                                <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                    <i-col span="1">
+                                        <Checkbox
+                                                :indeterminate="indeterminate"
+                                                :checked="checkAll"
+                                                @click.prevent="handleCheckAll">
+                                        </Checkbox>
+                                    </i-col>
+                                    <i-col span="4">F201704290001</i-col>
+                                    <i-col span="4">红领服饰</i-col>
+                                    <i-col span="4">0931-88888888</i-col>
+                                    <i-col span="5">江西省南昌市昌北经济开发区</i-col>
+                                    <i-col span="3">
+                                        <Icon type="edit"></Icon>
+                                        <Icon type="ios-trash"></Icon>
+                                    </i-col>
+                                    <i-col span="3">
+                                        <i-button>下单</i-button>
+                                    </i-col>
+                                </Row>
+                                <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                    <i-col span="1">
+                                        <Checkbox
+                                                :indeterminate="indeterminate"
+                                                :checked="checkAll"
+                                                @click.prevent="handleCheckAll">
+                                        </Checkbox>
+                                    </i-col>
+                                    <i-col span="4">F201704297001</i-col>
+                                    <i-col span="4">秋意浓</i-col>
+                                    <i-col span="4">0931-88888999</i-col>
+                                    <i-col span="5">浙江省杭州市滨江区</i-col>
+                                    <i-col span="3">
+                                        <Icon type="edit"></Icon>
+                                        <Icon type="ios-trash"></Icon>
+                                    </i-col>
+                                    <i-col span="3">
+                                        <i-button>下单</i-button>
+                                    </i-col>
+                                </Row>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="back-copy">
                     2016-2017 &copy; 古韵婚纱

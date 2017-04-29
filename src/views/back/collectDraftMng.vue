@@ -61,9 +61,222 @@
                 <div class="back-content">
                     <div class="back-content-main">
                         <Tabs type="card">
-                            <Tab-pane label="所有稿件">标签一的内容</Tab-pane>
-                            <Tab-pane label="已审核稿件">标签二的内容</Tab-pane>
-                            <Tab-pane label="未审核稿件">标签三的内容</Tab-pane>
+                            <Tab-pane label="所有稿件">
+                                <div class="back-order-search">
+                                    <row>
+                                        <i-col span="2">稿件</i-col>
+                                        <i-col span="4">
+                                            <i-input type="text"></i-input>
+                                        </i-col>
+                                        <i-col span="1" offset="17">
+                                            <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                            <!--<i-button type="text">付款</i-button>-->
+                                        </i-col>
+                                    </row>
+                                    <div>
+                                        <Row type="flex" align="middle" class="front-order-item-title">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">稿件</i-col>
+                                            <i-col span="4">上传日期</i-col>
+                                            <i-col span="4">上传者</i-col>
+                                            <i-col span="3">金额</i-col>
+                                            <i-col span="3">状态</i-col>
+                                            <i-col span="5">更多</i-col>
+                                        </Row>
+
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">D201704290001</i-col>
+                                            <i-col span="4">
+                                                <span class="bold">2017-04-29</span>
+                                            </i-col>
+                                            <i-col span="4">u201310210001</i-col>
+                                            <i-col span="3">￥2000.40</i-col>
+                                            <i-col span="3">已通过</i-col>
+                                            <i-col span="5">
+                                                <a href="#">查看详情</a>
+                                            </i-col>
+                                        </Row>
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">D201704290002</i-col>
+                                            <i-col span="4">
+                                                <span class="bold">2017-04-29</span>
+                                            </i-col>
+                                            <i-col span="4">u201310210001</i-col>
+                                            <i-col span="3">￥2000.40</i-col>
+                                            <i-col span="3">
+                                                <i-button>通过</i-button><i-button>未通过</i-button>
+                                            </i-col>
+                                            <i-col span="5">
+                                                <a href="#">查看详情</a>
+                                            </i-col>
+                                        </Row>
+                                    </div>
+                                </div>
+                            </Tab-pane>
+                            <Tab-pane label="已审核稿件">
+                                <div class="back-order-search">
+                                    <row>
+                                        <i-col span="2">稿件</i-col>
+                                        <i-col span="4">
+                                            <i-input type="text"></i-input>
+                                        </i-col>
+                                        <i-col span="1" offset="17">
+                                            <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                            <!--<i-button type="text">付款</i-button>-->
+                                        </i-col>
+                                    </row>
+                                    <div>
+                                        <Row type="flex" align="middle" class="front-order-item-title">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">稿件</i-col>
+                                            <i-col span="4">上传日期</i-col>
+                                            <i-col span="4">上传者</i-col>
+                                            <i-col span="3">金额</i-col>
+                                            <i-col span="3">状态</i-col>
+                                            <i-col span="5">更多</i-col>
+                                        </Row>
+
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">D201704290001</i-col>
+                                            <i-col span="4">
+                                                <span class="bold">2017-04-29</span>
+                                            </i-col>
+                                            <i-col span="4">u201310210001</i-col>
+                                            <i-col span="3">￥2000.40</i-col>
+                                            <i-col span="3">已通过</i-col>
+                                            <i-col span="5">
+                                                <a href="#">查看详情</a>
+                                            </i-col>
+                                        </Row>
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">D201704290002</i-col>
+                                            <i-col span="4">
+                                                <span class="bold">2017-04-29</span>
+                                            </i-col>
+                                            <i-col span="4">u201310210001</i-col>
+                                            <i-col span="3">￥2000.40</i-col>
+                                            <i-col span="3">未通过</i-col>
+                                            <i-col span="5">
+                                                <a href="#">查看详情</a>
+                                            </i-col>
+                                        </Row>
+                                    </div>
+                                </div>
+                            </Tab-pane>
+                            <Tab-pane label="未审核稿件">
+                                <div class="back-order-search">
+                                    <row>
+                                        <i-col span="2">稿件</i-col>
+                                        <i-col span="4">
+                                            <i-input type="text"></i-input>
+                                        </i-col>
+                                        <i-col span="1" offset="17">
+                                            <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                            <!--<i-button type="text">付款</i-button>-->
+                                        </i-col>
+                                    </row>
+                                    <div>
+                                        <Row type="flex" align="middle" class="front-order-item-title">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">稿件</i-col>
+                                            <i-col span="4">上传日期</i-col>
+                                            <i-col span="4">上传者</i-col>
+                                            <i-col span="3">金额</i-col>
+                                            <i-col span="3">状态</i-col>
+                                            <i-col span="5">更多</i-col>
+                                        </Row>
+
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">D201704290001</i-col>
+                                            <i-col span="4">
+                                                <span class="bold">2017-04-29</span>
+                                            </i-col>
+                                            <i-col span="4">u201310210001</i-col>
+                                            <i-col span="3">￥2000.40</i-col>
+                                            <i-col span="3">
+                                                <i-button>通过</i-button><i-button>未通过</i-button>
+                                            </i-col>
+                                            <i-col span="5">
+                                                <a href="#">查看详情</a>
+                                            </i-col>
+                                        </Row>
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">D201704290002</i-col>
+                                            <i-col span="4">
+                                                <span class="bold">2017-04-29</span>
+                                            </i-col>
+                                            <i-col span="4">u201310210001</i-col>
+                                            <i-col span="3">￥2000.40</i-col>
+                                            <i-col span="3">
+                                                <i-button>通过</i-button><i-button>未通过</i-button>
+                                            </i-col>
+                                            <i-col span="5">
+                                                <a href="#">查看详情</a>
+                                            </i-col>
+                                        </Row>
+                                    </div>
+                                </div>
+                            </Tab-pane>
                         </Tabs>
                     </div>
                 </div>

@@ -58,6 +58,75 @@
                         <Breadcrumb-item>权限管理</Breadcrumb-item>
                     </Breadcrumb>
                     <div class="back-content">
+                        <div class="back-order-search">
+                            <row>
+                                <i-col span="2">权限</i-col>
+                                <i-col span="4">
+                                    <i-input type="text"></i-input>
+                                </i-col>
+                                <i-col span="1" offset="17">
+                                    <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                    <!--<i-button type="text">付款</i-button>-->
+                                </i-col>
+                            </row>
+                            <div>
+                                <Row type="flex" align="middle" class="front-order-item-title">
+                                    <i-col span="1">
+                                        <Checkbox
+                                                :indeterminate="indeterminate"
+                                                :checked="checkAll"
+                                                @click.prevent="handleCheckAll">
+                                        </Checkbox>
+                                    </i-col>
+                                    <i-col span="4">权限</i-col>
+                                    <i-col span="4">权限名</i-col>
+                                    <i-col span="8">权限细则</i-col>
+                                    <i-col span="2">操作</i-col>
+                                    <i-col span="5">员工</i-col>
+                                </Row>
+
+                                <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                    <i-col span="1">
+                                        <Checkbox
+                                                :indeterminate="indeterminate"
+                                                :checked="checkAll"
+                                                @click.prevent="handleCheckAll">
+                                        </Checkbox>
+                                    </i-col>
+                                    <i-col span="4">OD201704290001</i-col>
+                                    <i-col span="4">订单操作</i-col>
+                                    <i-col span="8">操作购买单、定制单、租赁单</i-col>
+                                    <i-col span="2">
+                                        <Icon type="edit"></Icon>
+                                        <Icon type="ios-trash"></Icon>
+                                    </i-col>
+                                    <i-col span="5">
+                                        张三；李四；
+                                        <Icon type="edit"></Icon>
+                                    </i-col>
+                                </Row>
+                                <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                    <i-col span="1">
+                                        <Checkbox
+                                                :indeterminate="indeterminate"
+                                                :checked="checkAll"
+                                                @click.prevent="handleCheckAll">
+                                        </Checkbox>
+                                    </i-col>
+                                    <i-col span="4">OD201704290001</i-col>
+                                    <i-col span="4">订单操作</i-col>
+                                    <i-col span="8">操作购买单、定制单、租赁单</i-col>
+                                    <i-col span="2">
+                                        <Icon type="edit"></Icon>
+                                        <Icon type="ios-trash"></Icon>
+                                    </i-col>
+                                    <i-col span="5">
+                                        张三；李四；
+                                        <Icon type="edit"></Icon>
+                                    </i-col>
+                                </Row>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="back-copy">
