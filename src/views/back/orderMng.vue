@@ -70,6 +70,7 @@
                                             <i-input type="text"></i-input>
                                         </i-col>
                                         <i-col span="1" offset="17">
+                                            <!--<Icon type="ios-plus-outline" class="front-order-item-delete"></Icon>-->
                                             <Icon type="ios-trash" class="front-order-item-delete"></Icon>
                                             <!--<i-button type="text">付款</i-button>-->
                                         </i-col>
@@ -140,6 +141,7 @@
                                             <i-input type="text"></i-input>
                                         </i-col>
                                         <i-col span="1" offset="17">
+                                            <!--<Icon type="ios-plus-outline" class="front-order-item-delete"></Icon>-->
                                             <Icon type="ios-trash" class="front-order-item-delete"></Icon>
                                             <!--<i-button type="text">付款</i-button>-->
                                         </i-col>
@@ -210,6 +212,7 @@
                                             <i-input type="text"></i-input>
                                         </i-col>
                                         <i-col span="1" offset="17">
+                                            <!--<Icon type="ios-plus-outline" class="front-order-item-delete"></Icon>-->
                                             <Icon type="ios-trash" class="front-order-item-delete"></Icon>
                                             <!--<i-button type="text">付款</i-button>-->
                                         </i-col>
@@ -281,6 +284,7 @@
                                             <i-input type="text"></i-input>
                                         </i-col>
                                         <i-col span="1" offset="17">
+                                            <!--<Icon type="ios-plus-outline" class="front-order-item-delete"></Icon>-->
                                             <Icon type="ios-trash" class="front-order-item-delete"></Icon>
                                             <!--<i-button type="text">付款</i-button>-->
                                         </i-col>

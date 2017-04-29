@@ -27,11 +27,14 @@
         <i-col span="24">
             <Card class="preson-info">
                 <div class="preson-info-div">
+                    <div class="clearfix">
+                        <Icon type="edit" style="font-size: 22px;float: right;"></Icon>
+                    </div>
                     <div >
                         <Icon type="social-snapchat"></Icon>
                         <span class="person-Info-span">用户名</span>
                         <span>张三</span>
-                        <Icon type="edit"></Icon>
+                        <!--<Icon type="edit"></Icon>-->
                     </div>
                     <div>
                         <Icon type="android-person"></Icon>
@@ -41,25 +44,25 @@
                         <!--<Icon type="female"></Icon>-->
                         <Icon type="male"></Icon>
                         <span></span>
-                        <Icon type="edit"></Icon>
+                        <!--<Icon type="edit"></Icon>-->
                     </div>
                     <div>
                         <Icon type="ios-locked"></Icon>
                         <span class="person-Info-span">密码</span>
                         <span>*******</span>
-                        <Icon type="edit"></Icon>
+                        <!--<Icon type="edit"></Icon>-->
                     </div>
                     <div>
                         <Icon type="email"></Icon>
                         <span class="person-Info-span">邮箱</span>
                         <span>1870260xxxx@163.com</span>
-                        <Icon type="edit"></Icon>
+                        <!--<Icon type="edit"></Icon>-->
                     </div>
                     <div>
                         <Icon type="android-phone-portrait"></Icon>
                         <span class="person-Info-span">手机</span>
                         <span>187-0260-xxxx</span>
-                        <Icon type="edit"></Icon>
+                        <!--<Icon type="edit"></Icon>-->
                     </div>
                 </div>
                 <div>

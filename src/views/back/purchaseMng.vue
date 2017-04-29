@@ -59,7 +59,136 @@
                     </Breadcrumb>
                 <div class="back-content">
                     <div class="back-content-main">
+                        <Tabs type="card">
+                            <Tab-pane label="已有采购单">
+                                <div class="back-order-search">
+                                    <div>
+                                        <Row type="flex" align="middle" class="front-order-item-title">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">采购单</i-col>
+                                            <i-col span="4">采购日期</i-col>
+                                            <i-col span="4">厂家</i-col>
+                                            <i-col span="3">金额</i-col>
+                                            <i-col span="3">操作</i-col>
+                                            <i-col span="5">更多</i-col>
+                                        </Row>
 
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">PeDxxxxxxxx1</i-col>
+                                            <i-col span="4">
+                                                <span class="bold">2017-04-29</span>
+                                            </i-col>
+                                            <i-col span="4">F201310210001</i-col>
+                                            <i-col span="3">￥20000.40</i-col>
+                                            <i-col span="3">
+                                                <Icon type="edit"></Icon>
+                                                <Icon type="ios-trash"></Icon>
+                                            </i-col>
+                                            <i-col span="5">
+                                                <a href="#">查看详情</a>
+                                            </i-col>
+                                        </Row>
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">PeDxxxxxxxx2</i-col>
+                                            <i-col span="4">
+                                                <span class="bold">2017-04-29</span>
+                                            </i-col>
+                                            <i-col span="4">F201310214511</i-col>
+                                            <i-col span="3">￥255620.40</i-col>
+                                            <i-col span="3">
+                                                <Icon type="edit"></Icon>
+                                                <Icon type="ios-trash"></Icon>
+                                            </i-col>
+                                            <i-col span="5">
+                                                <a href="#">查看详情</a>
+                                            </i-col>
+                                        </Row>
+                                    </div>
+                                </div>
+                            </Tab-pane>
+                            <Tab-pane label="自主采购"></Tab-pane>
+                            <Tab-pane label="定制单采购">
+                                <div class="back-order-search">
+
+                                    <div>
+                                        <Row type="flex" align="middle" class="front-order-item-title">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">定制单</i-col>
+                                            <i-col span="4">日期</i-col>
+                                            <i-col span="4">用户</i-col>
+                                            <i-col span="3">金额</i-col>
+                                            <i-col span="3">下单</i-col>
+                                            <i-col span="5">更多</i-col>
+                                        </Row>
+
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">C201704290001</i-col>
+                                            <i-col span="4">
+                                                <span class="bold">2017-04-29</span>
+                                            </i-col>
+                                            <i-col span="4">u201310210001</i-col>
+                                            <i-col span="3">￥2000.40</i-col>
+                                            <i-col span="3"><i-button>下单</i-button></i-col>
+                                            <i-col span="5">
+                                                <a href="#">查看详情</a>
+                                            </i-col>
+                                        </Row>
+                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                            <i-col span="1">
+                                                <Checkbox
+                                                        :indeterminate="indeterminate"
+                                                        :checked="checkAll"
+                                                        @click.prevent="handleCheckAll">
+                                                </Checkbox>
+                                            </i-col>
+                                            <i-col span="4">C201704290002</i-col>
+                                            <i-col span="4">
+                                                <span class="bold">2017-04-29</span>
+                                            </i-col>
+                                            <i-col span="4">u201310210001</i-col>
+                                            <i-col span="3">￥2000.40</i-col>
+                                            <i-col span="3"><i-button>下单</i-button></i-col>
+                                            <i-col span="5">
+                                                <a href="#">查看详情</a>
+                                            </i-col>
+                                        </Row>
+                                    </div>
+                                </div>
+                            </Tab-pane>
+                        </Tabs>
                     </div>
                 </div>
                 <div class="back-copy">

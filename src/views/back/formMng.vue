@@ -61,8 +61,64 @@
                 <div class="back-content">
                     <div class="back-content-main">
                         <Tabs type="card">
-                            <Tab-pane label="报表一">标签一的内容</Tab-pane>
-                            <Tab-pane label="报表二">标签二的内容</Tab-pane>
+                            <Tab-pane label="报表一">
+                                <div>
+                                    <Row type="flex" align="middle" class="front-order-item-title">
+                                        <i-col span="24">报表一</i-col>
+                                    </Row>
+                                    <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                        <i-col span="12">当月成交量</i-col>
+                                        <i-col span="12">2000</i-col>
+                                    </Row>
+                                    <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                        <i-col span="12">当月成交金额</i-col>
+                                        <i-col span="12">￥40000</i-col>
+                                    </Row>
+                                    <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                        <i-col span="12">购买单成交量</i-col>
+                                        <i-col span="12">1000</i-col>
+                                    </Row>
+                                    <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                        <i-col span="12">购买单成交金额</i-col>
+                                        <i-col span="12">￥20000</i-col>
+                                    </Row>
+                                    <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                        <i-col span="12">定制单成交量</i-col>
+                                        <i-col span="12">500</i-col>
+                                    </Row>
+                                    <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                        <i-col span="12">定制单成交金额</i-col>
+                                        <i-col span="12">￥10000</i-col>
+                                    </Row>
+                                    <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                        <i-col span="12">租赁单成交量</i-col>
+                                        <i-col span="12">500</i-col>
+                                    </Row>
+                                    <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                        <i-col span="12">租赁单成交金额</i-col>
+                                        <i-col span="12">￥10000</i-col>
+                                    </Row>
+                                </div>
+                            </Tab-pane>
+                            <Tab-pane label="报表二">
+                                <div>
+                                    <Row type="flex" align="middle" class="front-order-item-title">
+                                        <i-col span="24">报表二</i-col>
+                                    </Row>
+                                    <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                        <i-col span="12">当月支出</i-col>
+                                        <i-col span="12">￥30000</i-col>
+                                    </Row>
+                                    <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                        <i-col span="12">当月收入</i-col>
+                                        <i-col span="12">￥40000</i-col>
+                                    </Row>
+                                    <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                        <i-col span="12">当月利润</i-col>
+                                        <i-col span="12">￥10000</i-col>
+                                    </Row>
+                                </div>
+                            </Tab-pane>
                             <!--<Tab-pane label="报表三">标签三的内容</Tab-pane>-->
                         </Tabs>
                     </div>

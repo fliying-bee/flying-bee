@@ -51,22 +51,10 @@
                 </Menu>
             </i-col>
             <i-col span="19">
-                <div class="back-breadcrumb">
-                    <Breadcrumb>
-                        <Breadcrumb-item href="#">后台管理</Breadcrumb-item>
-                        <!--<Breadcrumb-item href="#"></Breadcrumb-item>-->
-                        <!--<Breadcrumb-item>某应用</Breadcrumb-item>-->
-                    </Breadcrumb>
-                </div>
-                <div class="back-content">
-                    <div class="back-content-main">
-                        <Tabs type="card">
-                            <Tab-pane label="购买单管理">标签一的内容</Tab-pane>
-                            <Tab-pane label="定制单管理">标签二的内容</Tab-pane>
-                            <Tab-pane label="租赁单管理">标签三的内容</Tab-pane>
-                        </Tabs>
-                    </div>
-                </div>
+                <!--<div class="back-content">-->
+                    <!--<div class="back-content-main"></div>-->
+                <!--</div>-->
+                <div class="backIndex-center"></div>
                 <div class="back-copy">
                     2016-2017 &copy; 古韵婚纱
                 </div>
@@ -76,7 +64,14 @@
 </template>
 
 <style scoped>
-
+.backIndex-center{
+     margin: 10px;
+     background: url("../../images/flower2.png");
+     background-size: 1050px 450px;
+     background-repeat:no-repeat;
+     width: calc(100% - 340 );
+     height: 460px;
+ }
 </style>
 
 <script>
