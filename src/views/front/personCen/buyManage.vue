@@ -77,13 +77,13 @@
                                     订单号：<span>D201704220001</span>
                                 </i-col>
                                 <i-col span="2">
-                                    已付款
+                                    未付款
                                 </i-col>
                                 <i-col span="3">
                                     金额：<span>599.80</span>
                                 </i-col>
                                 <i-col span="1" offset="9">
-                                    <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                    <!--<Icon type="ios-trash" class="front-order-item-delete"></Icon>-->
                                     <!--<i-button type="text">付款</i-button>-->
                                 </i-col>
                             </Row>
@@ -99,6 +99,13 @@
                                 <i-col span="5">299.90</i-col>
                                 <i-col span="5">1</i-col>
                                 <i-col span="5">M</i-col>
+                            </Row>
+                            <Row type="flex" align="middle" justify="center" class="front-order-title" style="border-top:none;">
+
+                                <i-col span="5" offset="19">
+                                    <i-button type="primary">付款</i-button>
+                                    <i-button type="ghost">取消订单</i-button>
+                                </i-col>
                             </Row>
                         </div>
                     </div>

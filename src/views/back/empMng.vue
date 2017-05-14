@@ -6,18 +6,17 @@
             <img src="../../images/guyun_logo.png" alt="logo" class="back-header-logopic">
         </div>
         <div class="back-header-nav">
-            <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>
-            <Dropdown>
+            <Dropdown v-if="isLogin">
                 <i-button type="text" class="header-hover">
-                    您好，XXX
+                    您好，{{empName}}
                     <Icon type="arrow-down-b"></Icon>
                 </i-button>
                 <Dropdown-menu slot="list">
                     <Dropdown-item v-link="{path:'/back/backPersonInfor'}">个人中心</Dropdown-item>
-                    <Dropdown-item v-link="{path:'/login'}">退出</Dropdown-item>
+                    <Dropdown-item @click="loginOut()">退出</Dropdown-item>
                 </Dropdown-menu>
             </Dropdown>
-            <!--<i-button  >个人中心</i-button>-->
+            <i-button v-else v-link="{path:'/back/backPersonInfor'}" type="text" class="header-hover">个人中心</i-button>
         </div>
     </div>
 
@@ -61,70 +60,49 @@
                 <div class="back-content">
                     <div class="back-content-main">
                         <div class="back-order-search">
-                            <row>
-                                <i-col span="2">员工编码</i-col>
+                            <Row type="flex" justify="center" align="middle">
+                                <i-col span="2">员工编码：</i-col>
                                 <i-col span="4">
-                                    <i-input type="text"></i-input>
+                                    <i-input :value.sync="search" icon="ios-search" style="width: 200px"></i-input>
                                 </i-col>
-                                <i-col span="1" offset="17">
-                                    <Icon type="ios-plus-outline" class="front-order-item-delete"></Icon>
-                                    <Icon type="ios-trash" class="front-order-item-delete"></Icon>
-                                    <!--<i-button type="text">付款</i-button>-->
+                                <i-col span="2" offset="16">
+                                    <i-button type="primary" @click="addModal=true">添加员工</i-button>
                                 </i-col>
-                            </row>
+                            </Row>
                             <div>
                                 <Row type="flex" align="middle" class="front-order-item-title">
-                                    <i-col span="1">
-                                        <Checkbox
-                                                :indeterminate="indeterminate"
-                                                :checked="checkAll"
-                                                @click.prevent="handleCheckAll">
-                                        </Checkbox>
-                                    </i-col>
                                     <i-col span="4">员工编码</i-col>
                                     <i-col span="4">姓名</i-col>
                                     <i-col span="4">性别</i-col>
                                     <i-col span="3">联系方式</i-col>
-                                    <i-col span="5">权限</i-col>
+                                    <i-col span="6">权限</i-col>
                                     <i-col span="3">操作</i-col>
                                 </Row>
+                                <Checkbox-group :model.sync="checkAllGroup" @on-change="checkAllGroupChange">
+                                    <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                        <i-col span="4">E201704290001</i-col>
+                                        <i-col span="4">张三</i-col>
+                                        <i-col span="4">男</i-col>
+                                        <i-col span="3">1870260000</i-col>
+                                        <i-col span="6">查看报表；查看厂家信息</i-col>
+                                        <i-col span="3">
+                                            <Icon type="edit" class="front-order-item-delete"></Icon>
+                                            <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                        </i-col>
+                                    </Row>
+                                    <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                        <i-col span="4">E201704290002</i-col>
+                                        <i-col span="4">李四</i-col>
+                                        <i-col span="4">男</i-col>
+                                        <i-col span="3">1870260001</i-col>
+                                        <i-col span="6">查看商品信息；查看客户信息；审核稿件；审核订单</i-col>
+                                        <i-col span="3">
+                                            <Icon type="edit" class="front-order-item-delete"></Icon>
+                                            <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                        </i-col>
+                                    </Row>
+                                </Checkbox-group>
 
-                                <Row type="flex" align="middle" justify="center" class="front-order-item-content">
-                                    <i-col span="1">
-                                        <Checkbox
-                                                :indeterminate="indeterminate"
-                                                :checked="checkAll"
-                                                @click.prevent="handleCheckAll">
-                                        </Checkbox>
-                                    </i-col>
-                                    <i-col span="4">E201704290001</i-col>
-                                    <i-col span="4">张三</i-col>
-                                    <i-col span="4">男</i-col>
-                                    <i-col span="3">1870260000</i-col>
-                                    <i-col span="5">查看报表；查看厂家信息</i-col>
-                                    <i-col span="3">
-                                        <Icon type="edit"></Icon>
-                                        <Icon type="ios-trash"></Icon>
-                                    </i-col>
-                                </Row>
-                                <Row type="flex" align="middle" justify="center" class="front-order-item-content">
-                                    <i-col span="1">
-                                        <Checkbox
-                                                :indeterminate="indeterminate"
-                                                :checked="checkAll"
-                                                @click.prevent="handleCheckAll">
-                                        </Checkbox>
-                                    </i-col>
-                                    <i-col span="4">E201704290002</i-col>
-                                    <i-col span="4">李四</i-col>
-                                    <i-col span="4">男</i-col>
-                                    <i-col span="3">1870260001</i-col>
-                                    <i-col span="5">查看商品信息；查看客户信息；审核稿件；审核订单</i-col>
-                                    <i-col span="3">
-                                        <Icon type="edit"></Icon>
-                                        <Icon type="ios-trash"></Icon>
-                                    </i-col>
-                                </Row>
                             </div>
                         </div>
                     </div>
@@ -135,6 +113,21 @@
             </i-col>
         </Row>
     </div>
+    <Modal
+            :visible.sync="addModal"
+            title="添加员工信息"
+            :loading="addLoading"
+            @on-ok="add"
+            @on-cancel="addModal = false">
+        <i-form v-ref:emp-form-validate :model="empFormValidate" :rules="empRuleValidate" :label-width="80">
+            <Form-item label="员工名" prop="empName">
+                <i-input type="text" :value.sync="empFormValidate.empName"></i-input>
+            </Form-item>
+            <Form-item label="密码" prop="empPassword">
+                <i-input type="password" :value.sync="empFormValidate.empPassword"></i-input>
+            </Form-item>
+        </i-form>
+    </Modal>
 </template>
 
 <style scoped>
@@ -145,11 +138,55 @@
     export default {
         components: {},
         data () {
-            return {}
+            return {
+                search:'',
+                empName:'',
+                isLogin:false,
+                addModal:false,
+                addLoading:true,
+                empFormValidate: {
+                    empName: '',
+                    empPassword: ''
+                },
+                empRuleValidate: {
+                    empName: [
+                        {required: true, message: '用户名不能为空', trigger: 'blur'}
+                    ],
+                    empPassword: [
+                        {required: true, message: '密码不能为空', trigger: 'blur'}
+                    ]
+                }
+            }
         },
-        methods: {},
-        ready () {
+        methods: {
+            loginOut(){
+                var self = this;
+                localStorage.removeItem('EMPNAME');
+                localStorage.removeItem('EMPID');
+                self.$Message.success('退出成功！');
+                setTimeout(()=>{
+                    self.$router.go('/login');
+                    self.isLogin = false;
+                },1000);
+            },
+            add () {
+                var self = this
+                setTimeout(() => {
+                    self.addLoading = false;
+                    self.addModal = false;
+                    self.$Message.info('添加成功');
+                }, 2000);
 
+            }
+        },
+        ready () {
+            var self = this;
+            if(localStorage.getItem('EMPNAME')){
+                self.empName = localStorage.getItem('EMPNAME');
+                self.isLogin = true;
+            }else{
+                self.isLogin = false;
+            }
         }
     }
 </script>

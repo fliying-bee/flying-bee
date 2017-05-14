@@ -92,6 +92,8 @@ const routers = {
             require(['./views/front/wedding/rent.vue'], resolve);
         }
     },
+
+    // 后台
     '/backIndex':{
         component (resolve) {
             require(['./views/back/backIndex.vue'], resolve);

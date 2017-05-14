@@ -5,8 +5,8 @@
             您好，欢迎来到古韵婚纱店
         </i-col>
         <i-col span="11">
-            <i-button v-link="{path:'/login'}" type="text" class="header-login" id="color">hi，请登录</i-button>
-            <i-button v-link="{path:'/register'}" type="text" class="header-hover">免费注册</i-button>
+            <i-button v-link="{path:'/login'}" type="text" class="header-login" id="color"></i-button>
+            <i-button v-link="{path:'/register'}" type="text" class="header-hover"></i-button>
         </i-col>
         <i-col span="8">
             <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>

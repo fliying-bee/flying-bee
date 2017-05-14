@@ -28,7 +28,7 @@
 
     <!--首页nav-->
     <div class="front-nav">
-        <Menu mode="horizontal" active-key="2">
+        <Menu mode="horizontal" active-key="2-1">
             <div class="front-nav-logo">
                 <img src="../../../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
                 <img src="../../../images/guyun_logo.png" alt="logo" class="front-nav-logopic">

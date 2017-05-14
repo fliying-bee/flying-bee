@@ -45,12 +45,13 @@ module.exports = {
 
     ],
     devServer: {
-        historyApiFallback: true,
-        noInfo: true,
-        proxy: {
-            '/api/*': {
-                target: 'http://127.0.0.1:8080'
-            }
-        }
+    //     historyApiFallback: true,
+    //     noInfo: true,
+    //     proxy: {
+    //         '/Spring-study/*': {
+    //             target: 'http://127.0.0.1:8080'
+    //         }
+    //     }
+		devtool: 'eval-source-map'
     },
 };

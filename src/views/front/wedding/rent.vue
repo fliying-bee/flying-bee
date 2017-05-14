@@ -28,7 +28,7 @@
 
     <!--首页nav-->
     <div class="front-nav">
-        <Menu mode="horizontal" active-key="2">
+        <Menu mode="horizontal" active-key="2-3">
             <div class="front-nav-logo">
                 <img src="../../../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
                 <img src="../../../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
@@ -77,10 +77,10 @@
                 <div>
                     <img src="../../../images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
-                        一套基于 Vue.js 的高质量UI组件库
+                        <span style="color: #c40000">¥169.00</span>
                     </div>
                     <div class="product-card-desc">
-                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                        商品一
                     </div>
                 </div>
             </Card>
@@ -90,10 +90,10 @@
                 <div>
                     <img src="../../../images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
-                        一套基于 Vue.js 的高质量UI组件库
+                        <span style="color: #c40000">¥169.00</span>
                     </div>
                     <div class="product-card-desc">
-                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                        商品二
                     </div>
                 </div>
             </Card>
@@ -103,10 +103,10 @@
                 <div>
                     <img src="../../../images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
-                        一套基于 Vue.js 的高质量UI组件库
+                        <span style="color: #c40000">¥169.00</span>
                     </div>
                     <div class="product-card-desc">
-                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                        商品三
                     </div>
                 </div>
             </Card>
@@ -116,10 +116,10 @@
                 <div>
                     <img src="../../../images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
-                        一套基于 Vue.js 的高质量UI组件库
+                        <span style="color: #c40000">¥169.00</span>
                     </div>
                     <div class="product-card-desc">
-                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                        商品四
                     </div>
                 </div>
             </Card>
@@ -139,10 +139,10 @@
                 <div>
                     <img src="../../../images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
-                        一套基于 Vue.js 的高质量UI组件库
+                        <span style="color: #c40000">¥169.00</span>
                     </div>
                     <div class="product-card-desc">
-                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                        商品一
                     </div>
                 </div>
             </Card>
@@ -152,10 +152,10 @@
                 <div>
                     <img src="../../../images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
-                        一套基于 Vue.js 的高质量UI组件库
+                        <span style="color: #c40000">¥169.00</span>
                     </div>
                     <div class="product-card-desc">
-                        一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
+                        商品一
                     </div>
                 </div>
             </Card>

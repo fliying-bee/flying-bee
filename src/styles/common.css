@@ -7,6 +7,14 @@
 .bold{
     font-weight: bold;
 }
+.demo-spin-icon-load{
+    animation: ani-demo-spin 1s linear infinite;
+}
+@keyframes ani-demo-spin {
+    from { transform: rotate(0deg);}
+    50%  { transform: rotate(180deg);}
+    to   { transform: rotate(360deg);}
+}
 /*网页头部*/
 .header-bg{
     color: #666;
@@ -188,6 +196,13 @@
     margin-top: 20px;
     color: #C1C1C1;
 }
+.go-login{
+    margin-left: 5px;
+    float:right;
+    color:#c80000;
+    cursor: pointer;
+}
+
 /*设计投稿*/
 .front-design{
     padding: 50px 300px;
@@ -240,6 +255,9 @@
 }
 .front-order-item-delete{
     font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    color:#c80000;
 }
 
 /*产品详情*/

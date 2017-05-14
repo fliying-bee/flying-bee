@@ -7,17 +7,17 @@
         </div>
         <div class="back-header-nav">
             <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>
-            <Dropdown>
+            <Dropdown v-if="isLogin">
                 <i-button type="text" class="header-hover">
-                    您好，XXX
+                    您好，{{empName}}
                     <Icon type="arrow-down-b"></Icon>
                 </i-button>
                 <Dropdown-menu slot="list">
                     <Dropdown-item v-link="{path:'/back/backPersonInfor'}">个人中心</Dropdown-item>
-                    <Dropdown-item v-link="{path:'/login'}">退出</Dropdown-item>
+                    <Dropdown-item @click="loginOut()">退出</Dropdown-item>
                 </Dropdown-menu>
             </Dropdown>
-            <!--<i-button  >个人中心</i-button>-->
+            <i-button v-else v-link="{path:'/back/backPersonInfor'}" type="text" class="header-hover">个人中心</i-button>
         </div>
     </div>
 
@@ -59,71 +59,41 @@
                     </Breadcrumb>
                     <div class="back-content">
                         <div class="back-order-search">
-                            <row>
-                                <i-col span="2">权限</i-col>
+                            <Row type="flex" justify="center" align="middle">
+                                <i-col span="2">权限编码：</i-col>
                                 <i-col span="4">
-                                    <i-input type="text"></i-input>
+                                    <i-input :value.sync="search"
+                                             icon="ios-search"
+                                             style="width: 200px"
+                                             @on-click="queryLimitById"></i-input>
                                 </i-col>
-                                <i-col span="1" offset="17">
-                                    <Icon type="ios-plus-outline" class="front-order-item-delete"></Icon>
-                                    <Icon type="ios-trash" class="front-order-item-delete"></Icon>
-                                    <!--<i-button type="text">付款</i-button>-->
+                                <i-col span="2" offset="16">
+                                    <i-button type="primary" @click="addModal=true">添加权限</i-button>
                                 </i-col>
-                            </row>
+                            </Row>
                             <div>
                                 <Row type="flex" align="middle" class="front-order-item-title">
-                                    <i-col span="1">
-                                        <Checkbox
-                                                :indeterminate="indeterminate"
-                                                :checked="checkAll"
-                                                @click.prevent="handleCheckAll">
-                                        </Checkbox>
-                                    </i-col>
-                                    <i-col span="4">权限</i-col>
-                                    <i-col span="4">权限名</i-col>
-                                    <i-col span="8">权限细则</i-col>
-                                    <i-col span="2">操作</i-col>
-                                    <i-col span="5">员工</i-col>
+                                    <i-col span="5">权限编码</i-col>
+                                    <i-col span="5">权限名</i-col>
+                                    <i-col span="11">权限细则</i-col>
+                                    <i-col span="3">操作</i-col>
                                 </Row>
 
-                                <Row type="flex" align="middle" justify="center" class="front-order-item-content">
-                                    <i-col span="1">
-                                        <Checkbox
-                                                :indeterminate="indeterminate"
-                                                :checked="checkAll"
-                                                @click.prevent="handleCheckAll">
-                                        </Checkbox>
-                                    </i-col>
-                                    <i-col span="4">OD201704290001</i-col>
-                                    <i-col span="4">订单操作</i-col>
-                                    <i-col span="8">操作购买单、定制单、租赁单</i-col>
-                                    <i-col span="2">
-                                        <Icon type="edit"></Icon>
-                                        <Icon type="ios-trash"></Icon>
+                                <Row type="flex" align="middle" justify="center" class="front-order-item-content" v-for="limit in limitList">
+                                    <i-col span="5">
+                                        {{limit.limId}}
                                     </i-col>
                                     <i-col span="5">
-                                        张三；李四；
-                                        <Icon type="edit"></Icon>
+                                        {{limit.limName}}
                                     </i-col>
-                                </Row>
-                                <Row type="flex" align="middle" justify="center" class="front-order-item-content">
-                                    <i-col span="1">
-                                        <Checkbox
-                                                :indeterminate="indeterminate"
-                                                :checked="checkAll"
-                                                @click.prevent="handleCheckAll">
-                                        </Checkbox>
+                                    <i-col span="11">
+                                        {{limit.limDesc}}
                                     </i-col>
-                                    <i-col span="4">OD201704290001</i-col>
-                                    <i-col span="4">订单操作</i-col>
-                                    <i-col span="8">操作购买单、定制单、租赁单</i-col>
-                                    <i-col span="2">
-                                        <Icon type="edit"></Icon>
-                                        <Icon type="ios-trash"></Icon>
-                                    </i-col>
-                                    <i-col span="5">
-                                        张三；李四；
-                                        <Icon type="edit"></Icon>
+                                    <i-col span="3">
+                                        <Icon type="edit" class="front-order-item-delete"
+                                              @click="editModal=true,editLimName=limit.limName,editLimDesc=limit.limDesc,editLimId=limit.limId"></Icon>
+                                        <Icon type="ios-trash" class="front-order-item-delete"
+                                              @click="deleteModal=true,delItem=limit"></Icon>
                                     </i-col>
                                 </Row>
                             </div>
@@ -133,9 +103,52 @@
                     <div class="back-copy">
                         2016-2017 &copy; 古韵婚纱
                     </div>
+                </div>
             </i-col>
         </Row>
     </div>
+    <Spin fix v-if="isLoading">
+        <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+        <div>Loading</div>
+    </Spin>
+    <Modal
+            :visible.sync="addModal"
+            title="添加权限信息"
+            :loading="addLoading"
+            @on-ok="insertLimit"
+            @on-cancel="addModal = false">
+        <i-form v-ref:emp-form-validate :model="formValidate" :rules="ruleValidate" :label-width="80">
+            <Form-item label="权限名" prop="limName">
+                <i-input type="text" :value.sync="formValidate.limName"></i-input>
+            </Form-item>
+            <Form-item label="权限细则">
+                <i-input type="text" :value.sync="limDesc"></i-input>
+            </Form-item>
+        </i-form>
+    </Modal>
+    <Modal
+            :visible.sync="editModal"
+            title="修改权限信息"
+            :loading="editLoading"
+            @on-ok="updateLimit"
+            @on-cancel="editModal = false">
+        <i-form v-ref:emp-form-validate :model="formValidate" :rules="ruleValidate" :label-width="80">
+            <Form-item label="权限名" prop="limName">
+                <i-input type="text" :value.sync="editLimName"></i-input>
+            </Form-item>
+            <Form-item label="权限细则">
+                <i-input type="text" :value.sync="editLimDesc"></i-input>
+            </Form-item>
+        </i-form>
+    </Modal>
+    <Modal
+            :visible.sync="deleteModal"
+            title="删除权限信息"
+            :loading="deleteLoading"
+            @on-ok="deleteLimit"
+            @on-cancel="deleteModal = false">
+        <p>是否确认删除--{{delItem.limName}}</p>
+    </Modal>
 </template>
 
 <style scoped>
@@ -146,11 +159,177 @@
     export default {
         components: {},
         data () {
-            return {}
+            return {
+                search:'',
+                empName:'',
+                isLogin:false,
+                isLoading:true,
+                limitList:[],
+                addModal:false,
+                addLoading:true,
+                deleteModal:false,
+                deleteLoading:true,
+                editModal:false,
+                editLoading:true,
+                delItem:'',
+                limDesc:'',
+                editLimId:'',
+                editLimDesc:'',
+                editLimName:'',
+                formValidate: {
+                    limName: ''
+                },
+                ruleValidate: {
+                    limName: [
+                        {required: true, message: '权限名不能为空', trigger: 'blur'}
+                    ]
+                }
+            }
         },
-        methods: {},
+        methods: {
+            getNowFormatDate() {
+                var date = new Date();
+                var seperator1 = "-";
+                var seperator2 = ":";
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                var currentdate = date.getFullYear() + month + strDate
+                        + date.getHours() + date.getMinutes() + date.getSeconds();
+                return currentdate;
+            },
+            loginOut(){
+                var self = this;
+                localStorage.removeItem('EMPNAME');
+                localStorage.removeItem('EMPID');
+                self.$Message.success('退出成功！');
+                setTimeout(()=>{
+                    self.$router.go('/login');
+                    self.isLogin = false;
+                },1000);
+            },
+            queryAllLimit(){
+                var self = this
+                self.isLoading = true
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryAllLimit'
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        self.limitList = res.data.data;
+                        self.isLoading = false
+                    } else {
+                        self.$Message.success('权限查询错误！');
+                    }
+                })
+            },
+            insertLimit(){
+                var self = this
+                var limId = 'L'+self.getNowFormatDate();
+                var data = {
+                    limId:limId,
+                    limName:self.formValidate.limName,
+                    limDesc:self.limDesc,
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/insertLimit',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        self.queryAllLimit();
+                        self.addLoading = false;
+                        self.addModal = false;
+                        self.formValidate.limName='';
+                        self.limDesc='';
+                        self.$Message.success('添加成功!');
+                    }else{
+                        self.$Message.success('添加失败！');
+                    }
+                })
+            },
+            deleteLimit(){
+                var self = this
+                var data = {
+                    limId:self.delItem.limId
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/deleteLimit',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        self.queryAllLimit();
+                        self.deleteLoading = false;
+                        self.deleteModal = false;
+                        self.$Message.success('删除成功!');
+                    }else{
+                        self.$Message.success('删除失败！');
+                    }
+                })
+            },
+            updateLimit(){
+                var self = this
+                var data = {
+                    limId:self.editLimId,
+                    limName:self.editLimName,
+                    limDesc:self.editLimDesc,
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/updateLimit',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        self.queryAllLimit();
+                        self.editLoading = false;
+                        self.editModal = false;
+                        self.$Message.success('修改成功!');
+                    }else{
+                        self.$Message.success('修改失败！');
+                    }
+                })
+            },
+            queryLimitById(){
+                var self = this
+                if(self.search==''){
+                    self.queryAllLimit()
+                }else{
+                    self.isLoading = true
+                    var data = {
+                        limId:self.search
+                    };
+                    self.$http({
+                        method:'POST',
+                        url:'http://127.0.0.1:8080/Spring-study/queryLimitById',
+                        params:data
+                    }).then(function(res){
+                        if(res.data.code=="OK"){
+                            self.limitList = [];
+                            self.limitList.push(res.data.data)
+                            self.isLoading = false
+                            self.$Message.success('查询成功!');
+                        }else{
+                            self.$Message.success('查询失败！');
+                        }
+                    })
+                }
+            }
+        },
         ready () {
-
+            var self = this;
+            if(localStorage.getItem('EMPNAME')){
+                self.empName = localStorage.getItem('EMPNAME');
+                self.isLogin = true;
+            }else{
+                self.isLogin = false;
+            }
+            self.queryAllLimit();
         }
     }
 </script>
