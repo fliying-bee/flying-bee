@@ -261,7 +261,7 @@
                         self.page.totalRow = res.data.data.totalRow;
                         self.isLoading = false
                     } else {
-                        self.$Message.success('权限查询错误！');
+                        self.$Message.error('权限查询错误！');
                     }
                 })
             },
@@ -287,7 +287,7 @@
                         self.limDesc='';
                         self.$Message.success('添加成功!');
                     }else{
-                        self.$Message.success('添加失败！');
+                        self.$Message.error('添加失败！');
                     }
                 })
             },
@@ -307,7 +307,7 @@
                         self.deleteModal = false;
                         self.$Message.success('删除成功!');
                     }else{
-                        self.$Message.success('删除失败！');
+                        self.$Message.error('删除失败！');
                     }
                 })
             },
@@ -329,14 +329,14 @@
                         self.editModal = false;
                         self.$Message.success('修改成功!');
                     }else{
-                        self.$Message.success('修改失败！');
+                        self.$Message.error('修改失败！');
                     }
                 })
             },
             queryLimitById(){
                 var self = this
                 if(self.search==''){
-                    self.queryAllLimit()
+
                 }else{
                     self.page.currentPage = 1;
                     self.isLoading = true
@@ -357,7 +357,7 @@
                             self.isLoading = false
                             self.$Message.success('查询成功!');
                         }else{
-                            self.$Message.success('查询失败！');
+                            self.$Message.error('查询失败！');
                         }
                     })
                 }
