@@ -42,7 +42,7 @@
                         <i-input :value.sync="userAddr" placeholder="请输入地址"></i-input>
                     </Form-item>
                     <Form-item label="联系电话" >
-                        <i-input :value.sync="formValidate.userTel" placeholder="请输入手机号"></i-input>
+                        <i-input :value.sync="userTel" placeholder="请输入手机号"></i-input>
                     </Form-item>
                     <Form-item>
                         <i-button type="primary" @click="register('formValidate')">提交</i-button>
@@ -120,18 +120,28 @@
         methods: {
             getNowFormatDate() {
                 var date = new Date();
-                var seperator1 = "-";
-                var seperator2 = ":";
                 var month = date.getMonth() + 1;
                 var strDate = date.getDate();
+                var hour = date.getHours();
+                var minute = date.getMinutes();
+                var second = date.getSeconds();
                 if (month >= 1 && month <= 9) {
                     month = "0" + month;
                 }
                 if (strDate >= 0 && strDate <= 9) {
                     strDate = "0" + strDate;
                 }
+                if (hour >= 0 && hour <= 9) {
+                    hour = "0" + hour;
+                }
+                if (minute >= 0 && minute <= 9) {
+                    minute = "0" + minute;
+                }
+                if (second >= 0 && second <= 9) {
+                    second = "0" + second;
+                }
                 var currentdate = date.getFullYear() + month + strDate
-                        + date.getHours() + date.getMinutes() + date.getSeconds();
+                        + hour + minute + second;
                 return currentdate;
             },
             reset(name){

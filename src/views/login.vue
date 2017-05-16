@@ -143,7 +143,6 @@
                             url: 'http://127.0.0.1:8080/Spring-study/queryEmployeeByName',
                             params: data
                         }).then(function (res) {
-                            console.log(res.data)
                             if (res.data.code == "OK") {
                                 self.$Message.success('登录成功！');
                                 localStorage.setItem('EMPID', res.data.data.empId);

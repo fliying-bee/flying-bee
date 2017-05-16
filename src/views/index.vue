@@ -69,7 +69,7 @@
     </div>
 
     <!--轮播图-->
-    <Carousel >
+    <Carousel :autoplay="true" :autoplay-speed="4000">
         <Carousel-item>
             <div class="carousel-item">
                 <img src="../images/carousel_1.png" alt="" class="carousel-itempic">

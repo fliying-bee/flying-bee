@@ -15,6 +15,10 @@
     50%  { transform: rotate(180deg);}
     to   { transform: rotate(360deg);}
 }
+.page-position{
+    float: right;
+    margin-top: 20px;
+}
 /*网页头部*/
 .header-bg{
     color: #666;

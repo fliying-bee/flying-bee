@@ -69,41 +69,42 @@
                                     <i-button type="primary" @click="addModal=true">添加员工</i-button>
                                 </i-col>
                             </Row>
-                            <div>
-                                <Row type="flex" align="middle" class="front-order-item-title">
-                                    <i-col span="4">员工编码</i-col>
-                                    <i-col span="4">姓名</i-col>
-                                    <i-col span="4">性别</i-col>
-                                    <i-col span="3">联系方式</i-col>
-                                    <i-col span="6">权限</i-col>
-                                    <i-col span="3">操作</i-col>
-                                </Row>
-                                <Checkbox-group :model.sync="checkAllGroup" @on-change="checkAllGroupChange">
-                                    <Row type="flex" align="middle" justify="center" class="front-order-item-content">
-                                        <i-col span="4">E201704290001</i-col>
-                                        <i-col span="4">张三</i-col>
-                                        <i-col span="4">男</i-col>
-                                        <i-col span="3">1870260000</i-col>
-                                        <i-col span="6">查看报表；查看厂家信息</i-col>
-                                        <i-col span="3">
-                                            <Icon type="edit" class="front-order-item-delete"></Icon>
-                                            <Icon type="ios-trash" class="front-order-item-delete"></Icon>
-                                        </i-col>
-                                    </Row>
-                                    <Row type="flex" align="middle" justify="center" class="front-order-item-content">
-                                        <i-col span="4">E201704290002</i-col>
-                                        <i-col span="4">李四</i-col>
-                                        <i-col span="4">男</i-col>
-                                        <i-col span="3">1870260001</i-col>
-                                        <i-col span="6">查看商品信息；查看客户信息；审核稿件；审核订单</i-col>
-                                        <i-col span="3">
-                                            <Icon type="edit" class="front-order-item-delete"></Icon>
-                                            <Icon type="ios-trash" class="front-order-item-delete"></Icon>
-                                        </i-col>
-                                    </Row>
-                                </Checkbox-group>
-
-                            </div>
+                            <Row type="flex" align="middle" class="front-order-item-title">
+                                <i-col span="3">员工编码</i-col>
+                                <i-col span="3">员工名</i-col>
+                                <i-col span="3">密码</i-col>
+                                <i-col span="3">性别</i-col>
+                                <i-col span="3">联系方式</i-col>
+                                <i-col span="6">权限</i-col>
+                                <i-col span="3">操作</i-col>
+                            </Row>
+                            <Row type="flex" align="middle" justify="center"
+                                 class="front-order-item-content" v-for="emp in empList">
+                                <i-col span="3">{{emp.empId}}</i-col>
+                                <i-col span="3">{{emp.empName}}</i-col>
+                                <i-col span="3">***********</i-col>
+                                <i-col span="3">
+                                    <span v-if="emp.empSex==null">--</span>
+                                    <span v-if="emp.empSex=='F'">女</span>
+                                    <span v-if="emp.empSex=='M'">男</span>
+                                </i-col>
+                                <i-col span="3">
+                                    <span v-if="emp.empTel==null">--</span>
+                                    <span v-else>{{emp.empTel}}</span>
+                                </i-col>
+                                <i-col span="6">
+                                    <span v-if="emp.empLimName==null">--</span>
+                                    <span v-else>{{emp.empLimName}}</span>
+                                </i-col>
+                                <i-col span="3">
+                                    <Icon type="edit" class="front-order-item-delete"></Icon>
+                                    <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                </i-col>
+                            </Row>
+                            <Page show-total class="page-position"
+                                  :current="page.currentPage"
+                                  :total="page.totalRow" :page-size="page.pageSize"
+                                  @on-change="pageChange"></Page>
                         </div>
                     </div>
                 </div>
@@ -113,11 +114,16 @@
             </i-col>
         </Row>
     </div>
+
+    <Spin fix v-if="isLoading">
+        <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+        <div>Loading</div>
+    </Spin>
     <Modal
             :visible.sync="addModal"
             title="添加员工信息"
             :loading="addLoading"
-            @on-ok="add"
+            @on-ok="insertEmployee"
             @on-cancel="addModal = false">
         <i-form v-ref:emp-form-validate :model="empFormValidate" :rules="empRuleValidate" :label-width="80">
             <Form-item label="员工名" prop="empName">
@@ -126,7 +132,44 @@
             <Form-item label="密码" prop="empPassword">
                 <i-input type="password" :value.sync="empFormValidate.empPassword"></i-input>
             </Form-item>
+            <Form-item label="性别">
+                <Radio-group :model.sync="empSex">
+                    <Radio value="M">男</Radio>
+                    <Radio value="F">女</Radio>
+                </Radio-group>
+            </Form-item>
+            <Form-item label="联系方式">
+                <i-input type="text" :value.sync="empTel"></i-input>
+            </Form-item>
+            <Form-item label="权限">
+                <i-select :model.sync="addLimitList" multiple filterable>
+                    <i-option v-for="limit in limitList" :value="limit.limId">{{ limit.limName }}</i-option>
+                </i-select>
+            </Form-item>
         </i-form>
+    </Modal>
+    <Modal
+            :visible.sync="editModal"
+            title="修改权限信息"
+            :loading="editLoading"
+            @on-ok="updateLimit"
+            @on-cancel="editModal = false">
+        <i-form v-ref:emp-form-validate :model="formValidate" :rules="ruleValidate" :label-width="80">
+            <Form-item label="权限名" prop="limName">
+                <i-input type="text" :value.sync="editLimName"></i-input>
+            </Form-item>
+            <Form-item label="权限细则">
+                <i-input type="text" :value.sync="editLimDesc"></i-input>
+            </Form-item>
+        </i-form>
+    </Modal>
+    <Modal
+            :visible.sync="deleteModal"
+            title="删除权限信息"
+            :loading="deleteLoading"
+            @on-ok="deleteLimit"
+            @on-cancel="deleteModal = false">
+        <p>是否确认删除--{{delItem.limName}}</p>
     </Modal>
 </template>
 
@@ -139,26 +182,74 @@
         components: {},
         data () {
             return {
+                page:{
+                    currentPage:1,
+                    pageSize:6,
+                    totalPage:1,
+                    totalRow:0
+                },
                 search:'',
                 empName:'',
                 isLogin:false,
+                isLoading:true,
                 addModal:false,
                 addLoading:true,
+                deleteModal:false,
+                deleteLoading:true,
+                editModal:false,
+                editLoading:true,
+                delItem:'',
+
+                empId:'',
                 empFormValidate: {
                     empName: '',
                     empPassword: ''
                 },
+                empSex:'',
+                empTel:'',
+                addLimitList:[],    //选择的权限列表
                 empRuleValidate: {
                     empName: [
                         {required: true, message: '用户名不能为空', trigger: 'blur'}
                     ],
                     empPassword: [
                         {required: true, message: '密码不能为空', trigger: 'blur'}
-                    ]
-                }
+                    ],
+                },  //验证
+
+
+                empList:[],     //员工列表
+                limitList:[],   //所有权限列表
+
             }
         },
         methods: {
+            getNowFormatDate() {
+                var date = new Date();
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                var hour = date.getHours();
+                var minute = date.getMinutes();
+                var second = date.getSeconds();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                if (hour >= 0 && hour <= 9) {
+                    hour = "0" + hour;
+                }
+                if (minute >= 0 && minute <= 9) {
+                    minute = "0" + minute;
+                }
+                if (second >= 0 && second <= 9) {
+                    second = "0" + second;
+                }
+                var currentdate = date.getFullYear() + month + strDate
+                        + hour + minute + second;
+                return currentdate;
+            },
             loginOut(){
                 var self = this;
                 localStorage.removeItem('EMPNAME');
@@ -169,15 +260,102 @@
                     self.isLogin = false;
                 },1000);
             },
-            add () {
+            queryAllEmployee(){
                 var self = this
-                setTimeout(() => {
-                    self.addLoading = false;
-                    self.addModal = false;
-                    self.$Message.info('添加成功');
-                }, 2000);
-
-            }
+                self.isLoading = true
+                var data = {
+                    currentPage:self.page.currentPage,
+                    pageSize:self.page.pageSize
+                };
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryAllEmployeePage',
+                    params:data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        self.empList = res.data.data.list;
+                        self.page.currentPage = res.data.data.currentPage;
+                        self.page.pageSize = res.data.data.pageSize;
+                        self.page.totalPage = res.data.data.totalPage;
+                        self.page.totalRow = res.data.data.totalRow;
+                        self.isLoading = false
+                    } else {
+                        self.$Message.success('员工查询错误！');
+                    }
+                })
+            },
+            queryAllLimit(){
+                var self = this
+                var data = {
+                    currentPage:self.page.currentPage,
+                    pageSize:self.page.pageSize
+                };
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryAllLimit',
+                    params:data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        self.limitList = res.data.data;
+                    } else {
+                        self.$Message.success('权限查询错误！');
+                    }
+                })
+            },
+            insertEmployee(){
+                var self = this
+                self.empId = 'E'+self.getNowFormatDate();
+                var data = {
+                    empId:self.empId,
+                    empName:self.empFormValidate.empName,
+                    empPassword:self.empFormValidate.empPassword,
+                    empSex:self.empSex,
+                    empTel:self.empTel
+                };
+                console.log(JSON.stringify(self.addLimitList))
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/insertEmployee',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        for(var i=0;i<self.addLimitList.length;i++){
+                            self.insertEmpLimit(self.addLimitList[i]);
+                        }
+                        self.addLoading = false;
+                        self.addModal = false;
+                        self.empFormValidate.empName='';
+                        self.empFormValidate.empPassword='';
+                        self.empSex='';
+                        self.empTel='';
+                        self.addLimitList=[];
+                        self.$Message.success('添加成功!');
+                    }else{
+                        self.$Message.success('添加失败！');
+                    }
+                })
+            },
+            insertEmpLimit(limId){
+                var self = this
+                var edata = {
+                    empId:self.empId,
+                    limId:limId
+                }
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/insertEmpLimit',
+                    params:edata
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        self.queryAllEmployee();
+                        self.addLoading = false;
+                        self.addModal = false;
+                        self.$Message.success('添加成功!');
+                    }else{
+                        self.$Message.success('添加失败！');
+                    }
+                })
+            },
         },
         ready () {
             var self = this;
@@ -187,6 +365,8 @@
             }else{
                 self.isLogin = false;
             }
+            self.queryAllEmployee();
+            self.queryAllLimit();
         }
     }
 </script>
