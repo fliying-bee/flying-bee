@@ -97,8 +97,12 @@
                                     <span v-else>{{emp.empLimName}}</span>
                                 </i-col>
                                 <i-col span="3">
-                                    <Icon type="edit" class="front-order-item-delete"></Icon>
-                                    <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                    <Icon type="edit" class="front-order-item-delete"
+                                          @click="editModal=true,editEmpName=emp.empName,editEmpTel=emp.empTel,
+                                          editEmpPassword=emp.empPassword,editEmpSex=emp.empSex,
+                                          editEmpId=emp.empId,editLimitList=emp.empLimId.split(',')"></Icon>
+                                    <Icon type="ios-trash" class="front-order-item-delete"
+                                          @click="deleteModal=true,delItem=emp"></Icon>
                                 </i-col>
                             </Row>
                             <Page show-total class="page-position"
@@ -150,16 +154,30 @@
     </Modal>
     <Modal
             :visible.sync="editModal"
-            title="修改权限信息"
+            title="修改员工信息"
             :loading="editLoading"
-            @on-ok="updateLimit"
-            @on-cancel="editModal = false">
-        <i-form v-ref:emp-form-validate :model="formValidate" :rules="ruleValidate" :label-width="80">
-            <Form-item label="权限名" prop="limName">
-                <i-input type="text" :value.sync="editLimName"></i-input>
+            @on-ok="updateEmployee"
+            @on-cancel="addModal = false">
+        <i-form v-ref:emp-form-validate :model="empFormValidate" :rules="empRuleValidate" :label-width="80">
+            <Form-item label="员工名" prop="empName">
+                <i-input type="text" :value.sync="editEmpName"></i-input>
             </Form-item>
-            <Form-item label="权限细则">
-                <i-input type="text" :value.sync="editLimDesc"></i-input>
+            <Form-item label="密码" prop="empPassword">
+                <i-input type="password" :value.sync="editEmpPassword"></i-input>
+            </Form-item>
+            <Form-item label="性别">
+                <Radio-group :model.sync="editEmpSex">
+                    <Radio value="M">男</Radio>
+                    <Radio value="F">女</Radio>
+                </Radio-group>
+            </Form-item>
+            <Form-item label="联系方式">
+                <i-input type="text" :value.sync="editEmpTel"></i-input>
+            </Form-item>
+            <Form-item label="权限">
+                <i-select :model.sync="editLimitList" multiple filterable>
+                    <i-option v-for="limit in limitList" :value="limit.limId">{{ limit.limName }}</i-option>
+                </i-select>
             </Form-item>
         </i-form>
     </Modal>
@@ -182,6 +200,7 @@
         components: {},
         data () {
             return {
+                //分页及其他固定项
                 page:{
                     currentPage:1,
                     pageSize:6,
@@ -192,14 +211,23 @@
                 empName:'',
                 isLogin:false,
                 isLoading:true,
+                //模态框
                 addModal:false,
                 addLoading:true,
                 deleteModal:false,
                 deleteLoading:true,
                 editModal:false,
                 editLoading:true,
+                //删除
                 delItem:'',
-
+                //修改
+                editEmpId:'',
+                editEmpName:'',
+                editEmpPassword:'',
+                editEmpSex:'',
+                editEmpTel:'',
+                editLimitList:[],
+                //插入
                 empId:'',
                 empFormValidate: {
                     empName: '',
@@ -216,7 +244,6 @@
                         {required: true, message: '密码不能为空', trigger: 'blur'}
                     ],
                 },  //验证
-
 
                 empList:[],     //员工列表
                 limitList:[],   //所有权限列表
@@ -280,7 +307,7 @@
                         self.page.totalRow = res.data.data.totalRow;
                         self.isLoading = false
                     } else {
-                        self.$Message.success('员工查询错误！');
+                        self.$Message.error('员工查询错误！');
                     }
                 })
             },
@@ -298,15 +325,15 @@
                     if (res.data.code == "OK") {
                         self.limitList = res.data.data;
                     } else {
-                        self.$Message.success('权限查询错误！');
+                        self.$Message.error('权限查询错误！');
                     }
                 })
             },
             insertEmployee(){
                 var self = this
-                self.empId = 'E'+self.getNowFormatDate();
+                var empId = 'E'+self.getNowFormatDate();
                 var data = {
-                    empId:self.empId,
+                    empId:empId,
                     empName:self.empFormValidate.empName,
                     empPassword:self.empFormValidate.empPassword,
                     empSex:self.empSex,
@@ -320,7 +347,7 @@
                 }).then(function(res){
                     if(res.data.code=="OK"){
                         for(var i=0;i<self.addLimitList.length;i++){
-                            self.insertEmpLimit(self.addLimitList[i]);
+                            self.insertEmpLimit(self.addLimitList[i],empId);
                         }
                         self.addLoading = false;
                         self.addModal = false;
@@ -331,14 +358,14 @@
                         self.addLimitList=[];
                         self.$Message.success('添加成功!');
                     }else{
-                        self.$Message.success('添加失败！');
+                        self.$Message.error('添加员工失败！');
                     }
                 })
             },
-            insertEmpLimit(limId){
+            insertEmpLimit(limId,empId){
                 var self = this
                 var edata = {
-                    empId:self.empId,
+                    empId:empId,
                     limId:limId
                 }
                 self.$http({
@@ -350,12 +377,57 @@
                         self.queryAllEmployee();
                         self.addLoading = false;
                         self.addModal = false;
-                        self.$Message.success('添加成功!');
                     }else{
-                        self.$Message.success('添加失败！');
+                        self.$Message.error('添加员工权限失败！');
                     }
                 })
             },
+            updateEmployee(){
+                var self = this
+                self.deleteEmpLimit(self.editEmpId);
+                var data = {
+                    empId:self.editEmpId,
+                    empName:self.editEmpName,
+                    empPassword:self.editEmpPassword,
+                    empSex:self.editEmpSex,
+                    empTel:self.editEmpTel
+                };
+                console.log(JSON.stringify(data))
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/updateEmployee',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        for(var i=0;i<self.editLimitList.length;i++){
+                            self.insertEmpLimit(self.editLimitList[i],self.editEmpId);
+                        }
+                        self.queryAllLimit();
+                        self.editLoading = false;
+                        self.editModal = false;
+                        self.$Message.success('修改成功！');
+                    }else{
+                        self.$Message.error('修改员工失败！');
+                    }
+                })
+            },
+            deleteEmpLimit(empId){
+                var self = this
+                var data = {
+                    empId:empId
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/deleteEmpLimit',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+
+                    }else{
+                        self.$Message.error('删除员工权限失败！');
+                    }
+                })
+            }
         },
         ready () {
             var self = this;

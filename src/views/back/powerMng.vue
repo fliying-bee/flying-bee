@@ -92,7 +92,8 @@
                                     </i-col>
                                     <i-col span="3">
                                         <Icon type="edit" class="front-order-item-delete"
-                                              @click="editModal=true,editLimName=limit.limName,editLimDesc=limit.limDesc,editLimId=limit.limId"></Icon>
+                                              @click="editModal=true,editLimName=limit.limName,
+                                              editLimDesc=limit.limDesc,editLimId=limit.limId"></Icon>
                                         <Icon type="ios-trash" class="front-order-item-delete"
                                               @click="deleteModal=true,delItem=limit"></Icon>
                                     </i-col>
@@ -165,6 +166,7 @@
         components: {},
         data () {
             return {
+                //分页及其他固定项
                 page:{
                     currentPage:1,
                     pageSize:6,
@@ -175,20 +177,20 @@
                 empName:'',
                 isLogin:false,
                 isLoading:true,
-
-                limitList:[],
-
+                //模态框
                 addModal:false,
                 addLoading:true,
                 deleteModal:false,
                 deleteLoading:true,
                 editModal:false,
                 editLoading:true,
+                //删除
                 delItem:'',
-                limDesc:'',
+                //修改
                 editLimId:'',
                 editLimDesc:'',
                 editLimName:'',
+                //插入及验证
                 formValidate: {
                     limName: ''
                 },
@@ -196,7 +198,10 @@
                     limName: [
                         {required: true, message: '权限名不能为空', trigger: 'blur'}
                     ]
-                }
+                },
+                limDesc:'',
+
+                limitList:[],//权限列表
             }
         },
         methods: {
