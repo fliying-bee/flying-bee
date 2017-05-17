@@ -63,7 +63,8 @@
                             <Row type="flex" justify="center" align="middle">
                                 <i-col span="2">员工编码：</i-col>
                                 <i-col span="4">
-                                    <i-input :value.sync="search" icon="ios-search" style="width: 200px"></i-input>
+                                    <i-input :value.sync="search" icon="ios-search"
+                                             style="width: 200px" @on-click="queryEmployeeById"></i-input>
                                 </i-col>
                                 <i-col span="2" offset="16">
                                     <i-button type="primary" @click="addModal=true">添加员工</i-button>
@@ -97,8 +98,13 @@
                                     <span v-else>{{emp.empLimName}}</span>
                                 </i-col>
                                 <i-col span="3">
-                                    <Icon type="edit" class="front-order-item-delete"></Icon>
-                                    <Icon type="ios-trash" class="front-order-item-delete"></Icon>
+                                    <Icon type="edit" class="front-order-item-delete"
+                                          @click="editModal=true,editEmpName=emp.empName,
+                                          editEmpTel=emp.empTel,editAddLimitList=emp.empLimId.split(','),
+                                          editEmpPassword=emp.empPassword,editEmpSex=emp.empSex,
+                                          editEmpId=emp.empId,editLimitList=emp.empLimId.split(',')"></Icon>
+                                    <Icon type="ios-trash" class="front-order-item-delete"
+                                          @click="deleteModal=true,delItem=emp"></Icon>
                                 </i-col>
                             </Row>
                             <Page show-total class="page-position"
@@ -150,26 +156,40 @@
     </Modal>
     <Modal
             :visible.sync="editModal"
-            title="修改权限信息"
+            title="修改员工信息"
             :loading="editLoading"
-            @on-ok="updateLimit"
-            @on-cancel="editModal = false">
-        <i-form v-ref:emp-form-validate :model="formValidate" :rules="ruleValidate" :label-width="80">
-            <Form-item label="权限名" prop="limName">
-                <i-input type="text" :value.sync="editLimName"></i-input>
+            @on-ok="updateEmployee"
+            @on-cancel="addModal = false">
+        <i-form v-ref:emp-form-validate :model="empFormValidate" :rules="empRuleValidate" :label-width="80">
+            <Form-item label="员工名" prop="empName">
+                <i-input type="text" :value.sync="editEmpName"></i-input>
             </Form-item>
-            <Form-item label="权限细则">
-                <i-input type="text" :value.sync="editLimDesc"></i-input>
+            <Form-item label="密码" prop="empPassword">
+                <i-input type="password" :value.sync="editEmpPassword"></i-input>
+            </Form-item>
+            <Form-item label="性别">
+                <Radio-group :model.sync="editEmpSex">
+                    <Radio value="M">男</Radio>
+                    <Radio value="F">女</Radio>
+                </Radio-group>
+            </Form-item>
+            <Form-item label="联系方式">
+                <i-input type="text" :value.sync="editEmpTel"></i-input>
+            </Form-item>
+            <Form-item label="权限">
+                <i-select :model.sync="editLimitList" multiple filterable>
+                    <i-option v-for="limit in limitList" :value="limit.limId">{{ limit.limName }}</i-option>
+                </i-select>
             </Form-item>
         </i-form>
     </Modal>
     <Modal
             :visible.sync="deleteModal"
-            title="删除权限信息"
+            title="删除员工信息"
             :loading="deleteLoading"
-            @on-ok="deleteLimit"
+            @on-ok="deleteEmployee"
             @on-cancel="deleteModal = false">
-        <p>是否确认删除--{{delItem.limName}}</p>
+        <p>是否确认删除--{{delItem.empName}}</p>
     </Modal>
 </template>
 
@@ -182,6 +202,7 @@
         components: {},
         data () {
             return {
+                //分页及其他固定项
                 page:{
                     currentPage:1,
                     pageSize:6,
@@ -192,14 +213,24 @@
                 empName:'',
                 isLogin:false,
                 isLoading:true,
+                //模态框
                 addModal:false,
                 addLoading:true,
                 deleteModal:false,
                 deleteLoading:true,
                 editModal:false,
                 editLoading:true,
+                //删除
                 delItem:'',
-
+                //修改
+                editEmpId:'',
+                editEmpName:'',
+                editEmpPassword:'',
+                editEmpSex:'',
+                editEmpTel:'',
+                editLimitList:[],
+                editAddLimitList:[],    //保存选择的权限以删除
+                //插入
                 empId:'',
                 empFormValidate: {
                     empName: '',
@@ -216,7 +247,6 @@
                         {required: true, message: '密码不能为空', trigger: 'blur'}
                     ],
                 },  //验证
-
 
                 empList:[],     //员工列表
                 limitList:[],   //所有权限列表
@@ -280,7 +310,7 @@
                         self.page.totalRow = res.data.data.totalRow;
                         self.isLoading = false
                     } else {
-                        self.$Message.success('员工查询错误！');
+                        self.$Message.error('员工查询错误！');
                     }
                 })
             },
@@ -298,15 +328,15 @@
                     if (res.data.code == "OK") {
                         self.limitList = res.data.data;
                     } else {
-                        self.$Message.success('权限查询错误！');
+                        self.$Message.error('权限查询错误！');
                     }
                 })
             },
             insertEmployee(){
                 var self = this
-                self.empId = 'E'+self.getNowFormatDate();
+                var empId = 'E'+self.getNowFormatDate();
                 var data = {
-                    empId:self.empId,
+                    empId:empId,
                     empName:self.empFormValidate.empName,
                     empPassword:self.empFormValidate.empPassword,
                     empSex:self.empSex,
@@ -320,7 +350,7 @@
                 }).then(function(res){
                     if(res.data.code=="OK"){
                         for(var i=0;i<self.addLimitList.length;i++){
-                            self.insertEmpLimit(self.addLimitList[i]);
+                            self.insertEmpLimit(self.addLimitList[i],empId);
                         }
                         self.addLoading = false;
                         self.addModal = false;
@@ -331,14 +361,14 @@
                         self.addLimitList=[];
                         self.$Message.success('添加成功!');
                     }else{
-                        self.$Message.success('添加失败！');
+                        self.$Message.error('添加员工失败！');
                     }
                 })
             },
-            insertEmpLimit(limId){
+            insertEmpLimit(limId,empId){
                 var self = this
                 var edata = {
-                    empId:self.empId,
+                    empId:empId,
                     limId:limId
                 }
                 self.$http({
@@ -348,14 +378,131 @@
                 }).then(function(res){
                     if(res.data.code=="OK"){
                         self.queryAllEmployee();
-                        self.addLoading = false;
-                        self.addModal = false;
-                        self.$Message.success('添加成功!');
                     }else{
-                        self.$Message.success('添加失败！');
+                        self.$Message.error('添加员工权限失败！');
                     }
                 })
             },
+            updateEmployee(){
+                var self = this
+                var insertLimitList=[];
+                var deleteLimitList=[];
+                for(var i=0;i<self.editAddLimitList.length;i++){
+                    if(self.editLimitList.indexOf(self.editAddLimitList[i])==-1){
+                        deleteLimitList.push(self.editAddLimitList[i])
+                    }
+                }
+                for (var j=0;j<self.editLimitList.length;j++){
+                    if(self.editAddLimitList.indexOf(self.editLimitList[j])==-1){
+                        insertLimitList.push(self.editLimitList[j])
+                    }
+                }
+
+                var data = {
+                    empId:self.editEmpId,
+                    empName:self.editEmpName,
+                    empPassword:self.editEmpPassword,
+                    empSex:self.editEmpSex,
+                    empTel:self.editEmpTel
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/updateEmployee',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        if(insertLimitList.length!=0){
+                            for(var i=0;i<insertLimitList.length;i++){
+                                self.insertEmpLimit(insertLimitList[i],self.editEmpId);
+                            }
+                        }
+                        if(deleteLimitList.length!=0){
+                            for(var i=0;i<deleteLimitList.length;i++){
+                                self.deleteEmpLimit(deleteLimitList[i],self.editEmpId);
+                            }
+                        }
+
+                        self.editLoading = false;
+                        self.editModal = false;
+                        self.$Message.success('修改成功！');
+                    }else{
+                        self.$Message.error('修改员工失败！');
+                    }
+                })
+            },
+            deleteEmpLimit(limId,empId){
+                var self = this
+                var data = {
+                    empId:empId,
+                    limId:limId
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/deleteEmpLimit',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        self.queryAllEmployee();
+                    }else{
+                        self.$Message.error('删除员工权限失败！');
+                    }
+                })
+            },
+            deleteEmployee(){
+                var self = this
+                var deleteLimitList=self.delItem.empLimId.split(',');
+                var data = {
+                    empId:self.delItem.empId
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/deleteEmployee',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        if(deleteLimitList.length!=0){
+                            for(var i=0;i<deleteLimitList.length;i++){
+                                self.deleteEmpLimit(deleteLimitList[i],self.delItem.empId);
+                            }
+                        }
+                        self.queryAllLimit();
+                        self.deleteLoading = false;
+                        self.deleteModal = false;
+                        self.$Message.success('删除成功!');
+                    }else{
+                        self.$Message.success('删除失败！');
+                    }
+                })
+            },
+            queryEmployeeById(){
+                var self = this
+                if(self.search==''){
+
+                }else {
+                    self.page.currentPage = 1;
+                    self.isLoading = true
+                    var data = {
+                        empId:self.search
+                    };
+                    self.$http({
+                        method: 'GET',
+                        url: 'http://127.0.0.1:8080/Spring-study/queryEmployeeById',
+                        params: data
+                    }).then(function (res) {
+                        if (res.data.code == "OK") {
+                            self.empList = [];
+                            if(res.data.data!=null){
+                                self.empList.push(res.data.data)
+                            }
+                            self.page.totalRow = self.empList.length;
+                            self.isLoading = false
+                            self.$Message.success('查询成功!');
+                        } else {
+                            self.$Message.error('员工查询错误！');
+                        }
+                    })
+                }
+            }
         },
         ready () {
             var self = this;

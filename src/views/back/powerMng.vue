@@ -92,7 +92,8 @@
                                     </i-col>
                                     <i-col span="3">
                                         <Icon type="edit" class="front-order-item-delete"
-                                              @click="editModal=true,editLimName=limit.limName,editLimDesc=limit.limDesc,editLimId=limit.limId"></Icon>
+                                              @click="editModal=true,editLimName=limit.limName,
+                                              editLimDesc=limit.limDesc,editLimId=limit.limId"></Icon>
                                         <Icon type="ios-trash" class="front-order-item-delete"
                                               @click="deleteModal=true,delItem=limit"></Icon>
                                     </i-col>
@@ -165,6 +166,7 @@
         components: {},
         data () {
             return {
+                //分页及其他固定项
                 page:{
                     currentPage:1,
                     pageSize:6,
@@ -175,20 +177,20 @@
                 empName:'',
                 isLogin:false,
                 isLoading:true,
-
-                limitList:[],
-
+                //模态框
                 addModal:false,
                 addLoading:true,
                 deleteModal:false,
                 deleteLoading:true,
                 editModal:false,
                 editLoading:true,
+                //删除
                 delItem:'',
-                limDesc:'',
+                //修改
                 editLimId:'',
                 editLimDesc:'',
                 editLimName:'',
+                //插入及验证
                 formValidate: {
                     limName: ''
                 },
@@ -196,7 +198,10 @@
                     limName: [
                         {required: true, message: '权限名不能为空', trigger: 'blur'}
                     ]
-                }
+                },
+                limDesc:'',
+
+                limitList:[],//权限列表
             }
         },
         methods: {
@@ -256,7 +261,7 @@
                         self.page.totalRow = res.data.data.totalRow;
                         self.isLoading = false
                     } else {
-                        self.$Message.success('权限查询错误！');
+                        self.$Message.error('权限查询错误！');
                     }
                 })
             },
@@ -282,7 +287,7 @@
                         self.limDesc='';
                         self.$Message.success('添加成功!');
                     }else{
-                        self.$Message.success('添加失败！');
+                        self.$Message.error('添加失败！');
                     }
                 })
             },
@@ -302,7 +307,7 @@
                         self.deleteModal = false;
                         self.$Message.success('删除成功!');
                     }else{
-                        self.$Message.success('删除失败！');
+                        self.$Message.error('删除失败！');
                     }
                 })
             },
@@ -324,14 +329,14 @@
                         self.editModal = false;
                         self.$Message.success('修改成功!');
                     }else{
-                        self.$Message.success('修改失败！');
+                        self.$Message.error('修改失败！');
                     }
                 })
             },
             queryLimitById(){
                 var self = this
                 if(self.search==''){
-                    self.queryAllLimit()
+
                 }else{
                     self.page.currentPage = 1;
                     self.isLoading = true
@@ -352,7 +357,7 @@
                             self.isLoading = false
                             self.$Message.success('查询成功!');
                         }else{
-                            self.$Message.success('查询失败！');
+                            self.$Message.error('查询失败！');
                         }
                     })
                 }
