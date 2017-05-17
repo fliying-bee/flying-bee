@@ -7,17 +7,17 @@
         </div>
         <div class="back-header-nav">
             <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>
-            <Dropdown>
+            <Dropdown v-if="isLogin">
                 <i-button type="text" class="header-hover">
-                    您好，XXX
+                    您好，{{empName}}
                     <Icon type="arrow-down-b"></Icon>
                 </i-button>
                 <Dropdown-menu slot="list">
                     <Dropdown-item v-link="{path:'/back/backPersonInfor'}">个人中心</Dropdown-item>
-                    <Dropdown-item v-link="{path:'/login'}">退出</Dropdown-item>
+                    <Dropdown-item @click="loginOut()">退出</Dropdown-item>
                 </Dropdown-menu>
             </Dropdown>
-            <!--<i-button  >个人中心</i-button>-->
+            <i-button v-else v-link="{path:'/back/backPersonInfor'}" type="text" class="header-hover">个人中心</i-button>
         </div>
     </div>
 
@@ -61,74 +61,56 @@
                 <div class="back-content">
                     <div class="back-content-main">
                         <div class="back-order-search">
-                            <row>
-                                <i-col span="2">厂家编码</i-col>
+                            <Row type="flex" justify="center" align="middle">
+                                <i-col span="2">厂家编码：</i-col>
                                 <i-col span="4">
-                                    <i-input type="text"></i-input>
+                                    <i-input :value.sync="search"
+                                             icon="ios-search"
+                                             style="width: 200px"
+                                             @on-click="queryFactoryById"></i-input>
                                 </i-col>
-                                <i-col span="1" offset="17">
-                                    <Icon type="ios-plus-outline" class="front-order-item-delete"></Icon>
-                                    <Icon type="ios-trash" class="front-order-item-delete"></Icon>
-                                    <!--<i-button type="text">付款</i-button>-->
+                                <i-col span="2" offset="16">
+                                    <i-button type="primary" @click="addModal=true">添加厂家</i-button>
                                 </i-col>
-                            </row>
+                            </Row>
                             <div>
                                 <Row type="flex" align="middle" class="front-order-item-title">
-                                    <i-col span="1">
-                                        <Checkbox
-                                                :indeterminate="indeterminate"
-                                                :checked="checkAll"
-                                                @click.prevent="handleCheckAll">
-                                        </Checkbox>
-                                    </i-col>
-                                    <i-col span="4">厂家编码</i-col>
+                                    <i-col span="5">厂家编码</i-col>
                                     <i-col span="4">厂家名</i-col>
                                     <i-col span="4">联系方式</i-col>
-                                    <i-col span="5">地址</i-col>
+                                    <i-col span="5">厂家地址</i-col>
                                     <i-col span="3">操作</i-col>
                                     <i-col span="3">更多</i-col>
                                 </Row>
 
-                                <Row type="flex" align="middle" justify="center" class="front-order-item-content">
-                                    <i-col span="1">
-                                        <Checkbox
-                                                :indeterminate="indeterminate"
-                                                :checked="checkAll"
-                                                @click.prevent="handleCheckAll">
-                                        </Checkbox>
+                                <Row type="flex" align="middle" justify="center"
+                                     class="front-order-item-content" v-for="factory in factoryList">
+                                    <i-col span="5">
+                                        {{factory.facId}}
                                     </i-col>
-                                    <i-col span="4">F201704290001</i-col>
-                                    <i-col span="4">红领服饰</i-col>
-                                    <i-col span="4">0931-88888888</i-col>
-                                    <i-col span="5">江西省南昌市昌北经济开发区</i-col>
-                                    <i-col span="3">
-                                        <Icon type="edit"></Icon>
-                                        <Icon type="ios-trash"></Icon>
+                                    <i-col span="4">
+                                        {{factory.facName}}
+                                    </i-col>
+                                    <i-col span="4">
+                                        {{factory.facTel}}
+                                    </i-col>
+                                    <i-col span="5">
+                                        {{factory.facAddr}}
                                     </i-col>
                                     <i-col span="3">
-                                        <i-button>下单</i-button>
-                                    </i-col>
-                                </Row>
-                                <Row type="flex" align="middle" justify="center" class="front-order-item-content">
-                                    <i-col span="1">
-                                        <Checkbox
-                                                :indeterminate="indeterminate"
-                                                :checked="checkAll"
-                                                @click.prevent="handleCheckAll">
-                                        </Checkbox>
-                                    </i-col>
-                                    <i-col span="4">F201704297001</i-col>
-                                    <i-col span="4">秋意浓</i-col>
-                                    <i-col span="4">0931-88888999</i-col>
-                                    <i-col span="5">浙江省杭州市滨江区</i-col>
-                                    <i-col span="3">
-                                        <Icon type="edit"></Icon>
-                                        <Icon type="ios-trash"></Icon>
+                                        <Icon type="edit" class="front-order-item-delete"
+                                              @click="editModal=true,editFacName=factory.facName,editFacAddr=factory.FacAddr,editFacTel=factory.facTel,editFacId=factory.facId"></Icon>
+                                        <Icon type="ios-trash" class="front-order-item-delete"
+                                              @click="deleteModal=true,delItem=factory"></Icon>
                                     </i-col>
                                     <i-col span="3">
                                         <i-button>下单</i-button>
                                     </i-col>
                                 </Row>
+                                <Page show-total class="page-position"
+                                      :current="page.currentPage"
+                                      :total="page.totalRow" :page-size="page.pageSize"
+                                      @on-change="pageChange"></Page>
                             </div>
                         </div>
                     </div>
@@ -138,6 +120,54 @@
                 </div>
             </i-col>
         </Row>
+        <Spin fix v-if="isLoading">
+            <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+            <div>Loading</div>
+        </Spin>
+        <Modal
+                :visible.sync="addModal"
+                title="添加厂家信息"
+                :loading="addLoading"
+                @on-ok="insertFactory"
+                @on-cancel="addModal = false">
+            <i-form v-ref:form-validate :model="formValidate" :rules="ruleValidate" :label-width="80">
+                <Form-item label="厂家名" prop="facName">
+                    <i-input type="text" :value.sync="formValidate.facName"></i-input>
+                </Form-item>
+                <Form-item label="联系方式">
+                    <i-input type="text" :value.sync="facTel"></i-input>
+                </Form-item>
+                <Form-item label="厂家地址">
+                    <i-input type="text" :value.sync="facAddr"></i-input>
+                </Form-item>
+            </i-form>
+        </Modal>
+        <Modal
+                :visible.sync="editModal"
+                title="修改厂家信息"
+                :loading="editLoading"
+                @on-ok="updateFactory"
+                @on-cancel="editModal = false">
+            <i-form v-ref:emp-form-validate :model="formValidate" :rules="ruleValidate" :label-width="80">
+                <Form-item label="厂家名" prop="facName">
+                    <i-input type="text" :value.sync="editFacName"></i-input>
+                </Form-item>
+                <Form-item label="联系方式">
+                    <i-input type="text" :value.sync="editFacTel"></i-input>
+                </Form-item>
+                <Form-item label="厂家地址">
+                    <i-input type="text" :value.sync="editFacAddr"></i-input>
+                </Form-item>
+            </i-form>
+        </Modal>
+        <Modal
+                :visible.sync="deleteModal"
+                title="删除厂家信息"
+                :loading="deleteLoading"
+                @on-ok="deleteFactory"
+                @on-cancel="deleteModal = false">
+            <p>是否确认删除--{{delItem.facName}}</p>
+        </Modal>
     </div>
 </template>
 
@@ -149,11 +179,220 @@
     export default {
         components: {},
         data () {
-            return {}
-        },
-        methods: {},
-        ready () {
+            return {
+                page:{
+                    currentPage:1,
+                    pageSize:6,
+                    totalPage:1,
+                    totalRow:0
+                },
+                search:'',
+                empName:'',
+                isLogin:false,
+                isLoading:true,
 
+                factoryList:[],
+
+                addModal:false,
+                addLoading:true,
+                deleteModal:false,
+                deleteLoading:true,
+                editModal:false,
+                editLoading:true,
+
+                delItem:'',
+                facTel:'',
+                facAddr:'',
+                editFacId:'',
+                editFacTel:'',
+                editFacName:'',
+                editFacAddr:'',
+                formValidate: {
+                    facName: ''
+                },
+                ruleValidate: {
+                    limName: [
+                        {required: true, message: '厂家名不能为空', trigger: 'blur'}
+                    ]
+                }
+            }
+        },
+        methods: {
+            getNowFormatDate() {
+                var date = new Date();
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                var hour = date.getHours();
+                var minute = date.getMinutes();
+                var second = date.getSeconds();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                if (hour >= 0 && hour <= 9) {
+                    hour = "0" + hour;
+                }
+                if (minute >= 0 && minute <= 9) {
+                    minute = "0" + minute;
+                }
+                if (second >= 0 && second <= 9) {
+                    second = "0" + second;
+                }
+                var currentdate = date.getFullYear() + month + strDate
+                        + hour + minute + second;
+                return currentdate;
+            },
+            loginOut(){
+                var self = this;
+                localStorage.removeItem('EMPNAME');
+                localStorage.removeItem('EMPID');
+                self.$Message.success('退出成功！');
+                setTimeout(()=>{
+                    self.$router.go('/login');
+                    self.isLogin = false;
+                },1000);
+            },
+            queryAllFactory(){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    currentPage:self.page.currentPage,
+                    pageSize:self.page.pageSize
+                };
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryAllFactoryPage',
+                    params:data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        self.factoryList = res.data.data.list;
+                        self.page.currentPage = res.data.data.currentPage;
+                        self.page.pageSize = res.data.data.pageSize;
+                        self.page.totalPage = res.data.data.totalPage;
+                        self.page.totalRow = res.data.data.totalRow;
+                        self.isLoading = false
+                    } else {
+                        self.$Message.success('厂家查询错误！');
+                    }
+                })
+            },
+            insertFactory(){
+                var self = this
+                var facId = 'F'+self.getNowFormatDate();
+                var data = {
+                    facId:facId,
+                    facName:self.formValidate.facName,
+                    facTel:self.facTel,
+                    facAddr:self.facAddr,
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/insertFactory',
+                    params:data
+                }).then(function(res){
+                    console.log(JSON.stringify(res))
+                    if(res.data.code=="OK"){
+                        self.queryAllFactory();
+                        self.addLoading = false;
+                        self.addModal = false;
+                        self.formValidate.facName='';
+                        self.facTel='';
+                        self.facAddr='';
+                        self.$Message.success('添加成功!');
+                    }else{
+                        self.$Message.success('添加失败！');
+                    }
+                })
+            },
+            deleteFactory(){
+                var self = this
+                var data = {
+                    facId:self.delItem.facId
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/deleteFactory',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        self.queryAllFactory();
+                        self.deleteLoading = false;
+                        self.deleteModal = false;
+                        self.$Message.success('删除成功!');
+                    }else{
+                        self.$Message.success('删除失败！');
+                    }
+                })
+            },
+            updateFactory(){
+                var self = this
+                var data = {
+                    facId:self.editFacId,
+                    facName:self.editFacName,
+                    facAddr:self.editFacAddr,
+                    facTel:self.editFacTel,
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/updateFactory',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        self.queryAllFactory();
+                        self.editLoading = false;
+                        self.editModal = false;
+                        self.$Message.success('修改成功!');
+                    }else{
+                        self.$Message.success('修改失败！');
+                    }
+                })
+            },
+            queryFactoryById(){
+                var self = this
+                if(self.search==''){
+                    self.queryAllFactory()
+                }else{
+                    self.page.currentPage = 1;
+                    self.isLoading = true
+                    var data = {
+                        facId:self.search
+                    };
+                    self.$http({
+                        method:'POST',
+                        url:'http://127.0.0.1:8080/Spring-study/queryFactoryById',
+                        params:data
+                    }).then(function(res){
+                        if(res.data.code=="OK"){
+                            self.factoryList = [];
+                            if(res.data.data!=null){
+                                self.factoryList.push(res.data.data)
+                            }
+                            self.page.totalRow = self.factoryList.length;
+                            self.isLoading = false
+                            self.$Message.success('查询成功!');
+                        }else{
+                            self.$Message.success('查询失败！');
+                        }
+                    })
+                }
+            },
+            pageChange(num){
+                var self = this;
+                self.page.currentPage = num;
+                self.queryAllFactory();
+            }
+        },
+        ready () {
+            var self = this;
+            if(localStorage.getItem('EMPNAME')){
+                self.empName = localStorage.getItem('EMPNAME');
+                self.isLogin = true;
+            }else{
+                self.isLogin = false;
+            }
+            self.queryAllFactory();
         }
     }
 </script>
