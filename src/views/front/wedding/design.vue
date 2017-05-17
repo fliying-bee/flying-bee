@@ -30,8 +30,8 @@
     <div class="front-nav">
         <Menu mode="horizontal" active-key="2-1">
             <div class="front-nav-logo">
-                <img src="../../../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
-                <img src="../../../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
+                <img src="/src/images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="/src/images/guyun_logo.png" alt="logo" class="front-nav-logopic">
             </div>
             <div class="front-nav-item">
                 <Menu-item key="1" v-link="{path:'/index'}">
@@ -69,64 +69,162 @@
                 <Row justify="center" align="middle">
                     <i-col span="24">
                         <div class="content-title">
-                            锦绣良缘
+                            定制婚纱礼服
                         </div>
                     </i-col>
                 </Row>
-                <Row justify="start" align="middle" class="front-content">
-                    <i-col span="6">
-                        <Card class="product-card">
-                            <div>
-                                <img src="../../../images/yangtu.png" class="product-cardpic">
-                                <div class="product-card-title">
-                                    一套基于 Vue.js 的高质量UI组件库
-                                </div>
-                                <div class="product-card-desc">
-                                    一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
-                                </div>
+                <div class=" clearfix">
+                    <Card class="product-card product-design-card">
+                        <div>
+                            <img src="/src/images/yangtu.png" class="product-cardpic">
+
+                            <div class="product-card-title">
+                                <span class="front-buy-price">¥169.00</span>
+                                <span class="front-buy-symbol">¥</span>
+                                <span class="front-buy-pricep">282.00</span>
                             </div>
-                        </Card>
-                    </i-col>
-                    <i-col span="6">
-                        <Card class="product-card">
-                            <div>
-                                <img src="../../../images/yangtu.png" class="product-cardpic">
-                                <div class="product-card-title">
-                                    一套基于 Vue.js 的高质量UI组件库
-                                </div>
-                                <div class="product-card-desc">
-                                    一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
-                                </div>
+                            <div class="product-card-desc">
+                                商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
                             </div>
-                        </Card>
-                    </i-col>
-                    <i-col span="6">
-                        <Card class="product-card">
-                            <div>
-                                <img src="../../../images/yangtu.png" class="product-cardpic">
-                                <div class="product-card-title">
-                                    一套基于 Vue.js 的高质量UI组件库
-                                </div>
-                                <div class="product-card-desc">
-                                    一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
-                                </div>
+                        </div>
+                    </Card>
+                    <Card class="product-card product-design-card">
+                        <div>
+                            <img src="/src/images/yangtu.png" class="product-cardpic">
+
+                            <div class="product-card-title">
+                                <span class="front-buy-price">¥169.00</span>
+                                <span class="front-buy-symbol">¥</span>
+                                <span class="front-buy-pricep">282.00</span>
                             </div>
-                        </Card>
-                    </i-col>
-                    <i-col span="6">
-                        <Card class="product-card">
-                            <div>
-                                <img src="../../../images/yangtu.png" class="product-cardpic">
-                                <div class="product-card-title">
-                                    一套基于 Vue.js 的高质量UI组件库
-                                </div>
-                                <div class="product-card-desc">
-                                    一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
-                                </div>
+                            <div class="product-card-desc">
+                                商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
                             </div>
-                        </Card>
+                        </div>
+                    </Card>
+                    <Card class="product-card product-design-card">
+                        <div>
+                            <img src="/src/images/yangtu.png" class="product-cardpic">
+
+                            <div class="product-card-title">
+                                <span class="front-buy-price">¥169.00</span>
+                                <span class="front-buy-symbol">¥</span>
+                                <span class="front-buy-pricep">282.00</span>
+                            </div>
+                            <div class="product-card-desc">
+                                商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
+                            </div>
+                        </div>
+                    </Card>
+                    <Card class="product-card product-design-card">
+                        <div>
+                            <img src="/src/images/yangtu.png" class="product-cardpic">
+
+                            <div class="product-card-title">
+                                <span class="front-buy-price">¥169.00</span>
+                                <span class="front-buy-symbol">¥</span>
+                                <span class="front-buy-pricep">282.00</span>
+                            </div>
+                            <div class="product-card-desc">
+                                商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
+                            </div>
+                        </div>
+                    </Card>
+                    <Card class="product-card product-design-card">
+                        <div>
+                            <img src="/src/images/yangtu.png" class="product-cardpic">
+
+                            <div class="product-card-title">
+                                <span class="front-buy-price">¥169.00</span>
+                                <span class="front-buy-symbol">¥</span>
+                                <span class="front-buy-pricep">282.00</span>
+                            </div>
+                            <div class="product-card-desc">
+                                商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
+                            </div>
+                        </div>
+                    </Card>
+                </div>
+                <!--类型一-->
+                <Row justify="center" align="middle">
+                    <i-col span="24">
+                        <div class="content-title">
+                            定制配饰
+                        </div>
                     </i-col>
                 </Row>
+                <div class=" clearfix">
+                    <Card class="product-card product-design-card">
+                        <div>
+                            <img src="/src/images/yangtu.png" class="product-cardpic">
+
+                            <div class="product-card-title">
+                                <span class="front-buy-price">¥169.00</span>
+                                <span class="front-buy-symbol">¥</span>
+                                <span class="front-buy-pricep">282.00</span>
+                            </div>
+                            <div class="product-card-desc">
+                                商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
+                            </div>
+                        </div>
+                    </Card>
+                    <Card class="product-card product-design-card">
+                        <div>
+                            <img src="/src/images/yangtu.png" class="product-cardpic">
+
+                            <div class="product-card-title">
+                                <span class="front-buy-price">¥169.00</span>
+                                <span class="front-buy-symbol">¥</span>
+                                <span class="front-buy-pricep">282.00</span>
+                            </div>
+                            <div class="product-card-desc">
+                                商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
+                            </div>
+                        </div>
+                    </Card>
+                    <Card class="product-card product-design-card">
+                        <div>
+                            <img src="/src/images/yangtu.png" class="product-cardpic">
+
+                            <div class="product-card-title">
+                                <span class="front-buy-price">¥169.00</span>
+                                <span class="front-buy-symbol">¥</span>
+                                <span class="front-buy-pricep">282.00</span>
+                            </div>
+                            <div class="product-card-desc">
+                                商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
+                            </div>
+                        </div>
+                    </Card>
+                    <Card class="product-card product-design-card">
+                        <div>
+                            <img src="/src/images/yangtu.png" class="product-cardpic">
+
+                            <div class="product-card-title">
+                                <span class="front-buy-price">¥169.00</span>
+                                <span class="front-buy-symbol">¥</span>
+                                <span class="front-buy-pricep">282.00</span>
+                            </div>
+                            <div class="product-card-desc">
+                                商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
+                            </div>
+                        </div>
+                    </Card>
+                    <Card class="product-card product-design-card">
+                        <div>
+                            <img src="/src/images/yangtu.png" class="product-cardpic">
+
+                            <div class="product-card-title">
+                                <span class="front-buy-price">¥169.00</span>
+                                <span class="front-buy-symbol">¥</span>
+                                <span class="front-buy-pricep">282.00</span>
+                            </div>
+                            <div class="product-card-desc">
+                                商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
+                            </div>
+                        </div>
+                    </Card>
+                </div>
             </Tab-pane>
             <Tab-pane label="自定义定制">
                 <div class="front-design">
@@ -170,6 +268,28 @@
             </Tab-pane>
         </Tabs>
     </div>
+    <Row class="front-footer">
+        <i-col span="10">
+            <div class="front-footer-logo">
+                <img src="/src/images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="/src/images/guyun_logo.png" alt="logo" class="front-nav-logopic">
+            </div>
+        </i-col>
+        <i-col span="14">
+            <div class="front-footer-nav clearfix">
+                <span class="front-footer-navitem" v-link="{path:'/index'}">首页</span>
+                <span class="front-footer-navitem" v-link="{path:'/front/wedding/buy'}">婚纱礼服</span>
+                <span class="front-footer-navitem" v-link="{path:'/front/design'}">设计投稿</span>
+                <span class="front-footer-navitem" v-link="{path:'/front/events'}">优惠活动</span>
+                <span class="front-footer-navitem" v-link="{path:'/contact'}">联系我们</span>
+            </div>
+            <div class="front-footer-address">
+                古韵婚纱版权所有&nbsp;&nbsp;&nbsp;&nbsp;古韵婚纱有限公司 沪ICP备17001234号
+                <br>
+                地址:江西财经大学麦庐校区&nbsp;&nbsp;&nbsp;&nbsp;123号
+            </div>
+        </i-col>
+    </Row>
 </template>
 
 <style scoped>

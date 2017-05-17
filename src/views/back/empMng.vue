@@ -290,6 +290,11 @@
                     self.isLogin = false;
                 },1000);
             },
+            pageChange(num){
+                var self = this;
+                self.page.currentPage = num;
+                self.queryAllEmployee();
+            },
             queryAllEmployee(){
                 var self = this
                 self.isLoading = true

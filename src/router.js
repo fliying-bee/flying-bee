@@ -47,7 +47,7 @@ const routers = {
             require(['./views/front/events.vue'], resolve);
         }
     },
-    '/front/product':{
+    '/front/product/:proId':{
         component (resolve) {
             require(['./views/front/product.vue'], resolve);
         }
