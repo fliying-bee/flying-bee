@@ -78,9 +78,8 @@
                                     <i-col span="5">厂家编码</i-col>
                                     <i-col span="4">厂家名</i-col>
                                     <i-col span="4">联系方式</i-col>
-                                    <i-col span="5">厂家地址</i-col>
-                                    <i-col span="3">操作</i-col>
-                                    <i-col span="3">更多</i-col>
+                                    <i-col span="7">厂家地址</i-col>
+                                    <i-col span="4">操作</i-col>
                                 </Row>
 
                                 <Row type="flex" align="middle" justify="center"
@@ -94,17 +93,14 @@
                                     <i-col span="4">
                                         {{factory.facTel}}
                                     </i-col>
-                                    <i-col span="5">
+                                    <i-col span="7">
                                         {{factory.facAddr}}
                                     </i-col>
-                                    <i-col span="3">
+                                    <i-col span="4">
                                         <Icon type="edit" class="front-order-item-delete"
                                               @click="editModal=true,editFacName=factory.facName,editFacAddr=factory.FacAddr,editFacTel=factory.facTel,editFacId=factory.facId"></Icon>
                                         <Icon type="ios-trash" class="front-order-item-delete"
                                               @click="deleteModal=true,delItem=factory"></Icon>
-                                    </i-col>
-                                    <i-col span="3">
-                                        <i-button>下单</i-button>
                                     </i-col>
                                 </Row>
                                 <Page show-total class="page-position"

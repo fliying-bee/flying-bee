@@ -336,7 +336,7 @@
             queryLimitById(){
                 var self = this
                 if(self.search==''){
-
+                    self.queryAllLimit()
                 }else{
                     self.page.currentPage = 1;
                     self.isLoading = true
