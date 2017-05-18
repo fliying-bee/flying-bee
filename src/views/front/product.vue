@@ -30,8 +30,8 @@
     <div class="front-nav">
         <Menu mode="horizontal" active-key="1">
             <div class="front-nav-logo">
-                <img src="../../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
-                <img src="../../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
+                <img src="/src/images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="/src/images/guyun_logo.png" alt="logo" class="front-nav-logopic">
             </div>
             <div class="front-nav-item">
                 <Menu-item key="1" v-link="{path:'/index'}">
@@ -68,7 +68,7 @@
         <Row class="front-product-intro">
             <i-col span="8" offset="2">
                 <div class="front-product-mpic-wrap">
-                    <img src="../../images/test0.jpg" alt="" class="front-product-mpic">
+                    <img src="/src/images/test0.jpg" alt="" class="front-product-mpic">
                 </div>
             </i-col>
             <i-col span="12" class="front-product-introl">
@@ -133,11 +133,33 @@
         <Row>
             <i-col span="20" offset="2" class="front-product-introd">
                 <div class="front-product-introdpic">
-                    <img src="../../images/test1.jpg" alt="">
+                    <img src="/src/images/test1.jpg" alt="">
                 </div>
             </i-col>
         </Row>
     </div>
+    <Row class="front-footer">
+        <i-col span="10">
+            <div class="front-footer-logo">
+                <img src="/src/images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="/src/images/guyun_logo.png" alt="logo" class="front-nav-logopic">
+            </div>
+        </i-col>
+        <i-col span="14">
+            <div class="front-footer-nav clearfix">
+                <span class="front-footer-navitem" v-link="{path:'/index'}">首页</span>
+                <span class="front-footer-navitem" v-link="{path:'/front/wedding/buy'}">婚纱礼服</span>
+                <span class="front-footer-navitem" v-link="{path:'/front/design'}">设计投稿</span>
+                <span class="front-footer-navitem" v-link="{path:'/front/events'}">优惠活动</span>
+                <span class="front-footer-navitem" v-link="{path:'/contact'}">联系我们</span>
+            </div>
+            <div class="front-footer-address">
+                古韵婚纱版权所有&nbsp;&nbsp;&nbsp;&nbsp;古韵婚纱有限公司 沪ICP备17001234号
+                <br>
+                地址:江西财经大学麦庐校区&nbsp;&nbsp;&nbsp;&nbsp;123号
+            </div>
+        </i-col>
+    </Row>
 
 </template>
 

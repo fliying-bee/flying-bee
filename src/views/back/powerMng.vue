@@ -7,7 +7,6 @@
                 <img src="../../images/guyun_logo.png" alt="logo" class="back-header-logopic">
             </div>
             <div class="back-header-nav">
-                <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>
                 <Dropdown v-if="isLogin">
                     <i-button type="text" class="header-hover">
                         您好，{{empName}}

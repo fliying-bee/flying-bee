@@ -19,6 +19,9 @@
     float: right;
     margin-top: 20px;
 }
+.page-position-center{
+    margin: 20px 0;
+}
 /*网页头部*/
 .header-bg{
     color: #666;
@@ -118,10 +121,17 @@
 .front-content{
     padding: 20px 50px;
 }
+.product-card-wrap{
+    padding: 0 20px;
+}
 .product-card{
+    float: left;
+    margin: 20px;
     width: 280px;
     height: 400px;
-    margin: 0 auto;
+}
+.product-design-card{
+    margin: 14px;
 }
 .product-cardpic{
     width: 246px;
@@ -132,8 +142,29 @@
     margin-top: 10px;
 }
 .product-card-desc{
-
+    color:#657180;
 }
+.front-buy-symbolp{
+    margin-left: 5px;
+    font-size: 12px;
+    color: #333;
+}
+.front-buy-symbol{
+    margin-left: 5px;
+    font-size: 18px;
+    color: #c80000;
+}
+.front-buy-pricep{
+     font-size: 12px;
+     color: #333;
+     text-decoration: line-through;
+}
+.front-buy-price{
+    font-size: 18px;
+    color: #c80000;
+    font-weight: bold;
+}
+
 /*最新活动*/
 .product-card-event{
     width: 100%;

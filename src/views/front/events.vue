@@ -30,8 +30,8 @@
     <div class="front-nav">
         <Menu mode="horizontal" active-key="4">
             <div class="front-nav-logo">
-                <img src="../../images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
-                <img src="../../images/guyun_logo.png" alt="logo" class="front-nav-logopic">
+                <img src="/src/images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="/src/images/guyun_logo.png" alt="logo" class="front-nav-logopic">
             </div>
             <div class="front-nav-item">
                 <Menu-item key="1" v-link="{path:'/index'}">
@@ -66,7 +66,7 @@
         <Card class="product-card-event">
             <i-col span="13">
                 <div>
-                    <img src="../../images/newevent.png" class="product-card-eventpic">
+                    <img src="/src/images/newevent.png" class="product-card-eventpic">
                 </div>
             </i-col>
             <i-col span="11">
@@ -81,7 +81,7 @@
         <i-col span="6">
             <Card class="product-card">
                 <div>
-                    <img src="../../images/yangtu.png" class="product-cardpic">
+                    <img src="/src/images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
                         一套基于 Vue.js 的高质量UI组件库
                     </div>
@@ -94,7 +94,7 @@
         <i-col span="6">
             <Card class="product-card">
                 <div>
-                    <img src="../../images/yangtu.png" class="product-cardpic">
+                    <img src="/src/images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
                         一套基于 Vue.js 的高质量UI组件库
                     </div>
@@ -107,7 +107,7 @@
         <i-col span="6">
             <Card class="product-card">
                 <div>
-                    <img src="../../images/yangtu.png" class="product-cardpic">
+                    <img src="/src/images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
                         一套基于 Vue.js 的高质量UI组件库
                     </div>
@@ -120,15 +120,37 @@
         <i-col span="6">
             <Card class="product-card">
                 <div>
-                    <img src="../../images/yangtu.png" class="product-cardpic">
+                    <img src="/src/images/yangtu.png" class="product-cardpic">
                     <div class="product-card-title">
-                        一套基于 Vue.js 的高质量UI组件库
+                        一套基于 Vue.js 的高质量UI组件库1111
                     </div>
                     <div class="product-card-desc">
                         一套基于 Vue.js 的高质量UI组件库一套基于 Vue.js 的高质量UI组件库
                     </div>
                 </div>
             </Card>
+        </i-col>
+    </Row>
+    <Row class="front-footer">
+        <i-col span="10">
+            <div class="front-footer-logo">
+                <img src="/src/images/guyun_logo_z.png" alt="logo" class="front-nav-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="/src/images/guyun_logo.png" alt="logo" class="front-nav-logopic">
+            </div>
+        </i-col>
+        <i-col span="14">
+            <div class="front-footer-nav clearfix">
+                <span class="front-footer-navitem" v-link="{path:'/index'}">首页</span>
+                <span class="front-footer-navitem" v-link="{path:'/front/wedding/buy'}">婚纱礼服</span>
+                <span class="front-footer-navitem" v-link="{path:'/front/design'}">设计投稿</span>
+                <span class="front-footer-navitem" v-link="{path:'/front/events'}">优惠活动</span>
+                <span class="front-footer-navitem" v-link="{path:'/contact'}">联系我们</span>
+            </div>
+            <div class="front-footer-address">
+                古韵婚纱版权所有&nbsp;&nbsp;&nbsp;&nbsp;古韵婚纱有限公司 沪ICP备17001234号
+                <br>
+                地址:江西财经大学麦庐校区&nbsp;&nbsp;&nbsp;&nbsp;123号
+            </div>
         </i-col>
     </Row>
 
