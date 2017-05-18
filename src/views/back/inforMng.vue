@@ -7,17 +7,17 @@
         </div>
         <div class="back-header-nav">
             <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>
-            <Dropdown>
+            <Dropdown v-if="isLogin">
                 <i-button type="text" class="header-hover">
-                    您好，XXX
+                    您好，{{empName}}
                     <Icon type="arrow-down-b"></Icon>
                 </i-button>
                 <Dropdown-menu slot="list">
                     <Dropdown-item v-link="{path:'/back/backPersonInfor'}">个人中心</Dropdown-item>
-                    <Dropdown-item v-link="{path:'/login'}">退出</Dropdown-item>
+                    <Dropdown-item @click="loginOut()">退出</Dropdown-item>
                 </Dropdown-menu>
             </Dropdown>
-            <!--<i-button  >个人中心</i-button>-->
+            <i-button v-else v-link="{path:'/back/backPersonInfor'}" type="text" class="header-hover">个人中心</i-button>
         </div>
     </div>
 
@@ -61,70 +61,47 @@
                 <div class="back-content">
                     <div class="back-content-main">
                         <div class="back-order-search">
-                            <row>
-                                <i-col span="2">用户编码</i-col>
+                            <Row type="flex"  align="middle">
+                                <i-col span="2">用户编码：</i-col>
                                 <i-col span="4">
-                                    <i-input type="text"></i-input>
+                                    <i-input :value.sync="search"
+                                             icon="ios-search"
+                                             style="width: 200px"
+                                             @on-click="queryUserById"></i-input>
                                 </i-col>
-                                <i-col span="1" offset="17">
-                                    <!--<Icon type="ios-plus-outline" class="front-order-item-delete"></Icon>-->
-                                    <Icon type="ios-trash" class="front-order-item-delete"></Icon>
-                                    <!--<i-button type="text">付款</i-button>-->
-                                </i-col>
-                            </row>
+                            </Row>
+                            </div>
                             <div>
                                 <Row type="flex" align="middle" class="front-order-item-title">
-                                    <i-col span="1">
-                                        <Checkbox
-                                                :indeterminate="indeterminate"
-                                                :checked="checkAll"
-                                                @click.prevent="handleCheckAll">
-                                        </Checkbox>
-                                    </i-col>
                                     <i-col span="4">用户编码</i-col>
                                     <i-col span="4">用户名</i-col>
                                     <i-col span="4">性别</i-col>
-                                    <i-col span="3">联系方式</i-col>
-                                    <i-col span="5">地址</i-col>
-                                    <i-col span="3">操作</i-col>
+                                    <i-col span="4">联系方式</i-col>
+                                    <i-col span="8">地址</i-col>
                                 </Row>
 
-                                <Row type="flex" align="middle" justify="center" class="front-order-item-content">
-                                    <i-col span="1">
-                                        <Checkbox
-                                                :indeterminate="indeterminate"
-                                                :checked="checkAll"
-                                                @click.prevent="handleCheckAll">
-                                        </Checkbox>
+                                <Row type="flex" align="middle" justify="center"
+                                     class="front-order-item-content" v-for="user in userList">
+                                    <i-col span="4">
+                                        {{user.userId}}
                                     </i-col>
-                                    <i-col span="4">U201704290001</i-col>
-                                    <i-col span="4">王小明</i-col>
-                                    <i-col span="4">男</i-col>
-                                    <i-col span="3">1870269999</i-col>
-                                    <i-col span="5">江西省南昌市昌北经济开发区</i-col>
-                                    <i-col span="3">
-                                        <Icon type="edit"></Icon>
-                                        <Icon type="ios-trash"></Icon>
+                                    <i-col span="4">
+                                        {{user.userName}}
                                     </i-col>
-                                </Row>
-                                <Row type="flex" align="middle" justify="center" class="front-order-item-content">
-                                    <i-col span="1">
-                                        <Checkbox
-                                                :indeterminate="indeterminate"
-                                                :checked="checkAll"
-                                                @click.prevent="handleCheckAll">
-                                        </Checkbox>
+                                    <i-col span="4">
+                                        {{user.userSex}}
                                     </i-col>
-                                    <i-col span="4">U201704290802</i-col>
-                                    <i-col span="4">王五</i-col>
-                                    <i-col span="4">男</i-col>
-                                    <i-col span="3">1870260701</i-col>
-                                    <i-col span="5">浙江省杭州市滨江区</i-col>
-                                    <i-col span="3">
-                                        <Icon type="edit"></Icon>
-                                        <Icon type="ios-trash"></Icon>
+                                    <i-col span="4">
+                                        {{user.userTel}}
+                                    </i-col>
+                                    <i-col span="8">
+                                        {{user.userAddr}}
                                     </i-col>
                                 </Row>
+                                <Page show-total class="page-position"
+                                      :current="page.currentPage"
+                                      :total="page.totalRow" :page-size="page.pageSize"
+                                      @on-change="pageChange"></Page>
                             </div>
                         </div>
                     </div>
@@ -145,11 +122,100 @@
     export default {
         components: {},
         data () {
-            return {}
+            return {
+                //分页及其他固定项
+                page:{
+                    currentPage:1,
+                    pageSize:6,
+                    totalPage:1,
+                    totalRow:0
+                },
+                search:'',
+                empName:'',
+                isLogin:false,
+                isLoading:true,
+                userList:[],//用户列表
+            }
         },
-        methods: {},
+        methods: {
+            loginOut(){
+                var self = this;
+                localStorage.removeItem('EMPNAME');
+                localStorage.removeItem('EMPID');
+                self.$Message.success('退出成功！');
+                setTimeout(()=>{
+                    self.$router.go('/login');
+                    self.isLogin = false;
+                },1000);
+            },
+            queryAllUser(){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    currentPage:self.page.currentPage,
+                    pageSize:self.page.pageSize
+                };
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryAllUserPage',
+                    params:data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        self.userList = res.data.data.list;
+                        self.page.currentPage = res.data.data.currentPage;
+                        self.page.pageSize = res.data.data.pageSize;
+                        self.page.totalPage = res.data.data.totalPage;
+                        self.page.totalRow = res.data.data.totalRow;
+                        self.isLoading = false
+                    } else {
+                        self.$Message.error('权限查询错误！');
+                    }
+                })
+            },
+            queryUserById(){
+                var self = this
+                if(self.search==''){
+                    self.queryAllUser()
+                }else{
+                    self.page.currentPage = 1;
+                    self.isLoading = true
+                    var data = {
+                        userId:self.search
+                    };
+                    self.$http({
+                        method:'POST',
+                        url:'http://127.0.0.1:8080/Spring-study/queryUserById',
+                        params:data
+                    }).then(function(res){
+                        if(res.data.code=="OK"){
+                            self.userList = [];
+                            if(res.data.data!=null){
+                                self.userList.push(res.data.data)
+                            }
+                            self.page.totalRow = self.userList.length;
+                            self.isLoading = false
+                            self.$Message.success('查询成功!');
+                        }else{
+                            self.$Message.error('查询失败！');
+                        }
+                    })
+                }
+            },
+            pageChange(num){
+                var self = this;
+                self.page.currentPage = num;
+                self.queryAllUser();
+            }
+        },
         ready () {
-
+            var self = this;
+            if(localStorage.getItem('EMPNAME')){
+                self.empName = localStorage.getItem('EMPNAME');
+                self.isLogin = true;
+            }else{
+                self.isLogin = false;
+            }
+            self.queryAllUser();
         }
     }
 </script>
