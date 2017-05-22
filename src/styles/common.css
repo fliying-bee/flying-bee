@@ -7,6 +7,13 @@
 .bold{
     font-weight: bold;
 }
+.main-color{
+    color: #c80000;
+}
+.font-normal{
+    font-size: 14px;
+    font-weight: normal;
+}
 .demo-spin-icon-load{
     animation: ani-demo-spin 1s linear infinite;
 }
@@ -369,8 +376,10 @@
     padding: 9px 10px;
     border: 1px solid #b8b7bd;
     color: #000;
+    cursor: pointer;
 }
 .front-product-type-selected{
+    padding: 8px 9px;
     border: 2px solid #c40000;
 }
 .front-product-btnwrap{
@@ -388,6 +397,7 @@
     line-height: 38px;
     text-align: center;
     font-size: 16px;
+    cursor: pointer;
 }
 .front-product-btncart{
     margin-left: 20px;
@@ -401,6 +411,7 @@
     line-height: 38px;
     text-align: center;
     font-size: 16px;
+    cursor: pointer;
 }
 .front-product-introt{
     background-color: #e9e9e9;
@@ -414,6 +425,71 @@
 .front-product-introdpic{
     text-align: center;
 }
+
+/*确认订单*/
+.sureOrder-wrap{
+    padding: 0px 200px 100px;
+}
+.sureOrder-addr{
+    padding-left: 20px;
+    color: #3c3c3c;
+    font-size: 16px;
+    border: 1px solid #c80000;
+    background-color: #fff0e8;
+    margin: 5px 0 7px;
+    line-height: 32px;
+    box-shadow: 5px 5px 0 #f3f3f3;
+}
+.sureOrder{
+    padding-top: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #3c3c3c;
+    border-bottom: 2px solid #f1f1f1;
+}
+.sureOrder-title{
+    padding: 5px 0;
+    text-align: center;
+    border-bottom: 3px solid #b2d1ff;
+}
+.sureOrder-item{
+    padding: 20px 0;
+    border-bottom: 1px dotted #ddd;
+    background-color: #fbfcff;
+    text-align: center;
+}
+.sureOrder-pic{
+    height: 50px;
+    width: 50px;
+    margin: 0 auto;
+}
+.sureOrder-sum{
+    background-color: #f2f7ff;
+    border-bottom: 1px solid #fff;
+    padding: 10px 20px;
+}
+.sureOrder-pay{
+    background-color: #f2f7ff;
+    padding: 3px 30px 3px 0;
+    text-align: right;
+    color: #333;
+    height: 45px;
+    line-height: 45px;
+}
+.money-symbols{
+    margin-left: 10px;
+    font-size: 26px;
+    color: #c40000;
+    font-weight: bolder;
+    font-family: Arial;
+}
+.sureOrder-btn{
+    border-bottom: 1px dotted #ddd;
+    text-align: right;
+    padding: 10px 10px 10px 0;
+}
+
+
 
 /*后台首页*/
 .front-index-bg{

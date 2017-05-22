@@ -47,9 +47,14 @@ const routers = {
             require(['./views/front/events.vue'], resolve);
         }
     },
-    '/front/product/:proId':{
+    '/front/product/:type/:proId':{
         component (resolve) {
-            require(['./views/front/product.vue'], resolve);
+            require(['./views/front/wedding/product.vue'], resolve);
+        }
+    },
+    '/front/sureOrder/:type':{
+        component (resolve) {
+            require(['./views/front/wedding/sureOrder.vue'], resolve);
         }
     },
     '/front/personCen/personInformation':{

@@ -5,8 +5,12 @@
             您好，欢迎来到古韵婚纱店
         </i-col>
         <i-col span="11">
-            <i-button v-link="{path:'/login'}" type="text" class="header-login" id="color">hi，请登录</i-button>
-            <i-button v-link="{path:'/register'}" type="text" class="header-hover">免费注册</i-button>
+            <i-button v-link="{path:'/login'}" type="text" class="header-login" id="color">
+                <span v-if="!isLogin">hi，请登录</span>
+            </i-button>
+            <i-button v-link="{path:'/register'}" type="text" class="header-hover">
+                <span v-if="!isLogin">免费注册</span>
+            </i-button>
         </i-col>
         <i-col span="8">
             <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>
@@ -73,7 +77,7 @@
     </Row>
     <div class="product-card-wrap clearfix">
         <Card class="product-card" v-for="dress in dressList">
-            <a v-link="{path:'/front/product/'+dress.proId}" target="_blank">
+            <a v-link="{path:'/front/product/buy/'+dress.proId}" target="_blank">
                     <img :src="dress.proPicPath" class="product-cardpic">
 
                     <div class="product-card-title">
@@ -106,7 +110,7 @@
     </Row>
     <div class="product-card-wrap clearfix">
         <Card class="product-card" v-for="part in partList">
-            <a v-link="{path:'/front/product/'+dress.proId}" target="_blank">
+            <a v-link="{path:'/front/product/buy/'+dress.proId}" target="_blank">
                 <img :src="part.proPicPath" class="product-cardpic">
 
                 <div class="product-card-title">

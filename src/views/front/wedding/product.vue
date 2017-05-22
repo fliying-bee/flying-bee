@@ -4,7 +4,7 @@
         <i-col span="3" offset="2">
             您好，欢迎来到古韵婚纱店
         </i-col>
-        <i-col span="11">
+        <i-col span="14">
             <i-button v-link="{path:'/login'}" type="text" class="header-login" id="color">
                 <span v-if="!isLogin">hi，请登录</span>
             </i-button>
@@ -12,7 +12,7 @@
                 <span v-if="!isLogin">免费注册</span>
             </i-button>
         </i-col>
-        <i-col span="8">
+        <i-col span="5">
             <!--<i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>-->
             <i-button v-link="{path:'/cart'}" type="text" class="header-hover">我的购物车</i-button>
             <Dropdown v-if="isLogin">
@@ -93,21 +93,26 @@
                 </div>
                 <div class="front-product-typewrap">
                     <span class="front-product-type">尺码：</span>
-                    <span class="front-product-type-item front-product-type-selected">S</span>
-                    <span class="front-product-type-item">M</span>
-                    <span class="front-product-type-item">L</span>
-                    <span class="front-product-type-item">X L</span>
+                    <div style="display: inline-block" id="proDetailType">
+                       <span class="front-product-type-item"
+                             :class="{'front-product-type-selected':($index==isFirst)}"
+                             v-for="productDetail in productDetailData"
+                             @click="changeproDetail(productDetail.proDetailCount,$index)">
+                        {{productDetail.proDetailType}}
+                    </span>
+                    </div>
+
                 </div>
                 <div class="front-product-sumwrap">
                     <span class="front-product-sum">数量：</span>
                     <span class="front-product-sum-item">
-                    <Input-number :min="1" :value="1"></Input-number>
+                    <Input-number :min="1" on-change="changeNum" :value="1"></Input-number>
                 </span>
-                    <span class="front-product-sum-item">库存 5290 件</span>
+                    <span class="front-product-sum-item">库存 {{proDetailCount}} 件</span>
                 </div>
                 <div class="front-product-btnwrap">
-                    <a href="" class="front-product-btn">立刻购买</a>
-                    <a href="" class="front-product-btncart">加入购物车</a>
+                    <span class="front-product-btn" v-if="proType=='buy'" @click="buy()">立刻购买</span>
+                    <span class="front-product-btncart">加入购物车</span>
                 </div>
             </i-col>
         </Row>
@@ -211,7 +216,11 @@
                 isLogin:false,
                 isLoading:true,
                 proId:this.$route.params.proId,
-                productData:''
+                proType:this.$route.params.type,
+                productData:'',         //商品详情
+                productDetailData:[],   //商品明细详情
+                proDetailCount:0,       //当前选择的商品明细库存
+                isFirst:0,
             }
         },
         methods: {
@@ -244,6 +253,46 @@
                     }
                 })
             },
+            queryProductDetailByProId(){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    proId:self.proId
+                };
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryProductDetailByProId',
+                    params:data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        self.productDetailData = res.data.data;
+                        if(self.productDetailData.length!=0){
+                            self.proDetailCount = self.productDetailData[0].proDetailCount;
+                            self.isFirst=0;
+                            }
+                        self.isLoading = false
+                    } else {
+                        self.$Message.error('商品明细查询错误！');
+                    }
+                })
+            },
+            changeproDetail(proDetailCount,index){
+                var self = this
+                self.proDetailCount = proDetailCount;
+                var proDetailType = document.getElementById('proDetailType');
+                var spanList = proDetailType.getElementsByTagName('span');
+                var chooseSpan = spanList[index];
+                for(var i=0;i<spanList.length;i++){
+                    spanList[i].className = 'front-product-type-item'
+                }
+                chooseSpan.className = 'front-product-type-item front-product-type-selected'
+                self.isFirst=null;
+            },
+            buy(){
+                var orderItem={
+
+                }
+            }
         },
         ready () {
             var self = this;
@@ -254,6 +303,7 @@
                 self.isLogin = false;
             }
             self.queryProductById();
+            self.queryProductDetailByProId();
         }
     }
 </script>
