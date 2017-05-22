@@ -105,7 +105,7 @@
                 <i-col span="2">
                     <img :src="product.proPicPath" alt="" class="sureOrder-pic">
                 </i-col>
-                <i-col span="6">1{{product.proName}}</i-col>
+                <i-col span="6">{{product.proName}}</i-col>
                 <i-col span="4">{{product.proSellPrice}}</i-col>
                 <i-col span="4">{{product.proDetailCount}}</i-col>
                 <i-col span="4">{{product.proDetailType}}</i-col>
@@ -245,24 +245,63 @@
             },
             order(){
                 var self = this
-
+                self.isLoading = true
                 if(self.proType=='buy'){
-                    var buyId = 'B'+getNowFormatDate();
+                    var buyId = 'B'+self.getNowFormatDate();
                     var data = {
                         userId:localStorage.getItem('USERID'),
                         buyId:buyId,
-                        
+                        buyPriceSum:self.orderPriceSum,
+                        buyAddr:self.userData.userAddr+'('+self.userData.userName+'收)  '+self.userData.userTel
                     };
                     self.$http({
                         method:'POST',
-                        url:'http://127.0.0.1:8080/Spring-study/queryUserById',
+                        url:'http://127.0.0.1:8080/Spring-study/insertBuy',
                         params:data
                     }).then(function(res){
                         if(res.data.code=="OK"){
-                            self.userData = res.data.data;
                             self.isLoading = false
+                            for(var i=0;i<self.orderList.length;i++){
+                                var detailData = {
+                                    buyId:buyId,
+                                    proId:self.orderList[i].proId,
+                                    buyDetailCount:self.orderList[i].proDetailCount,
+                                    buyDetailType:self.orderList[i].proDetailType
+                                };
+                                self.$http({
+                                    method:'POST',
+                                    url:'http://127.0.0.1:8080/Spring-study/insertBuyDetail',
+                                    params:detailData
+                                }).then(function(res){
+                                    if(res.data.code=="OK"){
+                                        self.isLoading = false
+                                    }else{
+                                        self.$Message.error('插入明细失败！');
+                                    }
+                                })
+                                var storeData = {
+                                    proId:self.orderList[i].proDetail.proId,
+                                    proDetailId:self.orderList[i].proDetail.proDetailId,
+                                    proDetailCount:self.orderList[i].proDetail.proDetailCount-self.orderList[i].proDetailCount,
+                                    proDetailType:self.orderList[i].proDetail.proDetailType
+                                };
+                                self.$http({
+                                    method:'POST',
+                                    url:'http://127.0.0.1:8080/Spring-study/updateProductDetail',
+                                    params:storeData
+                                }).then(function(res){
+                                    if(res.data.code=="OK"){
+                                        self.isLoading = false
+                                    }else{
+                                        self.$Message.error('更新库存失败！');
+                                    }
+                                })
+                            }
+                            self.$Message.success('提交成功！');
+                            sessionStorage.removeItem('ORDERITEM');
+                            self.$router.go('/front/personCen/buyManage');
                         }else{
-                            self.$Message.error('查询失败！');
+                            self.$Message.error('提交失败！');
                         }
                     })
                 }

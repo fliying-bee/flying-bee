@@ -97,7 +97,7 @@
                        <span class="front-product-type-item"
                              :class="{'front-product-type-selected':($index==isFirst)}"
                              v-for="productDetail in productDetailData"
-                             @click="changeproDetail(productDetail.proDetailCount,$index,productDetail.proDetailType)">
+                             @click="changeproDetail(productDetail,$index)">
                         {{productDetail.proDetailType}}
                     </span>
                     </div>
@@ -221,6 +221,7 @@
                 productDetailData:[],   //商品明细详情
                 proDetailCount:0,       //当前选择的商品明细库存
                 proDetailType:'',       //选择的商品类型
+                proDetail:'',         //选择的商品详情
                 isFirst:0,
                 detailCount:1,          //商品件数
             }
@@ -279,10 +280,11 @@
                     }
                 })
             },
-            changeproDetail(proDetailCount,index,proDetailType){
+            changeproDetail(proDetail,index){
                 var self = this
-                self.proDetailCount = proDetailCount;
-                self.proDetailType = proDetailType;
+                self.proDetailCount = proDetail.proDetailCount;
+                self.proDetailType = proDetail.proDetailType;
+                self.proDetail = proDetail;
                 var proDetailTypeWrap = document.getElementById('proDetailType');
                 var spanList = proDetailTypeWrap.getElementsByTagName('span');
                 var chooseSpan = spanList[index];
@@ -295,14 +297,15 @@
             buy(){
                 var self = this
                 var orderItem={
+                    proId:self.productData.proId,
                     proPicPath:self.productData.proPicPath,
                     proName:self.productData.proName,
                     proSellPrice:self.productData.proSellPrice,
+                    proDetail:self.proDetail,
                     proDetailCount:self.detailCount,
                     proDetailType:self.proDetailType,
                     priceSum:self.detailCount*self.productData.proSellPrice
                 }
-                console.log(JSON.stringify(orderItem))
                 sessionStorage.setItem('ORDERITEM',JSON.stringify(orderItem));
                 self.$router.go('/front/sureOrder/buy/product')
             }
