@@ -52,7 +52,7 @@ const routers = {
             require(['./views/front/wedding/product.vue'], resolve);
         }
     },
-    '/front/sureOrder/:type':{
+    '/front/sureOrder/:proType/:fromType':{
         component (resolve) {
             require(['./views/front/wedding/sureOrder.vue'], resolve);
         }

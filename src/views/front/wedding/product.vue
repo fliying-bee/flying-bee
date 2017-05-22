@@ -97,7 +97,7 @@
                        <span class="front-product-type-item"
                              :class="{'front-product-type-selected':($index==isFirst)}"
                              v-for="productDetail in productDetailData"
-                             @click="changeproDetail(productDetail.proDetailCount,$index)">
+                             @click="changeproDetail(productDetail.proDetailCount,$index,productDetail.proDetailType)">
                         {{productDetail.proDetailType}}
                     </span>
                     </div>
@@ -106,7 +106,7 @@
                 <div class="front-product-sumwrap">
                     <span class="front-product-sum">数量：</span>
                     <span class="front-product-sum-item">
-                    <Input-number :min="1" on-change="changeNum" :value="1"></Input-number>
+                    <Input-number :min="1" on-change="changeNum" :value.sync="detailCount"></Input-number>
                 </span>
                     <span class="front-product-sum-item">库存 {{proDetailCount}} 件</span>
                 </div>
@@ -220,7 +220,9 @@
                 productData:'',         //商品详情
                 productDetailData:[],   //商品明细详情
                 proDetailCount:0,       //当前选择的商品明细库存
+                proDetailType:'',       //选择的商品类型
                 isFirst:0,
+                detailCount:1,          //商品件数
             }
         },
         methods: {
@@ -268,6 +270,7 @@
                         self.productDetailData = res.data.data;
                         if(self.productDetailData.length!=0){
                             self.proDetailCount = self.productDetailData[0].proDetailCount;
+                            self.proDetailType = self.productDetailData[0].proDetailType;
                             self.isFirst=0;
                             }
                         self.isLoading = false
@@ -276,11 +279,12 @@
                     }
                 })
             },
-            changeproDetail(proDetailCount,index){
+            changeproDetail(proDetailCount,index,proDetailType){
                 var self = this
                 self.proDetailCount = proDetailCount;
-                var proDetailType = document.getElementById('proDetailType');
-                var spanList = proDetailType.getElementsByTagName('span');
+                self.proDetailType = proDetailType;
+                var proDetailTypeWrap = document.getElementById('proDetailType');
+                var spanList = proDetailTypeWrap.getElementsByTagName('span');
                 var chooseSpan = spanList[index];
                 for(var i=0;i<spanList.length;i++){
                     spanList[i].className = 'front-product-type-item'
@@ -289,9 +293,18 @@
                 self.isFirst=null;
             },
             buy(){
+                var self = this
                 var orderItem={
-
+                    proPicPath:self.productData.proPicPath,
+                    proName:self.productData.proName,
+                    proSellPrice:self.productData.proSellPrice,
+                    proDetailCount:self.detailCount,
+                    proDetailType:self.proDetailType,
+                    priceSum:self.detailCount*self.productData.proSellPrice
                 }
+                console.log(JSON.stringify(orderItem))
+                sessionStorage.setItem('ORDERITEM',JSON.stringify(orderItem));
+                self.$router.go('/front/sureOrder/buy/product')
             }
         },
         ready () {
