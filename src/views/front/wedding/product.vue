@@ -112,7 +112,7 @@
                 </div>
                 <div class="front-product-btnwrap">
                     <span class="front-product-btn" v-if="proType=='buy'" @click="buy()">立刻购买</span>
-                    <span class="front-product-btncart">加入购物车</span>
+                    <span class="front-product-btncart" @click="cart()">加入购物车</span>
                 </div>
             </i-col>
         </Row>
@@ -270,6 +270,7 @@
                     if (res.data.code == "OK") {
                         self.productDetailData = res.data.data;
                         if(self.productDetailData.length!=0){
+                            self.proDetail = self.productDetailData[0]
                             self.proDetailCount = self.productDetailData[0].proDetailCount;
                             self.proDetailType = self.productDetailData[0].proDetailType;
                             self.isFirst=0;
@@ -296,18 +297,54 @@
             },
             buy(){
                 var self = this
-                var orderItem={
+                var buyItem={
                     proId:self.productData.proId,
                     proPicPath:self.productData.proPicPath,
                     proName:self.productData.proName,
                     proSellPrice:self.productData.proSellPrice,
-                    proDetail:self.proDetail,
+                    proDetailId:self.proDetail.proDetailId,
                     proDetailCount:self.detailCount,
                     proDetailType:self.proDetailType,
                     priceSum:self.detailCount*self.productData.proSellPrice
                 }
-                sessionStorage.setItem('ORDERITEM',JSON.stringify(orderItem));
+                sessionStorage.setItem('BUYITEM',JSON.stringify(buyItem));
                 self.$router.go('/front/sureOrder/buy/product')
+            },
+            cart(){
+                var self = this
+                var buyItem = {
+                    proId:self.productData.proId,
+                    proPicPath:self.productData.proPicPath,
+                    proName:self.productData.proName,
+                    proSellPrice:self.productData.proSellPrice,
+                    proDetailId:self.proDetail.proDetailId,
+                    proDetailCount:self.detailCount,
+                    proDetailType:self.proDetailType,
+                    priceSum:self.detailCount*self.productData.proSellPrice,
+                    isChecked:true
+                }
+                console.log(self.detailCount,'11')
+                var buy=localStorage.getItem('BUYLIST');
+                if(buy){
+                    var buyList = JSON.parse(buy);
+                    for(var i=0;i<buyList.length;i++){
+                        if(buyList[i].proDetailId==self.proDetail.proDetailId){
+                            buyList[i].proDetailCount+=self.detailCount
+                            buyList[i].priceSum+=self.detailCount*self.productData.proSellPrice
+                            break;
+                        }
+                        if(i==(buyList.length-1)){
+                            buyList.push(buyItem);
+                            break;
+                        }
+                    }
+                }else{
+                    var buyList = [];
+                    buyList.push(buyItem);
+                }
+
+                localStorage.setItem('BUYLIST',JSON.stringify(buyList));
+                self.$Message.success('添加成功！');
             }
         },
         ready () {

@@ -100,19 +100,22 @@
             <i-col span="4">小计</i-col>
         </Row>
         <div>
-            <Row type="flex" align="middle" justify="center" class="sureOrder-item"
-                 v-for="product in orderList">
-                <i-col span="2">
-                    <img :src="product.proPicPath" alt="" class="sureOrder-pic">
-                </i-col>
-                <i-col span="6">{{product.proName}}</i-col>
-                <i-col span="4">{{product.proSellPrice}}</i-col>
-                <i-col span="4">{{product.proDetailCount}}</i-col>
-                <i-col span="4">{{product.proDetailType}}</i-col>
-                <i-col span="4" class="main-color bold">{{product.priceSum}}</i-col>
-            </Row>
+            <div v-for="product in buyList">
+                <Row type="flex" align="middle" justify="center" class="sureOrder-item"
+                     v-if="product.isChecked">
+                    <i-col span="2">
+                        <img :src="product.proPicPath" alt="" class="sureOrder-pic">
+                    </i-col>
+                    <i-col span="6">{{product.proName}}</i-col>
+                    <i-col span="4">{{product.proSellPrice}}</i-col>
+                    <i-col span="4">{{product.proDetailCount}}</i-col>
+                    <i-col span="4">{{product.proDetailType}}</i-col>
+                    <i-col span="4" class="main-color bold">{{product.priceSum}}</i-col>
+                </Row>
+            </div>
 
-            <Row type="flex" align="middle" justify="center" class="sureOrder-sum">
+
+            <Row type="flex" align="middle" justify="center" class="sureOrder-sum" v-if="proType=='custom'">
                 <i-col span="24">
                     留言：
                     <i-input :value.sync="value" type="textarea" placeholder="请输入..." style="width: 700px"></i-input>
@@ -168,7 +171,7 @@
                 userName:'',
                 isLogin:false,
                 isLoading:true,
-                orderList:[],   //商品列表
+                buyList:[],   //商品列表
                 fromType:this.$route.params.fromType,   //从什么网页来（购物车，商品）
                 proType:this.$route.params.proType,   //订单类型（购买租赁定制）
                 orderPriceSum:0,            //订单总价
@@ -215,13 +218,20 @@
             loadOrder(){
                 var self = this
                 if(self.fromType=='product'){
-                    var orderItem = sessionStorage.getItem('ORDERITEM');
-                    if(orderItem){
-                        self.orderList.push(JSON.parse(orderItem));
+                    var buyItem = sessionStorage.getItem('BUYITEM');
+                    if(buyItem){
+                        self.buyList.push(JSON.parse(buyItem));
+                    }
+                }else if(self.fromType=='cart'){
+                    var buyList = localStorage.getItem('BUYLIST');
+                    if(buyList){
+                        self.buyList = JSON.parse(buyList);
                     }
                 }
-                for(var i=0;i<self.orderList.length;i++){
-                    self.orderPriceSum+=self.orderList[i].priceSum;
+                for(var i=0;i<self.buyList.length;i++){
+                    if(self.buyList[i].isChecked){
+                        self.orderPriceSum+=self.buyList[i].priceSum;
+                    }
                 }
             },
             queryUserInfo(){
@@ -261,12 +271,12 @@
                     }).then(function(res){
                         if(res.data.code=="OK"){
                             self.isLoading = false
-                            for(var i=0;i<self.orderList.length;i++){
+                            for(var i=0;i<self.buyList.length;i++){
                                 var detailData = {
                                     buyId:buyId,
-                                    proId:self.orderList[i].proId,
-                                    buyDetailCount:self.orderList[i].proDetailCount,
-                                    buyDetailType:self.orderList[i].proDetailType
+                                    proId:self.buyList[i].proId,
+                                    buyDetailCount:self.buyList[i].proDetailCount,
+                                    buyDetailType:self.buyList[i].proDetailType
                                 };
                                 self.$http({
                                     method:'POST',
@@ -280,10 +290,10 @@
                                     }
                                 })
                                 var storeData = {
-                                    proId:self.orderList[i].proDetail.proId,
-                                    proDetailId:self.orderList[i].proDetail.proDetailId,
-                                    proDetailCount:self.orderList[i].proDetail.proDetailCount-self.orderList[i].proDetailCount,
-                                    proDetailType:self.orderList[i].proDetail.proDetailType
+                                    proId:self.buyList[i].proDetail.proId,
+                                    proDetailId:self.buyList[i].proDetail.proDetailId,
+                                    proDetailCount:self.buyList[i].proDetailCount,
+                                    proDetailType:self.buyList[i].proDetail.proDetailType
                                 };
                                 self.$http({
                                     method:'POST',
@@ -298,7 +308,7 @@
                                 })
                             }
                             self.$Message.success('提交成功！');
-                            sessionStorage.removeItem('ORDERITEM');
+                            sessionStorage.removeItem('BUYITEM');
                             self.$router.go('/front/personCen/buyManage');
                         }else{
                             self.$Message.error('提交失败！');
