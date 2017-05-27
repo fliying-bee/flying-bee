@@ -298,7 +298,7 @@
                         self.facAddr='';
                         self.$Message.success('添加成功!');
                     }else{
-                        self.$Message.success('添加失败！');
+                        self.$Message.error('添加失败！');
                     }
                 })
             },
@@ -318,7 +318,7 @@
                         self.deleteModal = false;
                         self.$Message.success('删除成功!');
                     }else{
-                        self.$Message.success('删除失败！');
+                        self.$Message.error('删除失败！');
                     }
                 })
             },
@@ -341,7 +341,7 @@
                         self.editModal = false;
                         self.$Message.success('修改成功!');
                     }else{
-                        self.$Message.success('修改失败！');
+                        self.$Message.error('修改失败！');
                     }
                 })
             },
@@ -369,7 +369,7 @@
                             self.isLoading = false
                             self.$Message.success('查询成功!');
                         }else{
-                            self.$Message.success('查询失败！');
+                            self.$Message.error('查询失败！');
                         }
                     })
                 }

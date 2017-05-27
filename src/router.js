@@ -154,6 +154,11 @@ const routers = {
             require(['./views/back/powerMng.vue'], resolve);
         }
     },
+    '/back/orderDetail/:type/:orderId':{
+        component (resolve) {
+            require(['./views/back/detail/orderDetail.vue'], resolve);
+        }
+    },
 
 };
 export default routers;
