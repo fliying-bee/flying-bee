@@ -97,7 +97,7 @@
                        <span class="front-product-type-item"
                              :class="{'front-product-type-selected':($index==isFirst)}"
                              v-for="productDetail in productDetailData"
-                             @click="changeproDetail(productDetail.proDetailCount,$index)">
+                             @click="changeproDetail(productDetail,$index)">
                         {{productDetail.proDetailType}}
                     </span>
                     </div>
@@ -106,13 +106,13 @@
                 <div class="front-product-sumwrap">
                     <span class="front-product-sum">数量：</span>
                     <span class="front-product-sum-item">
-                    <Input-number :min="1" on-change="changeNum" :value="1"></Input-number>
+                    <Input-number :min="1" on-change="changeNum" :value.sync="detailCount"></Input-number>
                 </span>
                     <span class="front-product-sum-item">库存 {{proDetailCount}} 件</span>
                 </div>
                 <div class="front-product-btnwrap">
                     <span class="front-product-btn" v-if="proType=='buy'" @click="buy()">立刻购买</span>
-                    <span class="front-product-btncart">加入购物车</span>
+                    <span class="front-product-btncart" @click="cart()">加入购物车</span>
                 </div>
             </i-col>
         </Row>
@@ -220,7 +220,10 @@
                 productData:'',         //商品详情
                 productDetailData:[],   //商品明细详情
                 proDetailCount:0,       //当前选择的商品明细库存
+                proDetailType:'',       //选择的商品类型
+                proDetail:'',         //选择的商品详情
                 isFirst:0,
+                detailCount:1,          //商品件数
             }
         },
         methods: {
@@ -267,7 +270,9 @@
                     if (res.data.code == "OK") {
                         self.productDetailData = res.data.data;
                         if(self.productDetailData.length!=0){
+                            self.proDetail = self.productDetailData[0]
                             self.proDetailCount = self.productDetailData[0].proDetailCount;
+                            self.proDetailType = self.productDetailData[0].proDetailType;
                             self.isFirst=0;
                             }
                         self.isLoading = false
@@ -276,11 +281,13 @@
                     }
                 })
             },
-            changeproDetail(proDetailCount,index){
+            changeproDetail(proDetail,index){
                 var self = this
-                self.proDetailCount = proDetailCount;
-                var proDetailType = document.getElementById('proDetailType');
-                var spanList = proDetailType.getElementsByTagName('span');
+                self.proDetailCount = proDetail.proDetailCount;
+                self.proDetailType = proDetail.proDetailType;
+                self.proDetail = proDetail;
+                var proDetailTypeWrap = document.getElementById('proDetailType');
+                var spanList = proDetailTypeWrap.getElementsByTagName('span');
                 var chooseSpan = spanList[index];
                 for(var i=0;i<spanList.length;i++){
                     spanList[i].className = 'front-product-type-item'
@@ -289,9 +296,55 @@
                 self.isFirst=null;
             },
             buy(){
-                var orderItem={
-
+                var self = this
+                var buyItem={
+                    proId:self.productData.proId,
+                    proPicPath:self.productData.proPicPath,
+                    proName:self.productData.proName,
+                    proSellPrice:self.productData.proSellPrice,
+                    proDetailId:self.proDetail.proDetailId,
+                    proDetailCount:self.detailCount,
+                    proDetailType:self.proDetailType,
+                    priceSum:self.detailCount*self.productData.proSellPrice
                 }
+                sessionStorage.setItem('BUYITEM',JSON.stringify(buyItem));
+                self.$router.go('/front/sureOrder/buy/product')
+            },
+            cart(){
+                var self = this
+                var buyItem = {
+                    proId:self.productData.proId,
+                    proPicPath:self.productData.proPicPath,
+                    proName:self.productData.proName,
+                    proSellPrice:self.productData.proSellPrice,
+                    proDetailId:self.proDetail.proDetailId,
+                    proDetailCount:self.detailCount,
+                    proDetailType:self.proDetailType,
+                    priceSum:self.detailCount*self.productData.proSellPrice,
+                    isChecked:true
+                }
+                console.log(self.detailCount,'11')
+                var buy=localStorage.getItem('BUYLIST');
+                if(buy){
+                    var buyList = JSON.parse(buy);
+                    for(var i=0;i<buyList.length;i++){
+                        if(buyList[i].proDetailId==self.proDetail.proDetailId){
+                            buyList[i].proDetailCount+=self.detailCount
+                            buyList[i].priceSum+=self.detailCount*self.productData.proSellPrice
+                            break;
+                        }
+                        if(i==(buyList.length-1)){
+                            buyList.push(buyItem);
+                            break;
+                        }
+                    }
+                }else{
+                    var buyList = [];
+                    buyList.push(buyItem);
+                }
+
+                localStorage.setItem('BUYLIST',JSON.stringify(buyList));
+                self.$Message.success('添加成功！');
             }
         },
         ready () {

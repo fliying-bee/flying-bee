@@ -10,6 +10,12 @@
 .main-color{
     color: #c80000;
 }
+.text-center{
+   text-align: center;
+}
+.cursor{
+    cursor: pointer;
+}
 .font-normal{
     font-size: 14px;
     font-weight: normal;
@@ -265,7 +271,8 @@
     padding: 10px;
 }
 .front-cart-itempic{
-    height: 100px;
+    height: 50px;
+    width: 50px;
 }
 .front-cart-bottom{
     margin-top: 20px;
@@ -273,6 +280,12 @@
     background-color: rgb(245, 247, 249);
     padding: 10px;
     border: 1px solid #d7dde4;
+}
+.cart-money{
+    font-size: 26px;
+    color: #c40000;
+    font-weight: bolder;
+    font-family: Arial;
 }
 /*订单管理*/
 .front-order-title{

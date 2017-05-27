@@ -72,7 +72,7 @@
                 确认收货地址
             </i-col>
             <i-col span="3" offset="17" class="font-normal">
-                <a href="/front/personCen/personInformation" target="_blank">修改收货地址</a>
+                <a href="/front/personCen/personInformation" target="_blank">管理收货地址</a>
             </i-col>
         </Row>
         <div class="sureOrder-addr">
@@ -80,7 +80,12 @@
                 <Icon type="ios-location"></Icon>
                 寄送至：
             </span>
-            XXXXXXXXXXXXXXXXXXXXX
+            <span v-if="userData.userAddr!=null&userData.userTel!=null">
+                {{userData.userAddr}}&nbsp;({{userData.userName}}收)&nbsp;&nbsp;&nbsp;{{userData.userTel}}
+            </span>
+            <span v-else>
+                尚无地址，请填写地址
+            </span>
         </div>
 
         <div class="sureOrder">
@@ -95,37 +100,32 @@
             <i-col span="4">小计</i-col>
         </Row>
         <div>
-            <Row type="flex" align="middle" justify="center" class="sureOrder-item">
-                <i-col span="2">
-                    <img src="/src/images/yangtu.png" alt="" class="sureOrder-pic">
-                </i-col>
-                <i-col span="6">商品1xxxxxxxxxxxxxxxxxxxxx</i-col>
-                <i-col span="4">299.90</i-col>
-                <i-col span="4">1</i-col>
-                <i-col span="4">L</i-col>
-                <i-col span="4" class="main-color bold">299.90</i-col>
-            </Row>
-            <Row type="flex" align="middle" justify="center" class="sureOrder-item">
-                <i-col span="2">
-                    <img src="/src/images/yangtu.png" alt="" class="sureOrder-pic">
-                </i-col>
-                <i-col span="6">商品1xxxxxxxxxxxxxxxxxxxxx</i-col>
-                <i-col span="4">299.90</i-col>
-                <i-col span="4">1</i-col>
-                <i-col span="4">L</i-col>
-                <i-col span="4" class="main-color bold">299.90</i-col>
-            </Row>
-            <Row type="flex" align="middle" justify="center" class="sureOrder-sum">
+            <div v-for="product in buyList">
+                <Row type="flex" align="middle" justify="center" class="sureOrder-item"
+                     v-if="product.isChecked">
+                    <i-col span="2">
+                        <img :src="product.proPicPath" alt="" class="sureOrder-pic">
+                    </i-col>
+                    <i-col span="6">{{product.proName}}</i-col>
+                    <i-col span="4">{{product.proSellPrice}}</i-col>
+                    <i-col span="4">{{product.proDetailCount}}</i-col>
+                    <i-col span="4">{{product.proDetailType}}</i-col>
+                    <i-col span="4" class="main-color bold">{{product.priceSum}}</i-col>
+                </Row>
+            </div>
+
+
+            <Row type="flex" align="middle" justify="center" class="sureOrder-sum" v-if="proType=='custom'">
                 <i-col span="24">
                     留言：
                     <i-input :value.sync="value" type="textarea" placeholder="请输入..." style="width: 700px"></i-input>
                 </i-col>
             </Row>
             <div class="sureOrder-pay">
-                订单合计：<span class="money-symbols">¥169</span>
+                订单合计：<span class="money-symbols">¥{{orderPriceSum}}</span>
             </div>
             <div class="sureOrder-btn">
-                <i-button type="primary">提交订单</i-button>
+                <i-button type="primary" @click="order()">提交订单</i-button>
             </div>
         </div>
     </div>
@@ -167,11 +167,166 @@
     export default {
         components: {},
         data () {
-            return {}
+            return {
+                userName:'',
+                isLogin:false,
+                isLoading:true,
+                buyList:[],   //商品列表
+                fromType:this.$route.params.fromType,   //从什么网页来（购物车，商品）
+                proType:this.$route.params.proType,   //订单类型（购买租赁定制）
+                orderPriceSum:0,            //订单总价
+                userData:'',            //用户信息
+            }
         },
-        methods: {},
+        methods: {
+            getNowFormatDate() {
+                var date = new Date();
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                var hour = date.getHours();
+                var minute = date.getMinutes();
+                var second = date.getSeconds();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                if (hour >= 0 && hour <= 9) {
+                    hour = "0" + hour;
+                }
+                if (minute >= 0 && minute <= 9) {
+                    minute = "0" + minute;
+                }
+                if (second >= 0 && second <= 9) {
+                    second = "0" + second;
+                }
+                var currentdate = date.getFullYear() + month + strDate
+                        + hour + minute + second;
+                return currentdate;
+            },
+            loginOut(){
+                var self = this;
+                localStorage.removeItem('USERNAME');
+                localStorage.removeItem('USERID');
+                self.$Message.success('退出成功！');
+                setTimeout(()=>{
+                    self.$router.go('/login');
+                    self.isLogin = false;
+                },1000);
+            },
+            loadOrder(){
+                var self = this
+                if(self.fromType=='product'){
+                    var buyItem = sessionStorage.getItem('BUYITEM');
+                    if(buyItem){
+                        self.buyList.push(JSON.parse(buyItem));
+                    }
+                }else if(self.fromType=='cart'){
+                    var buyList = localStorage.getItem('BUYLIST');
+                    if(buyList){
+                        self.buyList = JSON.parse(buyList);
+                    }
+                }
+                for(var i=0;i<self.buyList.length;i++){
+                    if(self.buyList[i].isChecked){
+                        self.orderPriceSum+=self.buyList[i].priceSum;
+                    }
+                }
+            },
+            queryUserInfo(){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    userId:localStorage.getItem('USERID')
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/queryUserById',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        self.userData = res.data.data;
+                        self.isLoading = false
+                    }else{
+                        self.$Message.error('查询失败！');
+                    }
+                })
+            },
+            order(){
+                var self = this
+                self.isLoading = true
+                if(self.proType=='buy'){
+                    var buyId = 'B'+self.getNowFormatDate();
+                    var data = {
+                        userId:localStorage.getItem('USERID'),
+                        buyId:buyId,
+                        buyPriceSum:self.orderPriceSum,
+                        buyAddr:self.userData.userAddr+'('+self.userData.userName+'收)  '+self.userData.userTel
+                    };
+                    self.$http({
+                        method:'POST',
+                        url:'http://127.0.0.1:8080/Spring-study/insertBuy',
+                        params:data
+                    }).then(function(res){
+                        if(res.data.code=="OK"){
+                            self.isLoading = false
+                            for(var i=0;i<self.buyList.length;i++){
+                                var detailData = {
+                                    buyId:buyId,
+                                    proId:self.buyList[i].proId,
+                                    buyDetailCount:self.buyList[i].proDetailCount,
+                                    buyDetailType:self.buyList[i].proDetailType
+                                };
+                                self.$http({
+                                    method:'POST',
+                                    url:'http://127.0.0.1:8080/Spring-study/insertBuyDetail',
+                                    params:detailData
+                                }).then(function(res){
+                                    if(res.data.code=="OK"){
+                                        self.isLoading = false
+                                    }else{
+                                        self.$Message.error('插入明细失败！');
+                                    }
+                                })
+                                var storeData = {
+                                    proId:self.buyList[i].proDetail.proId,
+                                    proDetailId:self.buyList[i].proDetail.proDetailId,
+                                    proDetailCount:self.buyList[i].proDetailCount,
+                                    proDetailType:self.buyList[i].proDetail.proDetailType
+                                };
+                                self.$http({
+                                    method:'POST',
+                                    url:'http://127.0.0.1:8080/Spring-study/updateProductDetail',
+                                    params:storeData
+                                }).then(function(res){
+                                    if(res.data.code=="OK"){
+                                        self.isLoading = false
+                                    }else{
+                                        self.$Message.error('更新库存失败！');
+                                    }
+                                })
+                            }
+                            self.$Message.success('提交成功！');
+                            sessionStorage.removeItem('BUYITEM');
+                            self.$router.go('/front/personCen/buyManage');
+                        }else{
+                            self.$Message.error('提交失败！');
+                        }
+                    })
+                }
+            }
+        },
         ready () {
-
+            var self = this
+            if(localStorage.getItem('USERNAME')){
+                self.userName = localStorage.getItem('USERNAME');
+                self.isLogin = true;
+            }else{
+                self.isLogin = false;
+            }
+            self.loadOrder();
+            self.queryUserInfo();
         }
     }
 </script>

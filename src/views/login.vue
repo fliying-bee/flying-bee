@@ -113,7 +113,6 @@
                             url: 'http://127.0.0.1:8080/Spring-study/queryUserByName',
                             params: data
                         }).then(function (res) {
-                            console.log(res.data)
                             if (res.data.code == "OK") {
                                 self.$Message.success('登录成功！');
                                 localStorage.setItem('USERID', res.data.data.userId);
@@ -147,7 +146,7 @@
                                 self.$Message.success('登录成功！');
                                 localStorage.setItem('EMPID', res.data.data.empId);
                                 localStorage.setItem('EMPNAME', res.data.data.empName);
-                                setTimeout(()=> {
+                                setTimeout(() => {
                                     self.$router.go('/backIndex');
                                 }, 1000);
                             } else {
