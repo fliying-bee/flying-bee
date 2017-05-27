@@ -79,7 +79,7 @@
                 <div class="front-product-title">
                     {{productData.proName}}
                 </div>
-                <div class="front-product-pricewrap">
+                <div class="front-product-pricewrap" v-if="proType=='buy'||proType=='custom'">
                     <div class="front-product-price">
                         价格：
                         <span class="front-product-symbol">¥</span>
@@ -91,27 +91,57 @@
                         <span class="front-product-pricesp">{{productData.proSellPrice}}</span>
                     </div>
                 </div>
+                <div class="front-product-pricewrap" v-if="proType=='rent'">
+                    <div class="front-product-price">
+                        价格：
+                        <span class="front-product-symbol">¥</span>
+                        <span class="front-product-pricep">{{(productData.proSalePrice*0.07).toFixed(0)}}&nbsp;/&nbsp;天</span>
+                    </div>
+                    <div class="front-product-prices">
+                        促销价：
+                        <span class="front-product-symbols">¥</span>
+                        <span class="front-product-pricesp">{{(productData.proSellPrice*0.07).toFixed(0)}}&nbsp;/&nbsp;天</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        押金：
+                        <span class="front-product-symbols">¥</span>
+                        <span class="front-product-pricesp">{{(productData.proSalePrice*0.5).toFixed(0)}}&nbsp;/&nbsp;天</span>
+                    </div>
+                </div>
                 <div class="front-product-typewrap">
                     <span class="front-product-type">尺码：</span>
                     <div style="display: inline-block" id="proDetailType">
                        <span class="front-product-type-item"
                              :class="{'front-product-type-selected':($index==isFirst)}"
                              v-for="productDetail in productDetailData"
-                             @click="changeproDetail(productDetail,$index)">
+                             @click="changeProDetail(productDetail,$index)">
                         {{productDetail.proDetailType}}
                     </span>
                     </div>
-
                 </div>
-                <div class="front-product-sumwrap">
+                <div class="front-product-sumwrap" v-if="proType=='buy'||proType=='custom'">
                     <span class="front-product-sum">数量：</span>
                     <span class="front-product-sum-item">
-                    <Input-number :min="1" on-change="changeNum" :value.sync="detailCount"></Input-number>
-                </span>
+                        <Input-number :min="1" :value.sync="detailCount"></Input-number>
+                    </span>
                     <span class="front-product-sum-item">库存 {{proDetailCount}} 件</span>
+                </div>
+                <div class="front-product-sumwrap" v-if="proType=='rent'">
+                    <span class="front-product-sum">数量：</span>
+                    <span class="front-product-sum-item">
+                        <Input-number :min="1" :value.sync="detailCount"></Input-number>
+                    </span>
+                    <span class="front-product-sum-item">库存 {{proDetailCount}} 件</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="front-product-sum">租期：</span>
+                    <span class="front-product-sum-item">
+                        <Input-number :min="1" :max="7" :value.sync="rentTime"></Input-number>
+                    </span>
+                    <span class="front-product-sum-item">天</span>
                 </div>
                 <div class="front-product-btnwrap">
                     <span class="front-product-btn" v-if="proType=='buy'" @click="buy()">立刻购买</span>
+                    <span class="front-product-btn" v-if="proType=='rent'" @click="rent()">立刻租赁</span>
+                    <span class="front-product-btn" v-if="proType=='custom'" @click="custom()">立刻定制</span>
                     <span class="front-product-btncart" @click="cart()">加入购物车</span>
                 </div>
             </i-col>
@@ -139,19 +169,37 @@
                 <div>
                     <span>商品总数：</span>
                     <span>
-                        {{productData.proCount}}
+                        {{productData.proCount}}&nbsp;件
                     </span>
                 </div>
-                <div>
+                <div v-if="proType=='buy'||proType=='custom'">
                     <span>商品标价：</span>
                     <span>
-                        ¥{{productData.proSalePrice}}
+                        ¥&nbsp;{{productData.proSalePrice}}
                     </span>
                 </div>
-                <div>
+                <div v-if="proType=='buy'||proType=='custom'">
                     <span>商品售价：</span>
                     <span>
-                        ¥{{productData.proSellPrice}}
+                        ¥&nbsp;{{productData.proSellPrice}}
+                    </span>
+                </div>
+                <div v-if="proType=='rent'">
+                    <span>商品租金：</span>
+                    <span>
+                        ¥&nbsp;{{(productData.proSalePrice*0.07).toFixed(0)}}&nbsp;&nbsp;/&nbsp;天
+                    </span>
+                </div>
+                <div v-if="proType=='rent'">
+                    <span>商品租金促销价：</span>
+                    <span>
+                        ¥&nbsp;{{(productData.proSellPrice*0.07).toFixed(0)}}&nbsp;&nbsp;/&nbsp;天
+                    </span>
+                </div>
+                <div v-if="proType=='rent'">
+                    <span>商品押金：</span>
+                    <span>
+                        ¥&nbsp;{{(productData.proSalePrice*0.5).toFixed(0)}}&nbsp;&nbsp;/&nbsp;天
                     </span>
                 </div>
                 <div>
@@ -224,6 +272,7 @@
                 proDetail:'',         //选择的商品详情
                 isFirst:0,
                 detailCount:1,          //商品件数
+                rentTime:1,             //租期
             }
         },
         methods: {
@@ -281,7 +330,7 @@
                     }
                 })
             },
-            changeproDetail(proDetail,index){
+            changeProDetail(proDetail,index){
                 var self = this
                 self.proDetailCount = proDetail.proDetailCount;
                 self.proDetailType = proDetail.proDetailType;
@@ -305,14 +354,35 @@
                     proDetailId:self.proDetail.proDetailId,
                     proDetailCount:self.detailCount,
                     proDetailType:self.proDetailType,
-                    priceSum:self.detailCount*self.productData.proSellPrice
+                    priceSum:self.detailCount*self.productData.proSellPrice,
+                    isChecked:true
                 }
                 sessionStorage.setItem('BUYITEM',JSON.stringify(buyItem));
                 self.$router.go('/front/sureOrder/buy/product')
             },
-            cart(){
+            rent(){
                 var self = this
-                var buyItem = {
+                var rentItem={
+                    proId:self.productData.proId,
+                    proPicPath:self.productData.proPicPath,
+                    proName:self.productData.proName,
+                    rentPrice:(self.productData.proSellPrice*0.07).toFixed(0)-0,
+                    pledge:(self.productData.proSellPrice*0.5).toFixed(0)-0,
+                    proDetailId:self.proDetail.proDetailId,
+                    proDetailCount:self.detailCount-0,
+                    proDetailType:self.proDetailType,
+                    rentTime:self.rentTime,
+                    priceSum:(((self.productData.proSellPrice*0.07).toFixed(0))*self.detailCount*self.rentTime-0)+
+                             ((self.productData.proSellPrice*0.5).toFixed(0)-0),
+                    isChecked:true
+                }
+
+                sessionStorage.setItem('RENTITEM',JSON.stringify(rentItem));
+                self.$router.go('/front/sureOrder/rent/product')
+            },
+            custom(){
+                var self = this
+                var customItem={
                     proId:self.productData.proId,
                     proPicPath:self.productData.proPicPath,
                     proName:self.productData.proName,
@@ -323,28 +393,113 @@
                     priceSum:self.detailCount*self.productData.proSellPrice,
                     isChecked:true
                 }
-                console.log(self.detailCount,'11')
-                var buy=localStorage.getItem('BUYLIST');
-                if(buy){
-                    var buyList = JSON.parse(buy);
-                    for(var i=0;i<buyList.length;i++){
-                        if(buyList[i].proDetailId==self.proDetail.proDetailId){
-                            buyList[i].proDetailCount+=self.detailCount
-                            buyList[i].priceSum+=self.detailCount*self.productData.proSellPrice
-                            break;
-                        }
-                        if(i==(buyList.length-1)){
-                            buyList.push(buyItem);
-                            break;
-                        }
+                sessionStorage.setItem('CUSTOMITEM',JSON.stringify(customItem));
+                self.$router.go('/front/sureOrder/custom/product')
+            },
+            cart(){
+                var self = this
+                if(self.proType=='buy'){
+                    var buyItem = {
+                        proId:self.productData.proId,
+                        proPicPath:self.productData.proPicPath,
+                        proName:self.productData.proName,
+                        proSellPrice:self.productData.proSellPrice,
+                        proDetailId:self.proDetail.proDetailId,
+                        proDetailCount:self.detailCount,
+                        proDetailType:self.proDetailType,
+                        priceSum:self.detailCount*self.productData.proSellPrice,
+                        isChecked:false
                     }
-                }else{
-                    var buyList = [];
-                    buyList.push(buyItem);
-                }
+                    var buy=localStorage.getItem('BUYLIST');
+                    if(buy){
+                        var buyList = JSON.parse(buy);
+                        for(var i=0;i<buyList.length;i++){
+                            if(buyList[i].proDetailId==self.proDetail.proDetailId){
+                                buyList[i].proDetailCount+=self.detailCount
+                                buyList[i].priceSum+=self.detailCount*self.productData.proSellPrice
+                                break;
+                            }
+                            if(i==(buyList.length-1)){
+                                buyList.push(buyItem);
+                                break;
+                            }
+                        }
+                    }else{
+                        var buyList = [];
+                        buyList.push(buyItem);
+                    }
 
-                localStorage.setItem('BUYLIST',JSON.stringify(buyList));
-                self.$Message.success('添加成功！');
+                    localStorage.setItem('BUYLIST',JSON.stringify(buyList));
+                    self.$Message.success('添加成功！');
+                }else if(self.proType=='rent'){
+                    var rentItem = {
+                        proId:self.productData.proId,
+                        proPicPath:self.productData.proPicPath,
+                        proName:self.productData.proName,
+                        rentPrice:(self.productData.proSellPrice*0.07).toFixed(0)-0,
+                        pledge:(self.productData.proSellPrice*0.5).toFixed(0)-0,
+                        proDetailId:self.proDetail.proDetailId,
+                        proDetailCount:self.detailCount-0,
+                        proDetailType:self.proDetailType,
+                        rentTime:self.rentTime,
+                        priceSum:(((self.productData.proSellPrice*0.07).toFixed(0))*self.detailCount*self.rentTime-0)+
+                        ((self.productData.proSellPrice*0.5).toFixed(0)-0),
+                        isChecked:false
+                    }
+                    var rent=localStorage.getItem('RENTLIST');
+                    if(rent){
+                        var rentList = JSON.parse(rent);
+                        for(var i=0;i<rentList.length;i++){
+                            if(rentList[i].proDetailId==self.proDetail.proDetailId){
+                                rentList[i].proDetailCount+=self.detailCount
+                                rentList[i].priceSum+=((self.productData.proSellPrice*0.07).toFixed(0))*self.detailCount+(self.productData.proSellPrice*0.5).toFixed(0)
+                                break;
+                            }
+                            if(i==(rentList.length-1)){
+                                rentList.push(rentItem);
+                                break;
+                            }
+                        }
+                    }else{
+                        var rentList = [];
+                        rentList.push(rentItem);
+                    }
+                    localStorage.setItem('RENTLIST',JSON.stringify(rentList));
+                    self.$Message.success('添加成功！');
+                }else if(self.proType=='custom'){
+                    var customItem = {
+                        proId:self.productData.proId,
+                        proPicPath:self.productData.proPicPath,
+                        proName:self.productData.proName,
+                        proSellPrice:self.productData.proSellPrice,
+                        proDetailId:self.proDetail.proDetailId,
+                        proDetailCount:self.detailCount,
+                        proDetailType:self.proDetailType,
+                        priceSum:self.detailCount*self.productData.proSellPrice,
+                        isChecked:false
+                    }
+                    var custom=localStorage.getItem('CUSTOMLIST');
+                    if(custom){
+                        var customList = JSON.parse(custom);
+                        for(var i=0;i<customList.length;i++){
+                            if(customList[i].proDetailId==self.proDetail.proDetailId){
+                                customList[i].proDetailCount+=self.detailCount
+                                customList[i].priceSum+=self.detailCount*self.productData.proSellPrice
+                                break;
+                            }
+                            if(i==(customList.length-1)){
+                                customList.push(customItem);
+                                break;
+                            }
+                        }
+                    }else{
+                        var customList = [];
+                        customList.push(customItem);
+                    }
+
+                    localStorage.setItem('CUSTOMLIST',JSON.stringify(customList));
+                    self.$Message.success('添加成功！');
+                }
             }
         },
         ready () {

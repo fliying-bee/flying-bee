@@ -5,23 +5,27 @@
             您好，欢迎来到古韵婚纱店
         </i-col>
         <i-col span="11">
-            <i-button v-link="{path:'/login'}" type="text" class="header-login" id="color">hi，请登录</i-button>
-            <i-button v-link="{path:'/register'}" type="text" class="header-hover">免费注册</i-button>
+            <i-button v-link="{path:'/login'}" type="text" class="header-login" id="color">
+                <span v-if="!isLogin">hi，请登录</span>
+            </i-button>
+            <i-button v-link="{path:'/register'}" type="text" class="header-hover">
+                <span v-if="!isLogin">免费注册</span>
+            </i-button>
         </i-col>
         <i-col span="8">
             <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>
             <i-button v-link="{path:'/cart'}" type="text" class="header-hover">我的购物车</i-button>
-            <Dropdown>
+            <Dropdown v-if="isLogin">
                 <i-button type="text" class="header-hover">
-                    您好，XXX
+                    您好，{{userName}}
                     <Icon type="arrow-down-b"></Icon>
                 </i-button>
                 <Dropdown-menu slot="list" class="header-drop">
                     <Dropdown-item v-link="{path:'/personCenter'}">个人中心</Dropdown-item>
-                    <Dropdown-item>退出</Dropdown-item>
+                    <Dropdown-item @click="loginOut()">退出</Dropdown-item>
                 </Dropdown-menu>
             </Dropdown>
-            <!--<i-button v-link="{path:'/personCenter'}" type="text" class="header-hover">个人中心</i-button>-->
+            <i-button v-else v-link="{path:'/personCenter'}" type="text" class="header-hover">个人中心</i-button>
 
         </i-col>
     </Row>
@@ -72,77 +76,29 @@
         </i-col>
     </Row>
     <div class="product-card-wrap clearfix">
-        <Card class="product-card">
-            <div>
-                <img src="/src/images/yangtu.png" class="product-cardpic">
+        <Card class="product-card" v-for="dress in dressList">
+            <a v-link="{path:'/front/product/rent/'+dress.proId}" target="_blank">
+                <img :src="dress.proPicPath" class="product-cardpic">
 
                 <div class="product-card-title">
-                    <span class="front-buy-price">¥169.00</span>
                     <span class="front-buy-symbol">¥</span>
-                    <span class="front-buy-pricep">282.00</span>
+                    <span class="front-buy-price">{{(dress.proSalePrice*0.07).toFixed(0)}}/天</span>
+                    <span class="front-buy-symbolp">¥</span>
+                    <span class="front-buy-pricep">{{(dress.proSellPrice*0.07).toFixed(0)}}/天</span>
                 </div>
                 <div class="product-card-desc">
-                    商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
+                    {{dress.proName}}
                 </div>
-            </div>
-        </Card>
-        <Card class="product-card">
-            <div>
-                <img src="/src/images/yangtu.png" class="product-cardpic">
-
-                <div class="product-card-title">
-                    <span class="front-buy-price">¥169.00</span>
-                    <span class="front-buy-symbol">¥</span>
-                    <span class="front-buy-pricep">282.00</span>
-                </div>
-                <div class="product-card-desc">
-                    商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
-                </div>
-            </div>
-        </Card>
-        <Card class="product-card">
-            <div>
-                <img src="/src/images/yangtu.png" class="product-cardpic">
-
-                <div class="product-card-title">
-                    <span class="front-buy-price">¥169.00</span>
-                    <span class="front-buy-symbol">¥</span>
-                    <span class="front-buy-pricep">282.00</span>
-                </div>
-                <div class="product-card-desc">
-                    商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
-                </div>
-            </div>
-        </Card>
-        <Card class="product-card">
-            <div>
-                <img src="/src/images/yangtu.png" class="product-cardpic">
-
-                <div class="product-card-title">
-                    <span class="front-buy-price">¥169.00</span>
-                    <span class="front-buy-symbol">¥</span>
-                    <span class="front-buy-pricep">282.00</span>
-                </div>
-                <div class="product-card-desc">
-                    商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
-                </div>
-            </div>
-        </Card>
-        <Card class="product-card">
-            <div>
-                <img src="/src/images/yangtu.png" class="product-cardpic">
-
-                <div class="product-card-title">
-                    <span class="front-buy-price">¥169.00</span>
-                    <span class="front-buy-symbol">¥</span>
-                    <span class="front-buy-pricep">282.00</span>
-                </div>
-                <div class="product-card-desc">
-                    商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
-                </div>
-            </div>
+            </a>
         </Card>
     </div>
+    <Row type="flex" justify="center" align="middle" class="page-position-center">
+        <Page show-total
+              :current="page.currentPage"
+              :total="page.totalRow" :page-size="page.pageSize"
+              @on-change="pageChange"></Page>
+    </Row>
+
 
     <!--类型二-->
     <Row justify="center" align="middle">
@@ -153,77 +109,27 @@
         </i-col>
     </Row>
     <div class="product-card-wrap clearfix">
-        <Card class="product-card">
-            <div>
-                <img src="/src/images/yangtu.png" class="product-cardpic">
+        <Card class="product-card" v-for="part in partList">
+            <a v-link="{path:'/front/product/rent/'+dress.proId}" target="_blank">
+                <img :src="part.proPicPath" class="product-cardpic">
 
                 <div class="product-card-title">
-                    <span class="front-buy-price">¥169.00</span>
+                    <span class="front-buy-price">{{(part.proSalePrice*0.07).toFixed(0)}}/天</span>
                     <span class="front-buy-symbol">¥</span>
-                    <span class="front-buy-pricep">282.00</span>
+                    <span class="front-buy-pricep">{{(part.proSellPrice*0.07).toFixed(0)}}/天</span>
                 </div>
                 <div class="product-card-desc">
-                    商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
+                    {{part.proName}}
                 </div>
-            </div>
-        </Card>
-        <Card class="product-card">
-            <div>
-                <img src="/src/images/yangtu.png" class="product-cardpic">
-
-                <div class="product-card-title">
-                    <span class="front-buy-price">¥169.00</span>
-                    <span class="front-buy-symbol">¥</span>
-                    <span class="front-buy-pricep">282.00</span>
-                </div>
-                <div class="product-card-desc">
-                    商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
-                </div>
-            </div>
-        </Card>
-        <Card class="product-card">
-            <div>
-                <img src="/src/images/yangtu.png" class="product-cardpic">
-
-                <div class="product-card-title">
-                    <span class="front-buy-price">¥169.00</span>
-                    <span class="front-buy-symbol">¥</span>
-                    <span class="front-buy-pricep">282.00</span>
-                </div>
-                <div class="product-card-desc">
-                    商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
-                </div>
-            </div>
-        </Card>
-        <Card class="product-card">
-            <div>
-                <img src="/src/images/yangtu.png" class="product-cardpic">
-
-                <div class="product-card-title">
-                    <span class="front-buy-price">¥169.00</span>
-                    <span class="front-buy-symbol">¥</span>
-                    <span class="front-buy-pricep">282.00</span>
-                </div>
-                <div class="product-card-desc">
-                    商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
-                </div>
-            </div>
-        </Card>
-        <Card class="product-card">
-            <div>
-                <img src="/src/images/yangtu.png" class="product-cardpic">
-
-                <div class="product-card-title">
-                    <span class="front-buy-price">¥169.00</span>
-                    <span class="front-buy-symbol">¥</span>
-                    <span class="front-buy-pricep">282.00</span>
-                </div>
-                <div class="product-card-desc">
-                    商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一商品一
-                </div>
-            </div>
+            </a>
         </Card>
     </div>
+    <Row type="flex" justify="center" align="middle" class="page-position-center">
+        <Page show-total
+              :current="pagePart.currentPage"
+              :total="pagePart.totalRow" :page-size="pagePart.pageSize"
+              @on-change="pagePartChange"></Page>
+    </Row>
 
     <Back-top></Back-top>
     <Row class="front-footer">
@@ -248,7 +154,12 @@
             </div>
         </i-col>
     </Row>
+    <Spin fix v-if="isLoading">
+        <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+        <div>Loading</div>
+    </Spin>
 </template>
+
 
 <style scoped>
 
@@ -258,11 +169,101 @@
     export default {
         components: {},
         data () {
-            return {}
-        },
-        methods: {},
-        ready () {
+            return {
+                //分页及其他固定项
+                page:{          //婚纱礼服
+                    currentPage:1,
+                    pageSize:8,
+                    totalPage:1,
+                    totalRow:0
+                },
+                pagePart:{      //配饰
+                    currentPage:1,
+                    pageSize:8,
+                    totalPage:1,
+                    totalRow:0
+                },
+                search:'',
+                userName:'',
+                isLogin:false,
+                isLoading:true,
 
+                dressList:[],   //婚纱列表
+                partList:[],    //配饰列表
+            }
+        },
+        methods: {
+            loginOut(){
+                var self = this;
+                localStorage.removeItem('USERNAME');
+                localStorage.removeItem('USERID');
+                self.$Message.success('退出成功！');
+                setTimeout(()=>{
+                    self.$router.go('/login');
+                    self.isLogin = false;
+                },1000);
+            },
+            queryProductDressPage(){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    currentPage:self.page.currentPage,
+                    pageSize:self.page.pageSize,
+                    proType:'dress'
+                };
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryProductPageByType',
+                    params:data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        self.dressList = res.data.data.list;
+                        self.page.currentPage = res.data.data.currentPage;
+                        self.page.pageSize = res.data.data.pageSize;
+                        self.page.totalPage = res.data.data.totalPage;
+                        self.page.totalRow = res.data.data.totalRow;
+                        self.isLoading = false
+                    } else {
+                        self.$Message.error('婚纱查询错误！');
+                    }
+                })
+            },
+            queryProductPartPage(){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    currentPage:self.pagePart.currentPage,
+                    pageSize:self.pagePart.pageSize,
+                    proType:'part'
+                };
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryProductPageByType',
+                    params:data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        self.partList = res.data.data.list;
+                        self.pagePart.currentPage = res.data.data.currentPage;
+                        self.pagePart.pageSize = res.data.data.pageSize;
+                        self.pagePart.totalPage = res.data.data.totalPage;
+                        self.pagePart.totalRow = res.data.data.totalRow;
+                        self.isLoading = false
+                    } else {
+                        self.$Message.error('配饰查询错误！');
+                    }
+                })
+            },
+        },
+        ready () {
+            var self = this;
+            if(localStorage.getItem('USERNAME')){
+                self.userName = localStorage.getItem('USERNAME');
+                self.isLogin = true;
+            }else{
+                self.isLogin = false;
+            }
+            self.queryProductDressPage();
+            self.queryProductPartPage();
         }
     }
 </script>

@@ -92,32 +92,74 @@
             确认订单
         </div>
 
-        <Row type="flex" align="middle" justify="center" class="sureOrder-title">
+        <Row type="flex" align="middle" justify="center" class="sureOrder-title"
+             v-if="proType=='buy'||proType=='custom'">
             <i-col span="8">商品名</i-col>
             <i-col span="4">单价</i-col>
             <i-col span="4">数量</i-col>
             <i-col span="4">型号</i-col>
             <i-col span="4">小计</i-col>
         </Row>
+        <Row type="flex" align="middle" justify="center" class="sureOrder-title" v-if="proType=='rent'">
+            <i-col span="8">商品名</i-col>
+            <i-col span="3">租赁单价</i-col>
+            <i-col span="3">押金</i-col>
+            <i-col span="2">数量</i-col>
+            <i-col span="3">型号</i-col>
+            <i-col span="2">租期&nbsp;/&nbsp;天</i-col>
+            <i-col span="3">小计</i-col>
+        </Row>
         <div>
-            <div v-for="product in buyList">
-                <Row type="flex" align="middle" justify="center" class="sureOrder-item"
-                     v-if="product.isChecked">
-                    <i-col span="2">
-                        <img :src="product.proPicPath" alt="" class="sureOrder-pic">
-                    </i-col>
-                    <i-col span="6">{{product.proName}}</i-col>
-                    <i-col span="4">{{product.proSellPrice}}</i-col>
-                    <i-col span="4">{{product.proDetailCount}}</i-col>
-                    <i-col span="4">{{product.proDetailType}}</i-col>
-                    <i-col span="4" class="main-color bold">{{product.priceSum}}</i-col>
-                </Row>
+            <div v-if="proType=='buy'">
+                <div v-for="product in buyList">
+                    <Row type="flex" align="middle" justify="center" class="sureOrder-item"
+                         v-if="product.isChecked">
+                        <i-col span="2">
+                            <img :src="product.proPicPath" alt="" class="sureOrder-pic">
+                        </i-col>
+                        <i-col span="6">{{product.proName}}</i-col>
+                        <i-col span="4">{{product.proSellPrice}}</i-col>
+                        <i-col span="4">{{product.proDetailCount}}</i-col>
+                        <i-col span="4">{{product.proDetailType}}</i-col>
+                        <i-col span="4" class="main-color bold">{{product.priceSum}}</i-col>
+                    </Row>
+                </div>
             </div>
-
-
+            <div v-if="proType=='rent'">
+                <div v-for="product in rentList">
+                    <Row type="flex" align="middle" justify="center" class="sureOrder-item"
+                         v-if="product.isChecked">
+                        <i-col span="2">
+                            <img :src="product.proPicPath" alt="" class="sureOrder-pic">
+                        </i-col>
+                        <i-col span="6">{{product.proName}}</i-col>
+                        <i-col span="3">{{product.rentPrice}}</i-col>
+                        <i-col span="3">{{product.pledge}}</i-col>
+                        <i-col span="2">{{product.proDetailCount}}</i-col>
+                        <i-col span="3">{{product.proDetailType}}</i-col>
+                        <i-col span="2">{{product.rentTime}}</i-col>
+                        <i-col span="3" class="main-color bold">{{product.priceSum}}</i-col>
+                    </Row>
+                </div>
+            </div>
+            <div v-if="proType=='custom'">
+                <div v-for="product in customList">
+                    <Row type="flex" align="middle" justify="center" class="sureOrder-item"
+                         v-if="product.isChecked">
+                        <i-col span="2">
+                            <img :src="product.proPicPath" alt="" class="sureOrder-pic">
+                        </i-col>
+                        <i-col span="6">{{product.proName}}</i-col>
+                        <i-col span="4">{{product.proSellPrice}}</i-col>
+                        <i-col span="4">{{product.proDetailCount}}</i-col>
+                        <i-col span="4">{{product.proDetailType}}</i-col>
+                        <i-col span="4" class="main-color bold">{{product.priceSum}}</i-col>
+                    </Row>
+                </div>
+            </div>
             <Row type="flex" align="middle" justify="center" class="sureOrder-sum" v-if="proType=='custom'">
                 <i-col span="24">
-                    留言：
+                    定制要求：
                     <i-input :value.sync="value" type="textarea" placeholder="请输入..." style="width: 700px"></i-input>
                 </i-col>
             </Row>
@@ -171,7 +213,9 @@
                 userName:'',
                 isLogin:false,
                 isLoading:true,
-                buyList:[],   //商品列表
+                buyList:[],   //购买列表
+                rentList:[],    //租赁列表
+                customList:[],  //定制列表
                 fromType:this.$route.params.fromType,   //从什么网页来（购物车，商品）
                 proType:this.$route.params.proType,   //订单类型（购买租赁定制）
                 orderPriceSum:0,            //订单总价
@@ -217,22 +261,59 @@
             },
             loadOrder(){
                 var self = this
-                if(self.fromType=='product'){
-                    var buyItem = sessionStorage.getItem('BUYITEM');
-                    if(buyItem){
-                        self.buyList.push(JSON.parse(buyItem));
+                if(self.proType=='buy'){
+                    if(self.fromType=='product'){
+                        var buyItem = sessionStorage.getItem('BUYITEM');
+                        if(buyItem){
+                            self.buyList.push(JSON.parse(buyItem));
+                        }
+                    }else if(self.fromType=='cart'){
+                        var buyList = localStorage.getItem('BUYLIST');
+                        if(buyList){
+                            self.buyList = JSON.parse(buyList);
+                        }
                     }
-                }else if(self.fromType=='cart'){
-                    var buyList = localStorage.getItem('BUYLIST');
-                    if(buyList){
-                        self.buyList = JSON.parse(buyList);
+                    for(var i=0;i<self.buyList.length;i++){
+                        if(self.buyList[i].isChecked){
+                            self.orderPriceSum+=self.buyList[i].priceSum;
+                        }
+                    }
+                }else if(self.proType=='rent'){
+                    if(self.fromType=='product'){
+                        var rentItem = sessionStorage.getItem('RENTITEM');
+                        if(rentItem){
+                            self.rentList.push(JSON.parse(rentItem));
+                        }
+                    }else if(self.fromType=='cart'){
+                        var rentList = localStorage.getItem('RENTLIST');
+                        if(rentList){
+                            self.rentList = JSON.parse(rentList);
+                        }
+                    }
+                    for(var i=0;i<self.rentList.length;i++){
+                        if(self.rentList[i].isChecked){
+                            self.orderPriceSum+=self.rentList[i].priceSum;
+                        }
+                    }
+                }else if(self.proType=='custom'){
+                    if(self.fromType=='product'){
+                        var customItem = sessionStorage.getItem('CUSTOMITEM');
+                        if(customItem){
+                            self.customList.push(JSON.parse(customItem));
+                        }
+                    }else if(self.fromType=='cart'){
+                        var customList = localStorage.getItem('CUSTOMLIST');
+                        if(customList){
+                            self.customList = JSON.parse(customList);
+                        }
+                    }
+                    for(var i=0;i<self.customList.length;i++){
+                        if(self.customList[i].isChecked){
+                            self.orderPriceSum+=self.customList[i].priceSum;
+                        }
                     }
                 }
-                for(var i=0;i<self.buyList.length;i++){
-                    if(self.buyList[i].isChecked){
-                        self.orderPriceSum+=self.buyList[i].priceSum;
-                    }
-                }
+
             },
             queryUserInfo(){
                 var self = this
@@ -272,44 +353,159 @@
                         if(res.data.code=="OK"){
                             self.isLoading = false
                             for(var i=0;i<self.buyList.length;i++){
-                                var detailData = {
-                                    buyId:buyId,
-                                    proId:self.buyList[i].proId,
-                                    buyDetailCount:self.buyList[i].proDetailCount,
-                                    buyDetailType:self.buyList[i].proDetailType
-                                };
-                                self.$http({
-                                    method:'POST',
-                                    url:'http://127.0.0.1:8080/Spring-study/insertBuyDetail',
-                                    params:detailData
-                                }).then(function(res){
-                                    if(res.data.code=="OK"){
-                                        self.isLoading = false
-                                    }else{
-                                        self.$Message.error('插入明细失败！');
-                                    }
-                                })
-                                var storeData = {
-                                    proId:self.buyList[i].proDetail.proId,
-                                    proDetailId:self.buyList[i].proDetail.proDetailId,
-                                    proDetailCount:self.buyList[i].proDetailCount,
-                                    proDetailType:self.buyList[i].proDetail.proDetailType
-                                };
-                                self.$http({
-                                    method:'POST',
-                                    url:'http://127.0.0.1:8080/Spring-study/updateProductDetail',
-                                    params:storeData
-                                }).then(function(res){
-                                    if(res.data.code=="OK"){
-                                        self.isLoading = false
-                                    }else{
-                                        self.$Message.error('更新库存失败！');
-                                    }
-                                })
+                                if(self.buyList[i].isChecked){
+                                    var detailData = {
+                                        buyId:buyId,
+                                        proDetailId:self.buyList[i].proDetailId,
+                                        proId:self.buyList[i].proId,
+                                        buyDetailCount:self.buyList[i].proDetailCount,
+                                        buyDetailType:self.buyList[i].proDetailType
+                                    };
+                                    self.$http({
+                                        method:'POST',
+                                        url:'http://127.0.0.1:8080/Spring-study/insertBuyDetail',
+                                        params:detailData
+                                    }).then(function(res){
+                                        if(res.data.code=="OK"){
+                                            self.isLoading = false
+                                        }else{
+                                            self.$Message.error('插入明细失败！');
+                                        }
+                                    })
+                                    var storeData = {
+                                        proDetailId:self.buyList[i].proDetailId,
+                                        proDetailCount:self.buyList[i].proDetailCount,
+                                        proDetailType:self.buyList[i].proDetailType
+                                    };
+                                    self.$http({
+                                        method:'POST',
+                                        url:'http://127.0.0.1:8080/Spring-study/updateProductDetailCount',
+                                        params:storeData
+                                    }).then(function(res){
+                                        if(res.data.code=="OK"){
+                                            self.isLoading = false
+                                        }else{
+                                            self.$Message.error('更新商品明细库存失败！');
+                                        }
+                                    })
+                                    var storePData = {
+                                        proId:self.buyList[i].proId,
+                                        proCount:self.buyList[i].proDetailCount
+                                    };
+                                    self.$http({
+                                        method:'POST',
+                                        url:'http://127.0.0.1:8080/Spring-study/updateProductCount',
+                                        params:storePData
+                                    }).then(function(res){
+                                        if(res.data.code=="OK"){
+                                            self.isLoading = false
+                                        }else{
+                                            self.$Message.error('更新商品库存失败！');
+                                        }
+                                    })
+                                }
+
                             }
                             self.$Message.success('提交成功！');
-                            sessionStorage.removeItem('BUYITEM');
+                            if(self.fromType=='product'){
+                                sessionStorage.removeItem('BUYITEM');
+                            }else if(self.fromType=='cart'){
+                                var sList = []
+                                for(var i=0;i<self.buyList.length;i++){
+                                    if(!self.buyList[i].isChecked){
+                                        sList.push(self.buyList[i])
+                                    }
+                                }
+                                localStorage.setItem('BUYLIST',JSON.stringify(sList));
+                            }
                             self.$router.go('/front/personCen/buyManage');
+                        }else{
+                            self.$Message.error('提交失败！');
+                        }
+                    })
+                }else if(self.proType=='rent'){
+                    var rentId = 'R'+self.getNowFormatDate();
+                    var data = {
+                        userId:localStorage.getItem('USERID'),
+                        rentId:rentId,
+                        rentPriceSum:self.orderPriceSum,
+                        rentAddr:self.userData.userAddr+'('+self.userData.userName+'收)  '+self.userData.userTel,
+                        rentTime:self.rentList[0].rentTime
+                    };
+                    self.$http({
+                        method:'POST',
+                        url:'http://127.0.0.1:8080/Spring-study/insertRent',
+                        params:data
+                    }).then(function(res){
+                        if(res.data.code=="OK"){
+                            self.isLoading = false
+                            for(var i=0;i<self.rentList.length;i++){
+                                if(self.rentList[i].isChecked){
+                                    var detailData = {
+                                        rentId:rentId,
+                                        proDetailId:self.rentList[i].proDetailId,
+                                        proId:self.rentList[i].proId,
+                                        rentDetailCount:self.rentList[i].proDetailCount,
+                                        rentDetailType:self.rentList[i].proDetailType
+                                    };
+                                    self.$http({
+                                        method:'POST',
+                                        url:'http://127.0.0.1:8080/Spring-study/insertRentDetail',
+                                        params:detailData
+                                    }).then(function(res){
+                                        if(res.data.code=="OK"){
+                                            self.isLoading = false
+                                        }else{
+                                            self.$Message.error('插入明细失败！');
+                                        }
+                                    })
+                                    var storeData = {
+                                        proDetailId:self.rentList[i].proDetailId,
+                                        proDetailCount:self.rentList[i].proDetailCount,
+                                        proDetailType:self.rentList[i].proDetailType
+                                    };
+                                    self.$http({
+                                        method:'POST',
+                                        url:'http://127.0.0.1:8080/Spring-study/updateProductDetailCount',
+                                        params:storeData
+                                    }).then(function(res){
+                                        if(res.data.code=="OK"){
+                                            self.isLoading = false
+                                        }else{
+                                            self.$Message.error('更新商品明细库存失败！');
+                                        }
+                                    })
+                                    var storePData = {
+                                        proId:self.rentList[i].proId,
+                                        proCount:self.rentList[i].proDetailCount
+                                    };
+                                    self.$http({
+                                        method:'POST',
+                                        url:'http://127.0.0.1:8080/Spring-study/updateProductCount',
+                                        params:storePData
+                                    }).then(function(res){
+                                        if(res.data.code=="OK"){
+                                            self.isLoading = false
+                                        }else{
+                                            self.$Message.error('更新商品库存失败！');
+                                        }
+                                    })
+                                }
+
+                            }
+                            self.$Message.success('提交成功！');
+                            if(self.fromType=='product'){
+                                sessionStorage.removeItem('RENTITEM');
+                            }else if(self.fromType=='cart'){
+                                var sList = []
+                                for(var i=0;i<self.rentList.length;i++){
+                                    if(!self.rentList[i].isChecked){
+                                        sList.push(self.rentList[i])
+                                    }
+                                }
+                                localStorage.setItem('RENTLIST',JSON.stringify(sList));
+                            }
+                            self.$router.go('/front/personCen/rentManage');
                         }else{
                             self.$Message.error('提交失败！');
                         }
