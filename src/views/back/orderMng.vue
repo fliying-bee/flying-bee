@@ -143,11 +143,11 @@
                                                 <span class="bold">{{custom.customOrderTime}}</span>
                                             </i-col>
                                             <i-col span="4">{{custom.userId}}</i-col>
-                                            <i-col span="4">{{custom.customPrice}}</i-col>
+                                            <i-col span="4">{{custom.customPriceSum}}</i-col>
                                             <i-col span="3">
                                                 <span v-if="custom.logisStatus=='sended'">已发货</span>
                                                 <span v-if="custom.logisStatus=='received'">已收货</span>
-                                                <i-button v-if="custom.customCheck=='notsend'" @click="updateCustomLogisStatus(custom)">发货</i-button>
+                                                <i-button v-if="custom.logisStatus=='notsend'" @click="updateCustomLogisStatus(custom)">发货</i-button>
                                             </i-col>
                                             <i-col span="5">
                                                 <a v-link="{path:'/back/orderDetail/custom/'+custom.customId}">查看详情</a>
@@ -191,11 +191,12 @@
                                                 <span class="bold">{{rent.rentOrderTime}}</span>
                                             </i-col>
                                             <i-col span="4">{{rent.userId}}</i-col>
-                                            <i-col span="4">{{rent.rentPrice}}</i-col>
+                                            <i-col span="4">{{rent.rentPriceSum}}</i-col>
                                             <i-col span="3">
-                                                <span v-if="rent.logisStatus=='sended'">已发货</span>
-                                                <span v-if="rent.logisStatus=='received'">已收货</span>
-                                                <i-button v-if="rent.logisStatus=='notsend'" @click="updateRentLogisStatus(rent)">发货</i-button>
+                                                <span v-if="rent.logisStatus=='ssended'">已发货</span>
+                                                <span v-if="rent.logisStatus=='ureceived'">用户已收货</span>
+                                                <span v-if="rent.logisStatus=='ureceived'">已收货</span>
+                                                <i-button v-if="rent.logisStatus=='snotsend'" @click="updateRentLogisStatus(rent)">发货</i-button>
                                             </i-col>
                                             <i-col span="5">
                                                 <a v-link="{path:'/back/orderDetail/rent/'+rent.rentId}">查看详情</a>
@@ -240,7 +241,7 @@
                                                 <span class="bold">{{custom.customOrderTime}}</span>
                                             </i-col>
                                             <i-col span="4">{{custom.userId}}</i-col>
-                                            <i-col span="3">{{custom.customPrice}}</i-col>
+                                            <i-col span="3">{{custom.customPriceSum}}</i-col>
                                             <i-col span="6">
                                                 <span v-if="custom.customCheck=='passed'">已通过</span>
                                                 <span v-if="custom.customCheck=='notpass'">未通过</span>
@@ -597,7 +598,7 @@
                 var self = this;
                 var data = {
                     rentId:rent.rentId,
-                    logisStatus:'sended'
+                    logisStatus:'ssended'
                 };
                 self.$http({
                     method:'POST',
