@@ -160,7 +160,7 @@
             <Row type="flex" align="middle" justify="center" class="sureOrder-sum" v-if="proType=='custom'">
                 <i-col span="24">
                     定制要求：
-                    <i-input :value.sync="value" type="textarea" placeholder="请输入..." style="width: 700px"></i-input>
+                    <i-input :value.sync="customMsg" type="textarea" placeholder="请输入..." style="width: 700px"></i-input>
                 </i-col>
             </Row>
             <div class="sureOrder-pay">
@@ -220,6 +220,7 @@
                 proType:this.$route.params.proType,   //订单类型（购买租赁定制）
                 orderPriceSum:0,            //订单总价
                 userData:'',            //用户信息
+                customMsg:'',           //定制要求
             }
         },
         methods: {
@@ -506,6 +507,93 @@
                                 localStorage.setItem('RENTLIST',JSON.stringify(sList));
                             }
                             self.$router.go('/front/personCen/rentManage');
+                        }else{
+                            self.$Message.error('提交失败！');
+                        }
+                    })
+                }else if(self.proType=='custom'){
+                    var customId = 'C'+self.getNowFormatDate();
+                    var data = {
+                        userId:localStorage.getItem('USERID'),
+                        customId:customId,
+                        customPriceSum:self.orderPriceSum,
+                        customAddr:self.userData.userAddr+'('+self.userData.userName+'收)  '+self.userData.userTel,
+                        customMsg:self.customMsg
+                    };
+                    self.$http({
+                        method:'POST',
+                        url:'http://127.0.0.1:8080/Spring-study/insertCustom',
+                        params:data
+                    }).then(function(res){
+                        if(res.data.code=="OK"){
+                            self.isLoading = false
+                            for(var i=0;i<self.customList.length;i++){
+                                if(self.customList[i].isChecked){
+                                    var detailData = {
+                                        customId:customId,
+                                        proDetailId:self.customList[i].proDetailId,
+                                        proId:self.customList[i].proId,
+                                        customDetailCount:self.customList[i].proDetailCount,
+                                        customDetailType:self.customList[i].proDetailType
+                                    };
+                                    self.$http({
+                                        method:'POST',
+                                        url:'http://127.0.0.1:8080/Spring-study/insertCustomDetail',
+                                        params:detailData
+                                    }).then(function(res){
+                                        if(res.data.code=="OK"){
+                                            self.isLoading = false
+                                        }else{
+                                            self.$Message.error('插入明细失败！');
+                                        }
+                                    })
+                                    var storeData = {
+                                        proDetailId:self.customList[i].proDetailId,
+                                        proDetailCount:self.customList[i].proDetailCount,
+                                        proDetailType:self.customList[i].proDetailType
+                                    };
+                                    self.$http({
+                                        method:'POST',
+                                        url:'http://127.0.0.1:8080/Spring-study/updateProductDetailCount',
+                                        params:storeData
+                                    }).then(function(res){
+                                        if(res.data.code=="OK"){
+                                            self.isLoading = false
+                                        }else{
+                                            self.$Message.error('更新商品明细库存失败！');
+                                        }
+                                    })
+                                    var storePData = {
+                                        proId:self.customList[i].proId,
+                                        proCount:self.customList[i].proDetailCount
+                                    };
+                                    self.$http({
+                                        method:'POST',
+                                        url:'http://127.0.0.1:8080/Spring-study/updateProductCount',
+                                        params:storePData
+                                    }).then(function(res){
+                                        if(res.data.code=="OK"){
+                                            self.isLoading = false
+                                        }else{
+                                            self.$Message.error('更新商品库存失败！');
+                                        }
+                                    })
+                                }
+
+                            }
+                            self.$Message.success('提交成功！');
+                            if(self.fromType=='product'){
+                                sessionStorage.removeItem('CUSTOMITEM');
+                            }else if(self.fromType=='cart'){
+                                var sList = []
+                                for(var i=0;i<self.customList.length;i++){
+                                    if(!self.customList[i].isChecked){
+                                        sList.push(self.customList[i])
+                                    }
+                                }
+                                localStorage.setItem('CUSTOMLIST',JSON.stringify(sList));
+                            }
+                            self.$router.go('/front/personCen/designManage');
                         }else{
                             self.$Message.error('提交失败！');
                         }
