@@ -159,6 +159,11 @@ const routers = {
             require(['./views/back/detail/orderDetail.vue'], resolve);
         }
     },
+    '/back/draftDetail/:draId':{
+        component (resolve) {
+            require(['./views/back/detail/draftDetail.vue'], resolve);
+        }
+    },
 
 };
 export default routers;

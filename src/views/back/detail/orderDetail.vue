@@ -264,9 +264,6 @@
                 rent:'',    //租赁
                 custom:'',  //定制
                 customMsg:'',           //定制要求
-                userData:'',            //用户信息
-                orderPriceSum:0,
-
             }
         },
         methods: {
