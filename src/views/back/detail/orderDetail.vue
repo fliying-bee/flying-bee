@@ -53,7 +53,7 @@
                     <Breadcrumb>
                         <Breadcrumb-item href="#">后台管理</Breadcrumb-item>
                         <Breadcrumb-item href="#">客户管理</Breadcrumb-item>
-                        <Breadcrumb-item href="#">订单管理</Breadcrumb-item>
+                        <Breadcrumb-item v-link="{path:'/back/orderMng'}">订单管理</Breadcrumb-item>
                         <Breadcrumb-item v-if="type=='buy'">购买单详情</Breadcrumb-item>
                         <Breadcrumb-item v-if="type=='custom'">定制单详情</Breadcrumb-item>
                         <Breadcrumb-item v-if="type=='rent'">租赁单详情</Breadcrumb-item>
@@ -61,7 +61,165 @@
                 </div>
                 <div class="back-content">
                     <div class="back-content-main">
+                        <!--购买单详情-->
+                        <div v-if="type=='buy'" class="order-detail">
+                            <Row>
+                                <i-col span="3" >购买单编码：</i-col>
+                                <i-col sapn="4">{{buy.buyId}}</i-col>
+                            </Row>
+                            <Row>
+                                <i-col span="3" >订单时间：</i-col>
+                                <i-col sapn="4">{{buy.buyOrderTime}}</i-col>
+                            </Row>
+                            <Row>
+                                <i-col span="3" >物流状态：</i-col>
+                                <i-col sapn="4" v-if="buy.logisStatus=='sended'">已发货</i-col>
+                                <i-col sapn="4" v-if="buy.logisStatus=='received'">已收货</i-col>
+                                <i-col sapn="4" v-if="buy.logisStatus=='notsend'">未发货</i-col>
+                            </Row>
+                            <Row>
+                                <i-col span="3" >下单用户：</i-col>
+                                <i-col sapn="4">{{buy.userId}}</i-col>
+                            </Row>
+                            <Row>
+                                <i-col span="3" >收货地址：</i-col>
+                                <i-col sapn="12">{{buy.buyAddr}}</i-col>
+                            </Row>
+                        </div>
+                        <!--定制单详情-->
+                        <div v-if="type=='custom'" class="order-detail">
+                            <Row>
+                                <i-col span="3" >定制单编码：</i-col>
+                                <i-col sapn="4">{{custom.customId}}</i-col>
+                            </Row>
+                            <Row>
+                                <i-col span="3" >订单时间：</i-col>
+                                <i-col sapn="4">{{custom.customOrderTime}}</i-col>
+                            </Row>
+                            <Row>
+                                <i-col span="3" >物流状态：</i-col>
+                                <i-col sapn="4" v-if="custom.logisStatus=='sended'">已发货</i-col>
+                                <i-col sapn="4" v-if="custom.logisStatus=='received'">已收货</i-col>
+                                <i-col sapn="4" v-if="custom.logisStatus=='notsend'">未发货</i-col>
+                            </Row>
+                            <Row>
+                                <i-col span="3" >审核状态：</i-col>
+                                <i-col sapn="4" v-if="custom.customCheck=='notpass'">未通过</i-col>
+                                <i-col sapn="4" v-if="custom.customCheck=='passed'">已通过</i-col>
+                                <i-col sapn="4" v-if="custom.customCheck=='notcheck'">未审核</i-col>
+                            </Row>
+                            <Row>
+                                <i-col span="3" >下单用户：</i-col>
+                                <i-col sapn="4">{{custom.userId}}</i-col>
+                            </Row>
+                            <Row>
+                                <i-col span="3" >收货地址：</i-col>
+                                <i-col sapn="12">{{custom.customAddr}}</i-col>
+                            </Row>
+                        </div>
+                        <!--租赁单详情-->
+                        <div v-if="type=='rent'" class="order-detail">
+                            <Row>
+                                <i-col span="3" >租赁单编码：</i-col>
+                                <i-col sapn="4">{{rent.rentId}}</i-col>
+                            </Row>
+                            <Row>
+                                <i-col span="3" >订单时间：</i-col>
+                                <i-col sapn="4">{{rent.rentOrderTime}}</i-col>
+                            </Row>
+                            <Row>
+                                <i-col span="3" >物流状态：</i-col>
+                                <i-col sapn="4" v-if="rent.logisStatus=='snotsend'">未发货</i-col>
+                                <i-col sapn="4" v-if="rent.logisStatus=='ssended'">已发货</i-col>
+                                <i-col sapn="4" v-if="rent.logisStatus=='urecseived'">已收货</i-col>
+                                <i-col sapn="4" v-if="rent.logisStatus=='usended'">用户已发货</i-col>
+                                <i-col sapn="4" v-if="rent.logisStatus=='sreceived'">已归还</i-col>
+                            </Row>
+                            <Row>
+                                <i-col span="3" >下单用户：</i-col>
+                                <i-col sapn="4">{{rent.userId}}</i-col>
+                            </Row>
+                            <Row>
+                                <i-col span="3" >收货地址：</i-col>
+                                <i-col sapn="12">{{rent.rentAddr}}</i-col>
+                            </Row>
+                        </div>
 
+                        <Row type="flex" align="middle" justify="center" class="sureOrder-title"
+                             v-if="type=='buy'||type=='custom'">
+                            <i-col span="8">商品名</i-col>
+                            <i-col span="4">单价</i-col>
+                            <i-col span="4">数量</i-col>
+                            <i-col span="4">型号</i-col>
+                            <i-col span="4">小计</i-col>
+                        </Row>
+                        <Row type="flex" align="middle" justify="center" class="sureOrder-title" v-if="type=='rent'">
+                            <i-col span="8">商品名</i-col>
+                            <i-col span="3">租赁单价</i-col>
+                            <i-col span="3">押金</i-col>
+                            <i-col span="2">数量</i-col>
+                            <i-col span="3">型号</i-col>
+                            <i-col span="2">租期&nbsp;/&nbsp;天</i-col>
+                            <i-col span="3">小计</i-col>
+                        </Row>
+                        <div>
+                            <div v-if="type=='buy'">
+                                <div v-for="product in buy.buyDetail">
+                                    <Row type="flex" align="middle" justify="center" class="sureOrder-item">
+                                        <i-col span="2">
+                                            <img :src="product.product.proPicPath" alt="" class="sureOrder-pic">
+                                        </i-col>
+                                        <i-col span="6">{{product.product.proName}}</i-col>
+                                        <i-col span="4">{{product.product.proSellPrice}}</i-col>
+                                        <i-col span="4">{{product.buyDetailCount}}</i-col>
+                                        <i-col span="4">{{product.buyDetailType}}</i-col>
+                                        <i-col span="4" class="main-color bold">{{product.product.proSellPrice*product.buyDetailCount}}</i-col>
+                                    </Row>
+                                </div>
+                            </div>
+                            <div v-if="type=='rent'">
+                                <div v-for="product in rent.rentDetail">
+                                    <Row type="flex" align="middle" justify="center" class="sureOrder-item">
+                                        <i-col span="2">
+                                            <img :src="product.product.proPicPath" alt="" class="sureOrder-pic">
+                                        </i-col>
+                                        <i-col span="6">{{product.product.proName}}</i-col>
+                                        <i-col span="3">{{(product.product.proSellPrice*0.07).toFixed(0)*rent.rentTime}}</i-col>
+                                        <i-col span="3">{{(product.product.proSalePrice*0.5).toFixed(0)}}</i-col>
+                                        <i-col span="2">{{product.rentDetailCount}}</i-col>
+                                        <i-col span="3">{{product.rentDetailType}}</i-col>
+                                        <i-col span="2">{{rent.rentTime}}</i-col>
+                                        <i-col span="3" class="main-color bold">{{((product.product.proSellPrice*0.07).toFixed(0)*rent.rentTime-0)+((product.product.proSalePrice*0.5).toFixed(0)-0)}}</i-col>
+                                    </Row>
+                                </div>
+                            </div>
+                            <div v-if="type=='custom'">
+                                <div v-for="product in custom.customDetail">
+                                    <Row type="flex" align="middle" justify="center" class="sureOrder-item">
+                                        <i-col span="2">
+                                            <img :src="product.product.proPicPath" alt="" class="sureOrder-pic">
+                                        </i-col>
+                                        <i-col span="6">{{product.product.proName}}</i-col>
+                                        <i-col span="4">{{product.product.proSellPrice}}</i-col>
+                                        <i-col span="4">{{product.customDetailCount}}</i-col>
+                                        <i-col span="4">{{product.customDetailType}}</i-col>
+                                        <i-col span="4" class="main-color bold">{{product.product.proSellPrice*product.customDetailCount}}</i-col>
+                                    </Row>
+                                </div>
+                            </div>
+                            <Row type="flex" align="middle" justify="center" class="sureOrder-sum" v-if="type=='custom'">
+                                <i-col span="24">
+                                    定制要求：
+                                </i-col>
+                                <div class="orderdetail-custom">{{custom.customMsg}}</div>
+                            </Row>
+
+                            <div class="sureOrder-pay">
+                                订单合计：<span class="money-symbols"  v-if="type=='buy'">¥{{buy.buyPriceSum}}</span>
+                                <span class="money-symbols" v-if="type=='custom'">¥{{custom.customPriceSum}}</span>
+                                <span class="money-symbols" v-if="type=='rent'">¥{{rent.rentPriceSum}}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="back-copy">
@@ -77,7 +235,18 @@
 </template>
 
 <style scoped>
-
+.order-detail{
+    padding-left: 20px;
+    font-size: 16px;
+    font-weight: bolder;
+    margin: 5px 0 30px;
+    line-height: 32px;
+}
+.orderdetail-custom{
+    padding: 10px 20px;
+    width: 90%;
+    word-wrap: break-word;
+}
 </style>
 
 <script>
@@ -91,6 +260,12 @@
                 isLoading:true,
                 orderId:this.$route.params.orderId,
                 type:this.$route.params.type,
+                buy:'',   //购买
+                rent:'',    //租赁
+                custom:'',  //定制
+                customMsg:'',           //定制要求
+                userData:'',            //用户信息
+                orderPriceSum:0,
 
             }
         },
@@ -104,7 +279,77 @@
                     self.$router.go('/login');
                     self.isLogin = false;
                 },1000);
-            }
+            },
+            queryBackBuyById(orderId){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    buyId:orderId
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/queryBackBuyById',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        self.buy = '';
+                        if(res.data.data!=null){
+                            self.buy=res.data.data;
+                            console.log(self.buy);
+                        }
+                        self.isLoading = false
+                        self.$Message.success('查询成功!');
+                    }else{
+                        self.$Message.error('查询失败！');
+                    }
+                })
+            },
+            queryBackCustomById(orderId){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    customId:orderId
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/queryBackCustomById',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        self.custom= '';
+                        if(res.data.data!=null){
+                            self.custom=res.data.data;
+                        }
+                        self.isLoading = false
+                        self.$Message.success('查询成功!');
+                    }else{
+                        self.$Message.error('查询失败！');
+                    }
+                })
+            },
+            queryBackRentById(orderId){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    rentId:orderId
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/queryBackRentById',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        self.rent = '';
+                        if(res.data.data!=null){
+                            self.rent=res.data.data;
+                        }
+                        self.isLoading = false
+                        self.$Message.success('查询成功!');
+                    }else{
+                        self.$Message.error('查询失败！');
+                    }
+                })
+            },
         },
         ready () {
             var self = this;
@@ -114,9 +359,16 @@
             }else{
                 self.isLogin = false;
             }
-    }
-
-
+            console.log(self.type,self.orderId);
+            if(self.type=='buy'){
+                self.queryBackBuyById(self.orderId);
+            }
+            else if(self.type=='custom'){
+                self.queryBackCustomById(self.orderId);}
+            else if(self.type=='rent'){
+                self.queryBackRentById(self.orderId);
+            }
+        }
 
     }
 </script>

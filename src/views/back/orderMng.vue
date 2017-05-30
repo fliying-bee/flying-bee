@@ -194,9 +194,10 @@
                                             <i-col span="4">{{rent.rentPriceSum}}</i-col>
                                             <i-col span="3">
                                                 <span v-if="rent.logisStatus=='ssended'">已发货</span>
-                                                <span v-if="rent.logisStatus=='ureceived'">用户已收货</span>
                                                 <span v-if="rent.logisStatus=='ureceived'">已收货</span>
-                                                <i-button v-if="rent.logisStatus=='snotsend'" @click="updateRentLogisStatus(rent)">发货</i-button>
+                                                <span v-if="rent.logisStatus=='usended'" @click="updateRentLogisStatus(rent,'sreceived')">用户已发货</span>
+                                                <span v-if="rent.logisStatus=='sreceived'">已归还</span>
+                                                <i-button v-if="rent.logisStatus=='snotsend'" @click="updateRentLogisStatus(rent,'ssended')">发货</i-button>
                                             </i-col>
                                             <i-col span="5">
                                                 <a v-link="{path:'/back/orderDetail/rent/'+rent.rentId}">查看详情</a>
@@ -594,11 +595,11 @@
                     })
                 }
             },
-            updateRentLogisStatus(rent){
+            updateRentLogisStatus(rent,status){
                 var self = this;
                 var data = {
                     rentId:rent.rentId,
-                    logisStatus:'ssended'
+                    logisStatus:status
                 };
                 self.$http({
                     method:'POST',

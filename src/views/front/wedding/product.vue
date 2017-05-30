@@ -104,7 +104,7 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         押金：
                         <span class="front-product-symbols">¥</span>
-                        <span class="front-product-pricesp">{{(productData.proSalePrice*0.5).toFixed(0)}}&nbsp;/&nbsp;天</span>
+                        <span class="front-product-pricesp">{{(productData.proSalePrice*0.5).toFixed(0)}}</span>
                     </div>
                 </div>
                 <div class="front-product-typewrap">
