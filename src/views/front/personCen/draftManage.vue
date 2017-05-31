@@ -7,11 +7,20 @@
             <i-button v-link="{path:'/login'}" type="text" class="header-login" id="color">hi，请登录</i-button>
             <i-button v-link="{path:'/register'}" type="text" class="header-hover">免费注册</i-button>
         </i-col>
-        <i-col span="10">
-            <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>
-            <i-button v-link="{path:'/personCenter'}" type="text" class="header-hover">个人中心</i-button>
-            <i-button v-link="{path:'/cart'}" type="text" class="header-hover">我的购物车</i-button>
+        <i-col span="6" offset="4">
             <i-button v-link="{path:'/index'}" type="text" id="color">返回首页</i-button>
+            <i-button v-link="{path:'/cart'}" type="text" class="header-hover">我的购物车</i-button>
+            <Dropdown v-if="isLogin">
+                <i-button type="text" class="header-hover">
+                    您好，{{userName}}
+                    <Icon type="arrow-down-b"></Icon>
+                </i-button>
+                <Dropdown-menu slot="list" class="header-drop">
+                    <Dropdown-item v-link="{path:'/personCenter'}">个人中心</Dropdown-item>
+                    <Dropdown-item @click="loginOut()">退出</Dropdown-item>
+                </Dropdown-menu>
+            </Dropdown>
+            <i-button v-else v-link="{path:'/personCenter'}" type="text" class="header-hover">个人中心</i-button>
         </i-col>
     </Row>
     <div class="front-index-bg">
@@ -55,51 +64,41 @@
                 </div>
                 <div class="back-content">
                     <div class="back-content-main">
-                        <Row type="flex" align="middle" justify="center" class="front-order-title">
-                            <i-col span="9">稿件名</i-col>
-                            <i-col span="5">价格</i-col>
-                            <i-col span="5">作者</i-col>
-                        </Row>
-                        <div>
-                            <Row type="flex" align="middle" class="front-order-item-title">
-                                <i-col span="1">
-                                    <Checkbox
-                                            :indeterminate="indeterminate"
-                                            :checked="checkAll"
-                                            @click.prevent="handleCheckAll">
-                                    </Checkbox>
-                                </i-col>
-                                <i-col span="2">
-                                    <span class="bold">
-                                        2017-04-22
-                                    </span>
-                                </i-col>
-                                <i-col span="4">
-                                    稿件号：<span>D201704220001</span>
-                                </i-col>
-                                <i-col span="2">
-                                    已付款
-                                </i-col>
-                                <i-col span="3">
-                                    金额：<span>599.80</span>
-                                </i-col>
-                                <i-col span="1" offset="10">
-                                    <Icon type="ios-trash" class="front-order-item-delete"></Icon>
-                                    <!--<i-button type="text">付款</i-button>-->
-                                </i-col>
-                            </Row>
+                        <Row type="flex" align="middle" class="front-order-item-title">
+                            <i-col span="4">稿件编码</i-col>
+                            <i-col span="4">稿件</i-col>
+                            <i-col span="4">稿件名</i-col>
+                            <i-col span="4">稿件作者</i-col>
+                            <i-col span="4">金额</i-col>
+                            <i-col span="4">状态</i-col>
 
-                            <Row type="flex" align="middle" justify="center" class="front-order-item-content">
-                                <i-col span="9">稿件1xxxxxxxxxxxxxxxxxxxxx</i-col>
-                                <i-col span="5">299.90</i-col>
-                                <i-col span="5">XXX</i-col>
+                        </Row>
+                        <div v-for="draft in draftList">
+                            <Row type="flex" align="middle" justify="center"
+                                 class="front-order-item-content" >
+                                <i-col span="4">{{draft.draId}}</i-col>
+                                <i-col span="4">
+                                    <img :src="draft.draPicPath" alt="" class="sureOrder-pic">
+                                </i-col>
+                                <i-col span="4">{{draft.draName}}</i-col>
+                                <i-col span="4">{{draft.drAuthor}}</i-col>
+                                <i-col span="4">{{draft.draPrice}}</i-col>
+                                <i-col span="4">
+                                    <span v-if="draft.draCheck=='passed'">已通过</span>
+                                    <span v-if="draft.draCheck=='notpass'">未通过</span>
+                                    <i-button v-if="draft.draCheck=='notcheck'" @click="updateDraftCheck(draft,'passed')">通过</i-button>
+                                    <i-button v-if="draft.draCheck=='notcheck'" @click="updateDraftCheck(draft,'notpass')">未通过</i-button>
+                                </i-col>
                             </Row>
-                            <Row type="flex" align="middle" justify="center" class="front-order-item-content">
-                                <i-col span="9">稿件2xxxxxxxxxxxxxxxxxxxxx</i-col>
-                                <i-col span="5">299.90</i-col>
-                                <i-col span="5">XXX</i-col>
-                            </Row>
+                            <div class="front-order-title orderdetail-custom"
+                                 style="border-top:none;text-align: left;padding-left: 20px">
+                                描述：{{draft.draDesc}}
+                            </div>
                         </div>
+                        <Page show-total class="page-position"
+                              :current="page.currentPage"
+                              :total="page.totalRow" :page-size="page.pageSize"
+                              @on-change="pageChange"></Page>
                     </div>
                 </div>
                 <div class="back-copy">
@@ -108,6 +107,10 @@
             </i-col>
         </Row>
     </div>
+    <Spin fix v-if="isLoading">
+        <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+        <div>Loading</div>
+    </Spin>
 </template>
 
 <style scoped>
@@ -118,11 +121,75 @@
     export default {
         components: {},
         data () {
-            return {}
+            return {
+                page:{
+                    currentPage:1,
+                    pageSize:6,
+                    totalPage:1,
+                    totalRow:0
+                },
+                userName:'',
+                isLogin:false,
+                isLoading:true,
+                search:'',
+                draftList:[],
+                userId:''
+            }
         },
-        methods: {},
+        methods: {
+            loginOut(){
+                var self = this;
+                localStorage.removeItem('USERNAME');
+                localStorage.removeItem('USERID');
+                self.$Message.success('退出成功！');
+                setTimeout(()=>{
+                    self.$router.go('/login');
+                    self.isLogin = false;
+                },1000);
+            },
+            pageChange(num){
+                var self = this;
+                self.page.currentPage = num;
+                self.queryAllDraft();
+            },
+            queryAllDraft(){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    currentPage:self.page.currentPage,
+                    pageSize:self.page.pageSize,
+                    userId:self.userId
+                };
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryAllDraftPage',
+                    params:data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        self.draftList = res.data.data.list;
+                        self.page.currentPage = res.data.data.currentPage;
+                        self.page.pageSize = res.data.data.pageSize;
+                        self.page.totalPage = res.data.data.totalPage;
+                        self.page.totalRow = res.data.data.totalRow;
+                        self.isLoading = false
+                    } else {
+                        self.$Message.error('查询错误！');
+                    }
+                })
+            },
+        },
         ready () {
-
+            var self = this;
+            if(localStorage.getItem('USERNAME')){
+                self.userName = localStorage.getItem('USERNAME');
+                self.isLogin = true;
+            }else{
+                self.isLogin = false;
+            }
+            if(localStorage.getItem('USERID')) {
+                self.userId = localStorage.getItem('USERID');
+            }
+            self.queryAllDraft()
         }
     }
 </script>

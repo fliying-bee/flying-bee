@@ -23,7 +23,7 @@
     <div class="front-index-bg">
         <Row type="flex">
             <i-col span="5" class="back-menu-left">
-                <Menu active-key="1-1" width="auto" :open-keys="['1']">
+                <Menu active-key="1-2" width="auto" :open-keys="['1']">
 
                     <Submenu key="1">
                         <template slot="title">

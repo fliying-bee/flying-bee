@@ -70,7 +70,7 @@
                         </Row>
                         <div v-for="order in customList">
                             <div v-if="order.customStatus!='cancel'">
-                                <Row type="flex" align="middle" class="front-order-item-title">
+                                <Row type="flex" align="middle" class="front-order-item-title1">
                                     <i-col span="2">
                                     <span class="bold">
                                         {{order.customOrderTime}}

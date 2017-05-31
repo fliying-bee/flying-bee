@@ -4,14 +4,23 @@
             您好，欢迎来到古韵婚纱店
         </i-col>
         <i-col span="9">
-            <i-button v-link="{path:'/login'}" type="text" class="header-login" id="color"></i-button>
-            <i-button v-link="{path:'/register'}" type="text" class="header-hover"></i-button>
+            <i-button v-link="{path:'/login'}" type="text" class="header-login" id="color">hi，请登录</i-button>
+            <i-button v-link="{path:'/register'}" type="text" class="header-hover">免费注册</i-button>
         </i-col>
-        <i-col span="10">
-            <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>
-            <i-button v-link="{path:'/personCenter'}" type="text" class="header-hover">个人中心</i-button>
-            <i-button v-link="{path:'/cart'}" type="text" class="header-hover">我的购物车</i-button>
+        <i-col span="6" offset="4">
             <i-button v-link="{path:'/index'}" type="text" id="color">返回首页</i-button>
+            <i-button v-link="{path:'/cart'}" type="text" class="header-hover">我的购物车</i-button>
+            <Dropdown v-if="isLogin">
+                <i-button type="text" class="header-hover">
+                    您好，{{userName}}
+                    <Icon type="arrow-down-b"></Icon>
+                </i-button>
+                <Dropdown-menu slot="list" class="header-drop">
+                    <Dropdown-item v-link="{path:'/personCenter'}">个人中心</Dropdown-item>
+                    <Dropdown-item @click="loginOut()">退出</Dropdown-item>
+                </Dropdown-menu>
+            </Dropdown>
+            <i-button v-else v-link="{path:'/personCenter'}" type="text" class="header-hover">个人中心</i-button>
         </i-col>
     </Row>
     <div class="front-index-bg">
@@ -58,7 +67,6 @@
                         <i-col span="24">
                             <Card class="preson-info">
                                 <div>
-                                    <!--<p slot="title"><Icon type="edit" style="font-size: 22px;float: right;"></Icon></p>-->
                                     <div class="preson-info-div">
                                         <div class="clearfix">
                                             <Icon type="edit" style="font-size: 22px;float: right;"></Icon>
@@ -67,71 +75,33 @@
                                             <Icon type="social-snapchat"></Icon>
                                             <span class="person-Info-span">用户名</span>
                                             <span>test01</span>
-                                            <!--<Icon type="edit"></Icon>-->
                                         </div>
                                         <div>
                                             <Icon type="android-person"></Icon>
                                             <span class="person-Info-span">性别</span>
                                             <span>女</span>
                                             <Icon type="female"></Icon>
-                                            <!--<Icon type="male"></Icon>-->
-
-                                            <!--<Icon type="edit"></Icon>-->
                                         </div>
                                         <div>
                                         <Icon type="ios-locked"></Icon>
                                         <span class="person-Info-span">密码</span>
                                         <span>*************</span>
-                                        <!--<Icon type="edit"></Icon>-->
                                         </div>
                                         <div>
                                             <Icon type="email"></Icon>
                                             <span class="person-Info-span">邮箱</span>
                                             <span>test@163.com</span>
-                                            <!--<Icon type="edit"></Icon>-->
                                         </div>
                                         <div>
                                             <Icon type="android-phone-portrait"></Icon>
                                             <span class="person-Info-span">手机</span>
                                             <span>139XXXXXXXX</span>
-                                            <!--<Icon type="edit"></Icon>-->
                                         </div>
                                     </div>
                                     <div>
                                         <Icon type="ios-home"></Icon>
                                         <span class="person-Info-span">地址</span>
                                         <span class="person-Info-address">江西省南昌市昌北经济技术开发区麦庐校区</span>
-                                        <!--<div>-->
-                                        <!--<i-form v-ref:form-dynamic :model="formDynamic" :label-width="80">-->
-                                        <!--<Form-item-->
-                                        <!--v-for="item in formDynamic.items"-->
-                                        <!--:label="'地址' + ($index + 1)"-->
-                                        <!--:prop="'items.' + $index + '.value'"-->
-                                        <!--:rules="{required: true, message: '项目' + ($index + 1) +'不能为空', trigger: 'blur'}">-->
-                                        <!--<Row>-->
-                                        <!--<i-col span="18">-->
-                                        <!--<i-input type="text" :value.sync="item.value" placeholder="请输入..."></i-input>-->
-                                        <!--</i-col>-->
-                                        <!--<i-col span="4" offset="1">-->
-                                        <!--<i-button type="ghost" @click="handleRemove(item)">删除</i-button>-->
-                                        <!--</i-col>-->
-                                        <!--</Row>-->
-                                        <!--</Form-item>-->
-                                        <!--<Form-item>-->
-                                        <!--<Row>-->
-                                        <!--<i-col span="12">-->
-                                        <!--<i-button type="dashed" long @click="handleAdd" icon="plus-round">新增</i-button>-->
-                                        <!--</i-col>-->
-                                        <!--</Row>-->
-                                        <!--</Form-item>-->
-                                        <!--<Form-item>-->
-                                        <!--<i-button type="primary" @click="handleSubmit('formDynamic')">提交</i-button>-->
-                                        <!--<i-button type="ghost" @click="handleReset('formDynamic')" style="margin-left: 8px">重置</i-button>-->
-                                        <!--</Form-item>-->
-                                        <!--</i-form>-->
-                                        <!--</div>-->
-                                        <!--<Icon type="edit"></Icon>-->
-                                        <Icon type="ios-plus-outline"></Icon>
                                     </div>
                                 </div>
                             </Card>
@@ -168,39 +138,35 @@
         components: {},
         data () {
             return {
-                formDynamic: {
-                    items: [
-                        {
-                            value: ''
-                        }
-                    ]
-                }
+                userName:'',
+                isLogin:false,
+                isLoading:true,
+                userId:''
             }
         },
         methods: {
-            handleSubmit (name) {
-                this.$refs[name].validate((valid) => {
-                    if (valid) {
-                        this.$Message.success('提交成功!');
-                    } else {
-                        this.$Message.error('表单验证失败!');
-                    }
-                })
+            loginOut(){
+                var self = this;
+                localStorage.removeItem('USERNAME');
+                localStorage.removeItem('USERID');
+                self.$Message.success('退出成功！');
+                setTimeout(()=>{
+                    self.$router.go('/login');
+                    self.isLogin = false;
+                },1000);
             },
-            handleReset (name) {
-                this.$refs[name].resetFields();
-            },
-            handleAdd () {
-                this.formDynamic.items.push({
-                    value: ''
-                });
-            },
-            handleRemove (item) {
-                this.formDynamic.items.$remove(item);
-            }
         },
         ready () {
-
+            var self = this;
+            if(localStorage.getItem('USERNAME')){
+                self.userName = localStorage.getItem('USERNAME');
+                self.isLogin = true;
+            }else{
+                self.isLogin = false;
+            }
+            if(localStorage.getItem('USERID')) {
+                self.userId = localStorage.getItem('USERID');
+            }
         }
     }
 </script>

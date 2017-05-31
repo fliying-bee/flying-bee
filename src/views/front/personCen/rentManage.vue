@@ -75,7 +75,7 @@
                         </Row>
                         <div v-for="order in rentList">
                             <div v-if="order.rentStatus!='cancel'">
-                                <Row type="flex" align="middle" class="front-order-item-title">
+                                <Row type="flex" align="middle" class="front-order-item-title1">
                                     <i-col span="2">
                                     <span class="bold">
                                         {{order.rentOrderTime}}

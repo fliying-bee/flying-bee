@@ -62,9 +62,8 @@
                             <Tab-pane label="购买单">
                                 <!--查询-->
                                 <div class="back-order-search">
-                                    <row>
-                                        <i-col span="2"></i-col>
-                                        <i-col span="2">购买单</i-col>
+                                    <Row type="flex" align="middle" justify="left">
+                                        <i-col span="2">购买单编码：</i-col>
                                         <i-col span="4">
                                             <i-input :value.sync="searchBuy"
                                                      icon="ios-search"
@@ -115,9 +114,8 @@
                             </Tab-pane>
                             <Tab-pane label="定制单">
                                 <div class="back-order-search">
-                                    <row>
-                                        <i-col span="2"></i-col>
-                                        <i-col span="2">定制单</i-col>
+                                    <Row type="flex" align="middle" justify="left">
+                                        <i-col span="2">定制单编码：</i-col>
                                         <i-col span="4">
                                             <i-input :value.sync="searchCustom"
                                                      icon="ios-search"
@@ -164,9 +162,8 @@
                             </Tab-pane>
                             <Tab-pane label="租赁单">
                                 <div class="back-order-search">
-                                    <row>
-                                        <i-col span="2"></i-col>
-                                        <i-col span="2">租赁单</i-col>
+                                    <Row type="flex" align="middle" justify="left">
+                                        <i-col span="2">租赁单编码：</i-col>
                                         <i-col span="4">
                                             <i-input :value.sync="searchRent"
                                                      icon="ios-search"
@@ -216,9 +213,8 @@
                             <Tab-pane label="定制单审核">
 
                                 <div class="back-order-search">
-                                    <row>
-                                        <i-col span="2"></i-col>
-                                        <i-col span="2">定制单</i-col>
+                                    <Row type="flex" align="middle" justify="left">
+                                        <i-col span="2">定制单编码：</i-col>
                                         <i-col span="4">
                                             <i-input :value.sync="searchCustom"
                                                      icon="ios-search"
@@ -271,11 +267,12 @@
                 </div>
             </i-col>
         </Row>
-        <Spin fix v-if="isLoading">
-            <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
-            <div>Loading</div>
-        </Spin>
+
     </div>
+    <Spin fix v-if="isLoading">
+        <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+        <div>Loading</div>
+    </Spin>
 </template>
 
 <style scoped>

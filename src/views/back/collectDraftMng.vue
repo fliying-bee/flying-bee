@@ -62,16 +62,15 @@
                         <Tabs type="card">
                             <Tab-pane label="所有稿件">
                                 <div class="back-order-search">
-                                    <row>
-                                        <i-col span="2"></i-col>
-                                        <i-col span="2">稿件</i-col>
+                                    <Row type="flex" align="middle" justify="left">
+                                        <i-col span="2">稿件编码：</i-col>
                                         <i-col span="4">
                                             <i-input :value.sync="search"
                                                      icon="ios-search"
                                                      style="width: 200px"
                                                      @on-click="queryBackDraftById"></i-input>
                                         </i-col>
-                                    </row>
+                                    </Row>
                                     <div>
                                         <Row type="flex" align="middle" class="front-order-item-title">
                                             <i-col span="4">稿件</i-col>
@@ -113,11 +112,12 @@
                 </div>
             </i-col>
         </Row>
-        <Spin fix v-if="isLoading">
-            <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
-            <div>Loading</div>
-        </Spin>
+
     </div>
+    <Spin fix v-if="isLoading">
+        <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+        <div>Loading</div>
+    </Spin>
 </template>
 
 <style scoped>
@@ -253,7 +253,7 @@
             pageChange(num){
                 var self = this;
                 self.page.currentPage = num;
-                self.queryAllFactory();
+                self.queryBackAllDraft();
             }
         },
         ready () {

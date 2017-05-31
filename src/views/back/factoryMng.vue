@@ -116,10 +116,7 @@
                 </div>
             </i-col>
         </Row>
-        <Spin fix v-if="isLoading">
-            <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
-            <div>Loading</div>
-        </Spin>
+
         <Modal
                 :visible.sync="addModal"
                 title="添加厂家信息"
@@ -165,6 +162,10 @@
             <p>是否确认删除--{{delItem.facName}}</p>
         </Modal>
     </div>
+    <Spin fix v-if="isLoading">
+        <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+        <div>Loading</div>
+    </Spin>
 </template>
 
 <style scoped>

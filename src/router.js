@@ -19,7 +19,7 @@ const routers = {
     },
     '/personCenter':{
         component (resolve) {
-            require(['./views/personCenter.vue'], resolve);
+            require(['./views/front/personCen/personInformation.vue'], resolve);
         }
     },
     '/cart':{
