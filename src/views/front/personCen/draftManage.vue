@@ -17,6 +17,7 @@
                 </i-button>
                 <Dropdown-menu slot="list" class="header-drop">
                     <Dropdown-item v-link="{path:'/personCenter'}">个人中心</Dropdown-item>
+                    <Dropdown-item v-link="{path:'/index'}">返回首页</Dropdown-item>
                     <Dropdown-item @click="loginOut()">退出</Dropdown-item>
                 </Dropdown-menu>
             </Dropdown>

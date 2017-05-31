@@ -4,14 +4,28 @@
         <i-col span="3" offset="2">
             您好，欢迎来到古韵婚纱店
         </i-col>
-        <i-col span="11">
-            <i-button v-link="{path:'/login'}" type="text" class="header-login" id="color">hi，请登录</i-button>
-            <i-button v-link="{path:'/register'}" type="text" class="header-hover">免费注册</i-button>
+        <i-col span="14">
+            <i-button v-link="{path:'/login'}"  type="text" class="header-login" id="color">
+                <span v-if="!isLogin">hi，请登录</span>
+            </i-button>
+            <i-button v-link="{path:'/register'}" type="text" class="header-hover">
+                <span v-if="!isLogin">免费注册</span>
+            </i-button>
         </i-col>
-        <i-col span="8">
-            <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>
-            <i-button v-link="{path:'/personCenter'}" type="text" class="header-hover">个人中心</i-button>
+        <i-col span="5">
             <i-button v-link="{path:'/cart'}" type="text" class="header-hover">我的购物车</i-button>
+            <Dropdown v-if="isLogin">
+                <i-button type="text" class="header-hover">
+                    您好，{{userName}}
+                    <Icon type="arrow-down-b"></Icon>
+                </i-button>
+                <Dropdown-menu slot="list" class="header-drop">
+                    <Dropdown-item v-link="{path:'/personCenter'}">个人中心</Dropdown-item>
+                    <Dropdown-item @click="loginOut()">退出</Dropdown-item>
+                </Dropdown-menu>
+            </Dropdown>
+            <i-button v-else v-link="{path:'/personCenter'}" type="text" class="header-hover">个人中心</i-button>
+
         </i-col>
     </Row>
 
@@ -101,11 +115,31 @@
     export default {
         components: {},
         data () {
-            return {}
+            return {
+                userName:'',
+                isLogin:false
+            }
         },
-        methods: {},
+        methods: {
+            loginOut(){
+                var self = this;
+                localStorage.removeItem('USERNAME');
+                localStorage.removeItem('USERID');
+                self.$Message.success('退出成功！');
+                setTimeout(()=>{
+                    self.$router.go('/login');
+                    self.isLogin = false;
+                },1000);
+            }
+        },
         ready () {
-
+            var self = this;
+            if(localStorage.getItem('USERNAME')){
+                self.userName = localStorage.getItem('USERNAME');
+                self.isLogin = true;
+            }else{
+                self.isLogin = false;
+            }
         }
     }
 </script>

@@ -335,6 +335,16 @@
             }
         },
         methods: {
+            loginOut(){
+                var self = this;
+                localStorage.removeItem('USERNAME');
+                localStorage.removeItem('USERID');
+                self.$Message.success('退出成功！');
+                setTimeout(()=>{
+                    self.$router.go('/login');
+                    self.isLogin = false;
+                },1000);
+            },
             loadCart(){
                 var self = this
                 var buy = localStorage.getItem('BUYLIST')
