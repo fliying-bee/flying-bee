@@ -4,24 +4,28 @@
         <i-col span="3" offset="2">
             您好，欢迎来到古韵婚纱店
         </i-col>
-        <i-col span="11">
-            <i-button v-link="{path:'/login'}" type="text" class="header-login" id="color">hi，请登录</i-button>
-            <i-button v-link="{path:'/register'}" type="text" class="header-hover">免费注册</i-button>
+        <i-col span="14">
+            <i-button v-link="{path:'/login'}" type="text" class="header-login" id="color">
+                <span v-if="!isLogin">hi，请登录</span>
+            </i-button>
+            <i-button v-link="{path:'/register'}" type="text" class="header-hover">
+                <span v-if="!isLogin">免费注册</span>
+            </i-button>
         </i-col>
-        <i-col span="8">
-            <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>
+        <i-col span="5">
+            <!--<i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>-->
             <i-button v-link="{path:'/cart'}" type="text" class="header-hover">我的购物车</i-button>
-            <Dropdown>
+            <Dropdown v-if="isLogin">
                 <i-button type="text" class="header-hover">
-                    您好，XXX
+                    您好，{{userName}}
                     <Icon type="arrow-down-b"></Icon>
                 </i-button>
                 <Dropdown-menu slot="list" class="header-drop">
                     <Dropdown-item v-link="{path:'/personCenter'}">个人中心</Dropdown-item>
-                    <Dropdown-item>退出</Dropdown-item>
+                    <Dropdown-item @click="loginOut()">退出</Dropdown-item>
                 </Dropdown-menu>
             </Dropdown>
-            <!--<i-button v-link="{path:'/personCenter'}" type="text" class="header-hover">个人中心</i-button>-->
+            <i-button v-else v-link="{path:'/personCenter'}" type="text" class="header-hover">个人中心</i-button>
 
         </i-col>
     </Row>
@@ -65,40 +69,32 @@
 
     <!--网页内容-->
     <div class="front-design">
-        <i-form :model="formItem" :label-width="80">
-            <Form-item label="稿件名称" class="frint-design-name">
-                <i-input :value.sync="" placeholder="请输入"></i-input>
+        <i-form v-ref:form-validate :model="formValidate" :rules="ruleValidate" :label-width="80">
+            <Form-item label="稿件名称" prop="draName" class="frint-design-name">
+                <i-input :value.sync="formValidate.draName" placeholder="请输入"></i-input>
             </Form-item>
 
-            <Form-item label="作者" class="frint-design-name">
-                <i-input :value.sync="" placeholder="请输入"></i-input>
+            <Form-item label="作者" prop="drAuthor" class="frint-design-name">
+                <i-input :value.sync="formValidate.drAuthor" placeholder="请输入"></i-input>
             </Form-item>
 
-            <Form-item label="稿件描述">
-                <i-input :value.sync="" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></i-input>
+            <Form-item label="稿件描述" prop="draDesc">
+                <i-input :value.sync="formValidate.draDesc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></i-input>
             </Form-item>
 
             <Form-item label="稿件价格">
-                <Input-number :max="10" :min="1" :step="100" :value="0"></Input-number>
+                <Input-number :min="1" :step="100" :value.sync="draPrice"></Input-number>
             </Form-item>
 
             <Form-item label="稿件设计图">
-                <Upload
-                        v-ref:upload
-                        :show-upload-list="true"
-                        multiple
-                        type="drag"
-                        action="//jsonplaceholder.typicode.com/posts/"
-                        style="display: inline-block;width:150px;">
-                    <div style="width: 150px;height:100px;line-height: 100px;font-size: 50px;">
-                        <Icon type="ios-plus-empty"></Icon>
-                    </div>
+                <Upload action="">
+                    <i-button type="ghost" icon="ios-cloud-upload-outline">上传文件</i-button>
                 </Upload>
             </Form-item>
 
             <Form-item>
-                <i-button type="primary">提交</i-button>
-                <i-button type="ghost" style="margin-left: 8px">取消</i-button>
+                <i-button type="primary" @click="insertDraft()">提交</i-button>
+                <i-button type="ghost" style="margin-left: 8px" @click="reset()">重置</i-button>
             </Form-item>
         </i-form>
     </div>
@@ -134,11 +130,114 @@
     export default {
         components: {},
         data () {
-            return {}
-        },
-        methods: {},
-        ready () {
+            return {
+                userName:'',
+                userId:'',
+                isLogin:false,
+                isLoading:true,
+                draPicPath:'/src/images/yangtu.png',
+                draPrice: 0,
+                formValidate: {
+                    draName: '',
+                    drAuthor: '',
+                    draDesc: ''
 
+                },
+                ruleValidate: {
+                    draName: [
+                        {required: true, message: '稿件名不能为空', trigger: 'blur'}
+                    ],
+                    drAuthor: [
+                        {required: true, message: '稿件作者不能为空', trigger: 'blur'}
+                    ],
+                    draDesc: [
+                        {required: true, message: '稿件描述不能为空', trigger: 'blur'}
+                    ],
+                    draPrice: [
+                        {required: true, message: '稿件价格不能为空', trigger: 'blur'}
+                    ]
+                },
+            }
+        },
+        methods: {
+            getNowFormatDate() {
+                var date = new Date();
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                var hour = date.getHours();
+                var minute = date.getMinutes();
+                var second = date.getSeconds();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                if (hour >= 0 && hour <= 9) {
+                    hour = "0" + hour;
+                }
+                if (minute >= 0 && minute <= 9) {
+                    minute = "0" + minute;
+                }
+                if (second >= 0 && second <= 9) {
+                    second = "0" + second;
+                }
+                var currentdate = date.getFullYear() + month + strDate
+                        + hour + minute + second;
+                return currentdate;
+            },
+            loginOut(){
+                var self = this;
+                localStorage.removeItem('USERNAME');
+                localStorage.removeItem('USERID');
+                self.$Message.success('退出成功！');
+                setTimeout(()=>{
+                    self.$router.go('/login');
+                    self.isLogin = false;
+                },1000);
+            },
+            insertDraft(){
+                var self = this
+                if(self.userId!=''){
+                    var draId = 'D'+self.getNowFormatDate()
+                    var data={
+                        draId:draId,
+                        draName: self.formValidate.draName,
+                        drAuthor: self.formValidate.drAuthor,
+                        draDesc: self.formValidate.draDesc,
+                        draPrice: self.draPrice,
+                        draPicPath:self.draPicPath,
+                        userId:self.userId
+                    }
+                    console.log(JSON.stringify(data))
+                    self.$http({
+                        method:'POST',
+                        url:'http://127.0.0.1:8080/Spring-study/insertDraft',
+                        params:data
+                    }).then(function(res){
+                        if(res.data.code=="OK"){
+                            self.$router.go('/front/personCen/designManage');
+                            self.$Message.success('插入成功！');
+                        }else{
+                            self.$Message.error('插入失败！');
+                        }
+                    })
+                }
+
+            }
+
+        },
+        ready () {
+            var self = this
+            if(localStorage.getItem('USERNAME')){
+                self.userName = localStorage.getItem('USERNAME');
+                self.isLogin = true;
+            }else{
+                self.isLogin = false;
+            }
+            if(localStorage.getItem('USERID')){
+                self.userId = localStorage.getItem('USERID');
+            }
         }
     }
 </script>

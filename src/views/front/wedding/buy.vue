@@ -253,6 +253,16 @@
                     }
                 })
             },
+            pageChange(num){
+                var self = this;
+                self.page.currentPage = num;
+                self.queryProductDressPage();
+            },
+            pagePartChange(num){
+                var self = this;
+                self.page.currentPage = num;
+                self.queryProductPartPage();
+            },
         },
         ready () {
             var self = this;

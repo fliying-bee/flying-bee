@@ -294,12 +294,26 @@
     background-color: rgb(245, 247, 249);
     border: 1px solid #d7dde4;
 }
+.front-order-btn{
+    float: right;
+}
 .front-order-item-title{
     text-align: center;
     margin-top: 10px;
     padding: 10px;
     background-color: rgb(245, 247, 249);
-    border: 1px solid #d7dde4;
+    border-top: 1px solid #d7dde4;
+    border-left: 1px solid #d7dde4;
+    border-right: 1px solid #d7dde4;
+}
+.front-order-item-addr{
+    text-align: left;
+    margin-top: 0px;
+    padding: 0 20px 10px ;
+    background-color: rgb(245, 247, 249);
+    border-bottom: 1px solid #d7dde4;
+    border-left: 1px solid #d7dde4;
+    border-right: 1px solid #d7dde4;
 }
 .front-order-item-content{
     text-align: center;
