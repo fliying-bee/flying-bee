@@ -169,6 +169,11 @@ const routers = {
             require(['./views/back/detail/procureDetail.vue'], resolve);
         }
     },
+'/back/productDetail/:proId':{
+        component (resolve) {
+            require(['./views/back/detail/productDetail.vue'], resolve);
+        }
+    },
 
 };
 export default routers;
