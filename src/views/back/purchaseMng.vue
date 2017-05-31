@@ -7,17 +7,17 @@
         </div>
         <div class="back-header-nav">
             <i-input :value.sync="search" icon="ios-search" placeholder="请输入关键字" style="width: 200px"></i-input>
-            <Dropdown>
+            <Dropdown v-if="isLogin">
                 <i-button type="text" class="header-hover">
-                    您好，XXX
+                    您好，{{empName}}
                     <Icon type="arrow-down-b"></Icon>
                 </i-button>
                 <Dropdown-menu slot="list">
                     <Dropdown-item v-link="{path:'/back/backPersonInfor'}">个人中心</Dropdown-item>
-                    <Dropdown-item v-link="{path:'/login'}">退出</Dropdown-item>
+                    <Dropdown-item @click="loginOut()">退出</Dropdown-item>
                 </Dropdown-menu>
             </Dropdown>
-            <!--<i-button  >个人中心</i-button>-->
+            <i-button v-else v-link="{path:'/back/backPersonInfor'}" type="text" class="header-hover">个人中心</i-button>
         </div>
     </div>
 
@@ -62,65 +62,44 @@
                         <Tabs type="card">
                             <Tab-pane label="已有采购单">
                                 <div class="back-order-search">
+                                    <Row type="flex" align="middle" justify="left">
+                                        <i-col span="2">采购单编码：</i-col>
+                                        <i-col span="4">
+                                            <i-input :value.sync="searchProcure"
+                                                     icon="ios-search"
+                                                     style="width: 200px"
+                                                     @on-click="queryBackProcureById"></i-input>
+                                        </i-col>
+                                    </row>
                                     <div>
                                         <Row type="flex" align="middle" class="front-order-item-title">
-                                            <i-col span="1">
-                                                <Checkbox
-                                                        :indeterminate="indeterminate"
-                                                        :checked="checkAll"
-                                                        @click.prevent="handleCheckAll">
-                                                </Checkbox>
-                                            </i-col>
                                             <i-col span="4">采购单</i-col>
-                                            <i-col span="4">采购日期</i-col>
+                                            <i-col span="3">采购日期</i-col>
                                             <i-col span="4">厂家</i-col>
-                                            <i-col span="3">金额</i-col>
-                                            <i-col span="3">操作</i-col>
-                                            <i-col span="5">更多</i-col>
+                                            <i-col span="2">金额</i-col>
+                                            <i-col span="2">数量</i-col>
+                                            <i-col span="3">状态</i-col>
+                                            <i-col span="3">下单员工</i-col>
+                                            <i-col span="3">更多</i-col>
                                         </Row>
 
-                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
-                                            <i-col span="1">
-                                                <Checkbox
-                                                        :indeterminate="indeterminate"
-                                                        :checked="checkAll"
-                                                        @click.prevent="handleCheckAll">
-                                                </Checkbox>
-                                            </i-col>
-                                            <i-col span="4">PeDxxxxxxxx1</i-col>
-                                            <i-col span="4">
-                                                <span class="bold">2017-04-29</span>
-                                            </i-col>
-                                            <i-col span="4">F201310210001</i-col>
-                                            <i-col span="3">￥20000.40</i-col>
+                                        <Row type="flex" align="middle" justify="center"
+                                             class="front-order-item-content" v-for="procure in procureList">
+                                            <i-col span="4">{{procure.procureId}}</i-col>
                                             <i-col span="3">
-                                                <Icon type="edit"></Icon>
-                                                <Icon type="ios-trash"></Icon>
+                                                <span class="bold">{{procure.procureTime}}</span>
                                             </i-col>
-                                            <i-col span="5">
-                                                <a href="#">查看详情</a>
-                                            </i-col>
-                                        </Row>
-                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
-                                            <i-col span="1">
-                                                <Checkbox
-                                                        :indeterminate="indeterminate"
-                                                        :checked="checkAll"
-                                                        @click.prevent="handleCheckAll">
-                                                </Checkbox>
-                                            </i-col>
-                                            <i-col span="4">PeDxxxxxxxx2</i-col>
-                                            <i-col span="4">
-                                                <span class="bold">2017-04-29</span>
-                                            </i-col>
-                                            <i-col span="4">F201310214511</i-col>
-                                            <i-col span="3">￥255620.40</i-col>
+                                            <i-col span="4">{{procure.factory.facName}}</i-col>
+                                            <i-col span="2">{{procure.procurePriceSum}}</i-col>
+                                            <i-col span="2">{{procure.procureCount}}</i-col>
                                             <i-col span="3">
-                                                <Icon type="edit"></Icon>
-                                                <Icon type="ios-trash"></Icon>
+                                                <span v-if="procure.procureStatus=='paid'">已付款</span>
+                                                <i-button v-if="procure.procureStatus=='notpay'" @click="updateProcureStatus(procure.procureId,'paid')">付款</i-button>
+
                                             </i-col>
-                                            <i-col span="5">
-                                                <a href="#">查看详情</a>
+                                            <i-col span="3">{{procure.employee.empName}}</i-col>
+                                            <i-col span="3">
+                                                <a v-link="{path:'/back/procureDetail/'+procure.procureId}">查看详情</a>
                                             </i-col>
                                         </Row>
                                     </div>
@@ -128,65 +107,6 @@
                             </Tab-pane>
                             <Tab-pane label="自主采购"></Tab-pane>
                             <Tab-pane label="定制单采购">
-                                <div class="back-order-search">
-
-                                    <div>
-                                        <Row type="flex" align="middle" class="front-order-item-title">
-                                            <i-col span="1">
-                                                <Checkbox
-                                                        :indeterminate="indeterminate"
-                                                        :checked="checkAll"
-                                                        @click.prevent="handleCheckAll">
-                                                </Checkbox>
-                                            </i-col>
-                                            <i-col span="4">定制单</i-col>
-                                            <i-col span="4">日期</i-col>
-                                            <i-col span="4">用户</i-col>
-                                            <i-col span="3">金额</i-col>
-                                            <i-col span="3">下单</i-col>
-                                            <i-col span="5">更多</i-col>
-                                        </Row>
-
-                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
-                                            <i-col span="1">
-                                                <Checkbox
-                                                        :indeterminate="indeterminate"
-                                                        :checked="checkAll"
-                                                        @click.prevent="handleCheckAll">
-                                                </Checkbox>
-                                            </i-col>
-                                            <i-col span="4">C201704290001</i-col>
-                                            <i-col span="4">
-                                                <span class="bold">2017-04-29</span>
-                                            </i-col>
-                                            <i-col span="4">u201310210001</i-col>
-                                            <i-col span="3">￥2000.40</i-col>
-                                            <i-col span="3"><i-button>下单</i-button></i-col>
-                                            <i-col span="5">
-                                                <a href="#">查看详情</a>
-                                            </i-col>
-                                        </Row>
-                                        <Row type="flex" align="middle" justify="center" class="front-order-item-content">
-                                            <i-col span="1">
-                                                <Checkbox
-                                                        :indeterminate="indeterminate"
-                                                        :checked="checkAll"
-                                                        @click.prevent="handleCheckAll">
-                                                </Checkbox>
-                                            </i-col>
-                                            <i-col span="4">C201704290002</i-col>
-                                            <i-col span="4">
-                                                <span class="bold">2017-04-29</span>
-                                            </i-col>
-                                            <i-col span="4">u201310210001</i-col>
-                                            <i-col span="3">￥2000.40</i-col>
-                                            <i-col span="3"><i-button>下单</i-button></i-col>
-                                            <i-col span="5">
-                                                <a href="#">查看详情</a>
-                                            </i-col>
-                                        </Row>
-                                    </div>
-                                </div>
                             </Tab-pane>
                         </Tabs>
                     </div>
@@ -197,6 +117,10 @@
             </i-col>
         </Row>
     </div>
+    <Spin fix v-if="isLoading">
+        <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+        <div>Loading</div>
+    </Spin>
 </template>
 
 <style scoped>
@@ -207,10 +131,118 @@
     export default {
         components: {},
         data () {
-            return {}
+            return {
+                page:{
+                    currentPage:1,
+                    pageSize:6,
+                    totalPage:1,
+                    totalRow:0
+                },
+                empName:'',
+                isLogin:false,
+                isLoading:true,
+                procureList:[],
+                searchProcure:'',
+            }
         },
-        methods: {},
+        methods: {
+            loginOut(){
+                var self = this;
+                localStorage.removeItem('EMPNAME');
+                localStorage.removeItem('EMPID');
+                self.$Message.success('退出成功！');
+                setTimeout(()=>{
+                    self.$router.go('/login');
+                    self.isLogin = false;
+                },1000);
+            },
+            queryBackAllProcure(){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    currentPage:self.page.currentPage,
+                    pageSize:self.page.pageSize
+                };
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryBackAllProcurePage',
+                    params:data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        self.procureList = res.data.data.list;
+                        self.page.currentPage = res.data.data.currentPage;
+                        self.page.pageSize = res.data.data.pageSize;
+                        self.page.totalPage = res.data.data.totalPage;
+                        self.page.totalRow = res.data.data.totalRow;
+                        self.isLoading = false
+                    } else {
+                        self.$Message.error('查询错误！');
+                    }
+                })
+            },
+            queryBackProcureById(){
+                var self = this
+                if(self.searchProcure==''){
+                    self.queryBackAllProcure()
+                }else{
+                    self.page.currentPage = 1;
+                    self.isLoading = true
+                    var data = {
+                        procureId:self.searchProcure
+                    };
+                    self.$http({
+                        method:'POST',
+                        url:'http://127.0.0.1:8080/Spring-study/queryBackProcureById',
+                        params:data
+                    }).then(function(res){
+                        if(res.data.code=="OK"){
+                            self.procureList = [];
+                            if(res.data.data!=null){
+                                self.procureList.push(res.data.data)
+                            }
+                            self.page.totalRow = self.procureList.length;
+                            self.isLoading = false
+                            self.$Message.success('查询成功!');
+                        }else{
+                            self.$Message.error('查询失败！');
+                        }
+                    })
+                }
+            },
+            updateProcureStatus(procureId,procureStatus){
+                var self = this;
+                var data = {
+                    procureId:procureId,
+                    procureStatus:procureStatus
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/updateProcureStatus',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        self.queryBackAllProcure();
+                        self.$Message.success('付款成功！');
+                    }else{
+                        self.$Message.error('付款失败！');
+                    }
+                })
+            },
+            pageChange(num){
+                var self = this;
+                self.page.currentPage = num;
+                self.queryAllFactory();
+            }
+        },
         ready () {
+            var self = this;
+            if(localStorage.getItem('EMPNAME')){
+                self.empName = localStorage.getItem('EMPNAME');
+                self.isLogin = true;
+            }else{
+                self.isLogin = false;
+            }
+            self.queryBackAllProcure();
 
         }
     }
