@@ -3,7 +3,7 @@
     <div class="back-index-header clearfix">
         <div class="back-header-logo">
             <img src="/src/images/guyun_logo_z.png" alt="logo" class="back-header-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
-            <img src="../../images/guyun_logo.png" alt="logo" class="back-header-logopic">
+            <img src="/src/images/guyun_logo.png" alt="logo" class="back-header-logopic">
         </div>
         <div class="back-header-nav">
             <Dropdown v-if="isLogin">
@@ -69,7 +69,7 @@
                                             <i-input :value.sync="searchDress"
                                                      icon="ios-search"
                                                      style="width: 200px"
-                                                     @on-click=""></i-input>
+                                                     @on-click="queryDressProductById"></i-input>
                                         </i-col>
                                         <i-col span="2" offset="16">
                                             <i-button type="primary" @click="addDressModal=true">添加商品</i-button>
@@ -77,9 +77,9 @@
                                     </Row>
                                     <div>
                                         <Row type="flex" align="middle" class="front-order-item-title">
-                                            <i-col span="2">商品编码</i-col>
+                                            <i-col span="3">商品编码</i-col>
                                             <i-col span="2">图片</i-col>
-                                            <i-col span="5">名称</i-col>
+                                            <i-col span="4">名称</i-col>
                                             <i-col span="2">数量</i-col>
                                             <i-col span="2">进价</i-col>
                                             <i-col span="2">售价</i-col>
@@ -91,11 +91,11 @@
 
                                         <Row type="flex" align="middle" justify="center"
                                              class="front-order-item-content" v-for="product in dressList">
-                                            <i-col span="2">{{product.proId}}</i-col>
+                                            <i-col span="3">{{product.proId}}</i-col>
                                             <i-col span="2">
                                                 <img :src="product.proPicPath" alt="logo" class="sureOrder-pic">
                                             </i-col>
-                                            <i-col span="5">{{product.proName}}</i-col>
+                                            <i-col span="4">{{product.proName}}</i-col>
                                             <i-col span="2">{{product.proCount}}</i-col>
                                             <i-col span="2">￥{{product.proBuyPrice}}</i-col>
                                             <i-col span="2">￥{{product.proSalePrice}}</i-col>
@@ -104,12 +104,12 @@
                                             <i-col span="2" v-else>--</i-col>
                                             <i-col span="2">
                                                 <Icon type="edit" class="front-order-item-delete"
-                                                      @click=""></Icon>
+                                                      @click="proIdE=product.proId,proNameE=product.proName,proSellPriceE=product.proSellPrice,proDescE=product.proDesc,updateDressModal=true"></Icon>
                                                 <Icon type="ios-trash" class="front-order-item-delete"
-                                                      @click=""></Icon>
+                                                      @click="delItem=product,deleteModal=true"></Icon>
                                             </i-col>
                                             <i-col span="3">
-                                                <i-button>查看商品明细</i-button>
+                                                <a v-link="{path:'/back/productDetail/'+product.proId}">查看详情</a>
                                             </i-col>
                                         </Row>
                                         <Page show-total class="page-position"
@@ -127,17 +127,17 @@
                                             <i-input :value.sync="searchPart"
                                                      icon="ios-search"
                                                      style="width: 200px"
-                                                     @on-click=""></i-input>
+                                                     @on-click="queryPartProductById"></i-input>
                                         </i-col>
                                         <i-col span="2" offset="16">
-                                            <i-button type="primary" @click="addModal=true">添加商品</i-button>
+                                            <i-button type="primary" @click="addPartModal=true">添加商品</i-button>
                                         </i-col>
                                     </Row>
                                     <div>
                                         <Row type="flex" align="middle" class="front-order-item-title">
-                                            <i-col span="2">商品编码</i-col>
+                                            <i-col span="3">商品编码</i-col>
                                             <i-col span="2">图片</i-col>
-                                            <i-col span="5">名称</i-col>
+                                            <i-col span="4">名称</i-col>
                                             <i-col span="2">数量</i-col>
                                             <i-col span="2">进价</i-col>
                                             <i-col span="2">售价</i-col>
@@ -149,11 +149,11 @@
 
                                         <Row type="flex" align="middle" justify="center"
                                              class="front-order-item-content" v-for="product in partList">
-                                            <i-col span="2">{{product.proId}}</i-col>
+                                            <i-col span="3">{{product.proId}}</i-col>
                                             <i-col span="2">
                                                 <img :src="product.proPicPath" alt="logo" class="sureOrder-pic">
                                             </i-col>
-                                            <i-col span="5">{{product.proName}}</i-col>
+                                            <i-col span="4">{{product.proName}}</i-col>
                                             <i-col span="2">{{product.proCount}}</i-col>
                                             <i-col span="2">￥{{product.proBuyPrice}}</i-col>
                                             <i-col span="2">￥{{product.proSalePrice}}</i-col>
@@ -162,9 +162,9 @@
                                             <i-col span="2" v-else>--</i-col>
                                             <i-col span="2">
                                                 <Icon type="edit" class="front-order-item-delete"
-                                                      @click=""></Icon>
+                                                      @click="proIdE=product.proId,proNameE=product.proName,proSellPriceE=product.proSellPrice,proDescE=product.proDesc,updateDressModal=true"></Icon>
                                                 <Icon type="ios-trash" class="front-order-item-delete"
-                                                      @click=""></Icon>
+                                                      @click="delItem=product,deleteModal=true"></Icon>
                                             </i-col>
                                             <i-col span="3">
                                                 <i-button>查看商品明细</i-button>
@@ -198,36 +198,7 @@
             @on-cancel="addDressModal = false">
         <i-form v-ref:form-validate :model="formValidate" :rules="ruleValidate" :label-width="80">
             <Form-item label="商品名" prop="proName">
-                <i-input type="text" :value.sync="proName"></i-input>
-            </Form-item>
-            <Form-item label="商品进价" prop="proBuyPrice">
-                <i-input type="text" :value.sync="proBuyPrice"></i-input>
-            </Form-item>
-            <Form-item label="商品标价" prop="proSalePrice">
-                <i-input type="text" :value.sync="proSalePrice"></i-input>
-            </Form-item>
-            <Form-item label="商品售价" prop="proSellPrice">
-                <i-input type="text" :value.sync="proSellPrice"></i-input>
-            </Form-item>
-            <Form-item label="商品描述" prop="proDesc">
-                <i-input type="textarea" :value.sync="formValidate.proDesc" style=""></i-input>
-            </Form-item>
-        </i-form>
-    </Modal>
-    <Modal
-            :visible.sync="updateDressModal"
-            title="修改婚纱礼服"
-            :loading="updateDressLoading"
-            @on-ok="updateDress"
-            @on-cancel="updateDressModal = false">
-        <i-form v-ref:form-validate :model="formValidate" :rules="ruleValidate" :label-width="80">
-            <Form-item label="商品名" prop="proName">
                 <i-input type="text" :value.sync="formValidate.proName"></i-input>
-            </Form-item>
-            <Form-item label="图片">
-                <Upload action="">
-                    <i-button type="ghost" icon="ios-cloud-upload-outline">上传文件</i-button>
-                </Upload>
             </Form-item>
             <Form-item label="商品进价" prop="proBuyPrice">
                 <i-input type="text" :value.sync="formValidate.proBuyPrice"></i-input>
@@ -238,13 +209,71 @@
             <Form-item label="商品售价" prop="proSellPrice">
                 <i-input type="text" :value.sync="formValidate.proSellPrice"></i-input>
             </Form-item>
-            <Form-item label="商品稿件">
-                <i-input type="text" :value.sync="draId"></i-input>
+            <Form-item label="商品描述" prop="proDesc">
+                <i-input type="textarea" :value.sync="formValidate.proDesc" style=""></i-input>
+            </Form-item>
+            <Form-item label="商品图片" prop="proDesc">
+                <Upload action="">
+                    <i-button type="ghost" icon="ios-cloud-upload-outline">上传文件</i-button>
+                </Upload>
+            </Form-item>
+        </i-form>
+    </Modal>
+    <Modal
+            :visible.sync="addPartModal"
+            title="添加配饰"
+            :loading="addPartLoading"
+            @on-ok="insertPart"
+            @on-cancel="addPartModal = false">
+        <i-form v-ref:form-validate :model="formValidate" :rules="ruleValidate" :label-width="80">
+            <Form-item label="商品名" prop="proName">
+                <i-input type="text" :value.sync="formValidate.proName"></i-input>
+            </Form-item>
+            <Form-item label="商品进价" prop="proBuyPrice">
+                <i-input type="text" :value.sync="formValidate.proBuyPrice"></i-input>
+            </Form-item>
+            <Form-item label="商品标价" prop="proSalePrice">
+                <i-input type="text" :value.sync="formValidate.proSalePrice"></i-input>
+            </Form-item>
+            <Form-item label="商品售价" prop="proSellPrice">
+                <i-input type="text" :value.sync="formValidate.proSellPrice"></i-input>
             </Form-item>
             <Form-item label="商品描述" prop="proDesc">
                 <i-input type="textarea" :value.sync="formValidate.proDesc" style=""></i-input>
             </Form-item>
+            <Form-item label="商品图片" prop="proDesc">
+                <Upload action="">
+                    <i-button type="ghost" icon="ios-cloud-upload-outline">上传文件</i-button>
+                </Upload>
+            </Form-item>
         </i-form>
+    </Modal>
+    <Modal
+            :visible.sync="updateDressModal"
+            title="修改商品"
+            :loading="updateDressLoading"
+            @on-ok="updateDress"
+            @on-cancel="updateDressModal = false">
+        <i-form :label-width="80">
+            <Form-item label="商品名">
+                <i-input type="text" :value.sync="proNameE"></i-input>
+            </Form-item>
+            <Form-item label="商品售价">
+                <i-input type="text" :value.sync="proSellPriceE"></i-input>
+            </Form-item>
+            <Form-item label="商品描述">
+                <i-input type="textarea" :value.sync="proDescE" :rows="4"></i-input>
+            </Form-item>
+        </i-form>
+    </Modal>
+
+    <Modal
+            :visible.sync="deleteModal"
+            title="删除商品信息"
+            :loading="deleteLoading"
+            @on-ok="queryProductDetailByProId"
+            @on-cancel="deleteModal = false">
+        <p>是否确认删除--{{delItem.proName}}</p>
     </Modal>
 </template>
 
@@ -277,11 +306,23 @@
                 isLoading:true,
                 dressList:[],   //婚纱列表
                 partList:[],    //配饰列表
+                detailList:[],  //明细列表
 
                 addDressModal:false,
                 addDressLoading:true,
                 updateDressModal:false,
                 updateDressLoading:true,
+                addPartModal:false,
+                addPartLoading:true,
+                updatePartModal:false,
+                updatePartLoading:true,
+                deleteModal:false,
+                deleteLoading:true,
+                delItem:'',
+                proNameE:'',
+                proSellPriceE:'',
+                proDescE:'',
+                proIdE:'',
 
                 proPicPath:'/src/images/yangtu.png',
                 formValidate: {
@@ -357,9 +398,6 @@
                 self.page.currentPage = num;
                 self.queryProductPartPage();
             },
-            queryAllProduct(){
-
-            },
             queryProductDressPage(){
                 var self = this
                 self.isLoading = true
@@ -423,6 +461,7 @@
                     proPicPath:self.proPicPath,
                     proType:'dress'
                 };
+                console.log(JSON.stringify(data))
                 self.$http({
                     method:'POST',
                     url:'http://127.0.0.1:8080/Spring-study/insertProduct',
@@ -436,7 +475,182 @@
                         self.$Message.error('插入失败！');
                     }
                 })
-            }
+            },
+            insertPart(){
+                var self = this
+                var proId = 'P'+self.getNowFormatDate();
+                var data = {
+                    proId:proId,
+                    proName:self.formValidate.proName,
+                    proDesc:self.formValidate.proDesc,
+                    proBuyPrice:self.formValidate.proBuyPrice,
+                    proSalePrice:self.formValidate.proSalePrice,
+                    proSellPrice:self.formValidate.proSellPrice,
+                    proPicPath:self.proPicPath,
+                    proType:'part'
+                };
+                console.log(JSON.stringify(data))
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/insertProduct',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        self.addDressLoading = false
+                        self.queryProductPartPage()
+                        self.$Message.success('插入成功！');
+                    }else{
+                        self.$Message.error('插入失败！');
+                    }
+                })
+            },
+            queryDressProductById(){
+                var self = this
+                if(self.searchDress==''){
+                    self.queryProductDressPage()
+                }else{
+                    self.page.currentPage = 1;
+                    self.isLoading = true
+                    var data = {
+                        proId:self.searchDress
+                    };
+                    self.$http({
+                        method:'POST',
+                        url:'http://127.0.0.1:8080/Spring-study/queryProductById',
+                        params:data
+                    }).then(function(res){
+                        if(res.data.code=="OK"){
+                            self.dressList = [];
+                            if(res.data.data!=null){
+                                self.dressList.push(res.data.data)
+                            }
+                            self.page.totalRow = self.dressList.length;
+                            self.isLoading = false
+                            self.$Message.success('查询成功!');
+                        }else{
+                            self.$Message.error('查询失败！');
+                        }
+                    })
+                }
+            },
+            queryPartProductById(){
+                var self = this
+                if(self.searchPart==''){
+                    self.queryProductPartPage()
+                }else{
+                    self.page.currentPage = 1;
+                    self.isLoading = true
+                    var data = {
+                        proId:self.searchPart
+                    };
+                    self.$http({
+                        method:'POST',
+                        url:'http://127.0.0.1:8080/Spring-study/queryProductById',
+                        params:data
+                    }).then(function(res){
+                        if(res.data.code=="OK"){
+                            self.partList = [];
+                            if(res.data.data!=null){
+                                self.partList.push(res.data.data)
+                            }
+                            self.page.totalRow = self.partList.length;
+                            self.isLoading = false
+                            self.$Message.success('查询成功!');
+                        }else{
+                            self.$Message.error('查询失败！');
+                        }
+                    })
+                }
+            },
+            queryProductDetailByProId(){
+                var self = this
+                var data = {
+                    proId:self.delItem.proId
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/queryProductDetailByProId',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        self.detailList=res.data.data;
+                        if(self.detailList.length!=0){
+                            for(var i=0;i<self.detailList.length;i++){
+                                self.deleteProductDetail(self.detailList[i].proDetailId,i,);
+                            }
+                        }else{
+                            self.deleteProduct()
+                        }
+                    }else{
+                        self.$Message.error('查询明细失败！');
+                    }
+                })
+            },
+            deleteProduct(){
+                var self = this
+                var data = {
+                    proId:self.delItem.proId
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/deleteProduct',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        if(self.delItem.proType=='dress'){
+                            self.queryProductDressPage();
+                        }else if(self.delItem.proType=='part'){
+                            self.queryProductPartPage();
+                        }
+                        self.deleteLoading = false;
+                        self.deleteModal = false;
+                        self.$Message.success('删除成功!');
+                    }else{
+                        self.$Message.error('删除商品失败！');
+                    }
+                })
+            },
+            deleteProductDetail(proDetailId,index){
+                var self = this
+                var data = {
+                    proDetailId:self.proDetailId
+                };
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/deleteProductDetail',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        if(self.detailList.length==index+1){
+                            self.deleteProduct()
+                        }
+                    }else{
+                        self.$Message.error('删除明细失败！');
+                    }
+                })
+            },
+            updateDress(){
+                var self = this
+                var data = {
+                    proName:self.proNameE,
+                    proSellPrice:self.proSellPriceE,
+                    proDesc:self.proDescE,
+                    proId:self.proIdE,
+                };
+                console.log(JSON.stringify(data))
+                self.$http({
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/updateProduct',
+                    params:data
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        self.queryProductDressPage()
+                        self.$Message.success('更新成功！');
+                    }else{
+                        self.$Message.error('更新失败！');
+                    }
+                })
+            },
         },
         ready () {
             var self = this;

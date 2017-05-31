@@ -164,6 +164,10 @@ const routers = {
             require(['./views/back/detail/draftDetail.vue'], resolve);
         }
     },
-
+    '/back/productDetail/:proId':{
+        component (resolve) {
+            require(['./views/back/detail/productDetail.vue'], resolve);
+        }
+    },
 };
 export default routers;
