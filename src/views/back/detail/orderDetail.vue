@@ -72,6 +72,11 @@
                                 <i-col sapn="4">{{buy.buyOrderTime}}</i-col>
                             </Row>
                             <Row>
+                                <i-col span="3" >付款状态：</i-col>
+                                <i-col sapn="4" v-if="buy.buyStatus=='paid'">已付款</i-col>
+                                <i-col sapn="4" v-if="buy.buyStatus=='notpay'">未付款</i-col>
+                            </Row>
+                            <Row>
                                 <i-col span="3" >物流状态：</i-col>
                                 <i-col sapn="4" v-if="buy.logisStatus=='sended'">已发货</i-col>
                                 <i-col sapn="4" v-if="buy.logisStatus=='received'">已收货</i-col>
@@ -95,6 +100,11 @@
                             <Row>
                                 <i-col span="3" >订单时间：</i-col>
                                 <i-col sapn="4">{{custom.customOrderTime}}</i-col>
+                            </Row>
+                            <Row>
+                                <i-col span="3" >付款状态：</i-col>
+                                <i-col sapn="4" v-if="custom.customStatus=='paid'">已付款</i-col>
+                                <i-col sapn="4" v-if="custom.customStatus=='notpay'">未付款</i-col>
                             </Row>
                             <Row>
                                 <i-col span="3" >物流状态：</i-col>
@@ -126,6 +136,11 @@
                             <Row>
                                 <i-col span="3" >订单时间：</i-col>
                                 <i-col sapn="4">{{rent.rentOrderTime}}</i-col>
+                            </Row>
+                            <Row>
+                                <i-col span="3" >付款状态：</i-col>
+                                <i-col sapn="4" v-if="custom.customStatus=='paid'">已付款</i-col>
+                                <i-col sapn="4" v-if="custom.customStatus=='notpay'">未付款</i-col>
                             </Row>
                             <Row>
                                 <i-col span="3" >物流状态：</i-col>
