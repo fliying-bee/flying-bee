@@ -66,34 +66,40 @@
                 <div class="back-content">
                     <div class="back-content-main">
                         <Row type="flex" align="middle" class="front-order-item-title">
-                            <i-col span="4">稿件编码</i-col>
-                            <i-col span="4">稿件</i-col>
+                            <i-col span="2">稿件</i-col>
                             <i-col span="4">稿件名</i-col>
                             <i-col span="4">稿件作者</i-col>
-                            <i-col span="4">金额</i-col>
-                            <i-col span="4">状态</i-col>
+                            <i-col span="14">描述</i-col>
 
                         </Row>
                         <div v-for="draft in draftList">
-                            <Row type="flex" align="middle" justify="center"
-                                 class="front-order-item-content" >
-                                <i-col span="4">{{draft.draId}}</i-col>
-                                <i-col span="4">
-                                    <img :src="draft.draPicPath" alt="" class="sureOrder-pic">
-                                </i-col>
-                                <i-col span="4">{{draft.draName}}</i-col>
-                                <i-col span="4">{{draft.drAuthor}}</i-col>
-                                <i-col span="4">{{draft.draPrice}}</i-col>
-                                <i-col span="4">
-                                    <span v-if="draft.draCheck=='passed'">已通过</span>
-                                    <span v-if="draft.draCheck=='notpass'">未通过</span>
-                                    <i-button v-if="draft.draCheck=='notcheck'" @click="updateDraftCheck(draft,'passed')">通过</i-button>
-                                    <i-button v-if="draft.draCheck=='notcheck'" @click="updateDraftCheck(draft,'notpass')">未通过</i-button>
-                                </i-col>
-                            </Row>
-                            <div class="front-order-title orderdetail-custom"
-                                 style="border-top:none;text-align: left;padding-left: 20px">
-                                描述：{{draft.draDesc}}
+                            <div >
+                                <Row type="flex" align="middle" class="front-order-item-title">
+                                    <i-col span="4">
+                                        稿件号：<span>{{draft.draId}}</span>
+                                    </i-col>
+                                    <i-col span="3">
+                                        状态：
+                                        <span v-if="draft.draCheck=='passed'">已通过</span>
+                                        <span v-if="draft.draCheck=='notpass'">未通过</span>
+                                        <span v-if="draft.draCheck=='notcheck'">未审核</span>
+                                    </i-col>
+                                    <i-col span="3">
+                                        金额：<span>￥{{draft.draPrice}}</span>
+                                    </i-col>
+                                </Row>
+
+                                <Row type="flex" align="middle" justify="center" class="front-order-item-content">
+                                    <i-col span="2">
+                                        <img :src="draft.draPicPath" alt="" class="sureOrder-pic">
+                                    </i-col>
+                                    <i-col span="4">{{draft.draName}}</i-col>
+                                    <i-col span="4">{{draft.drAuthor}}</i-col>
+                                    <i-col span="14">{{draft.draDesc}}</i-col>
+                                </Row>
+                                <div class="front-order-title" style="border-top:none;">
+
+                                </div>
                             </div>
                         </div>
                         <Page show-total class="page-position"
