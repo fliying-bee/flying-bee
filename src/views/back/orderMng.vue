@@ -97,9 +97,10 @@
                                                 {{buy.buyPriceSum}}
                                             </i-col>
                                             <i-col span="3">
-                                                <span v-if="buy.logisStatus=='sended'">已发货</span>
-                                                <span v-if="buy.logisStatus=='received'">已收货</span>
-                                                <i-button v-if="buy.logisStatus=='notsend'" @click="updateBuyLogisStatus(buy)">发货</i-button>
+                                                <span v-if="buy.buyStatus=='notpay'">未付款</span>
+                                                <span v-if="buy.buyStatus=='paid'&buy.logisStatus=='sended'">已发货</span>
+                                                <span v-if="buy.buyStatus=='paid'&buy.logisStatus=='received'">已收货</span>
+                                                <i-button v-if="buy.buyStatus=='paid'&buy.logisStatus=='notsend'" @click="updateBuyLogisStatus(buy)">发货</i-button>
                                             </i-col>
                                             <i-col span="5">
                                                 <a v-link="{path:'/back/orderDetail/buy/'+buy.buyId}">查看详情</a>
@@ -145,9 +146,10 @@
                                             <i-col span="4">{{custom.userId}}</i-col>
                                             <i-col span="4">{{custom.customPriceSum}}</i-col>
                                             <i-col span="3">
-                                                <span v-if="custom.logisStatus=='sended'">已发货</span>
-                                                <span v-if="custom.logisStatus=='received'">已收货</span>
-                                                <i-button v-if="custom.logisStatus=='notsend'" @click="updateCustomLogisStatus(custom)">发货</i-button>
+                                                <span v-if="custom.customStatus=='notpay'">未付款</span>
+                                                <span v-if="custom.customStatus=='paid'&custom.logisStatus=='sended'">已发货</span>
+                                                <span v-if="custom.customStatus=='paid'&custom.logisStatus=='received'">已收货</span>
+                                                <i-button v-if="custom.customStatus=='paid'&custom.logisStatus=='notsend'" @click="updateCustomLogisStatus(custom)">发货</i-button>
                                             </i-col>
                                             <i-col span="5">
                                                 <a v-link="{path:'/back/orderDetail/custom/'+custom.customId}">查看详情</a>
@@ -193,11 +195,12 @@
                                             <i-col span="4">{{rent.userId}}</i-col>
                                             <i-col span="4">{{rent.rentPriceSum}}</i-col>
                                             <i-col span="3">
-                                                <span v-if="rent.logisStatus=='ssended'">已发货</span>
-                                                <span v-if="rent.logisStatus=='ureceived'">已收货</span>
-                                                <span v-if="rent.logisStatus=='usended'" @click="updateRentLogisStatus(rent,'sreceived')">用户已发货</span>
-                                                <span v-if="rent.logisStatus=='sreceived'">已归还</span>
-                                                <i-button v-if="rent.logisStatus=='snotsend'" @click="updateRentLogisStatus(rent,'ssended')">发货</i-button>
+                                                <span v-if="rent.rentStatus=='notpay'">未付款</span>
+                                                <span v-if="(rent.rentStatus=='paid')&&(rent.logisStatus=='ssended')">已发货</span>
+                                                <span v-if="(rent.rentStatus=='paid')&&(rent.logisStatus=='ureceived')">已收货</span>
+                                                <span v-if="(rent.rentStatus=='paid')&&(rent.logisStatus=='usended')" @click="updateRentLogisStatus(rent,'sreceived')">用户已发货</span>
+                                                <span v-if="(rent.rentStatus=='paid')&&(rent.logisStatus=='sreceived')">已归还</span>
+                                                <i-button v-if="(rent.rentStatus=='paid')&&(rent.logisStatus=='snotsend')" @click="updateRentLogisStatus(rent,'ssended')">发货</i-button>
                                             </i-col>
                                             <i-col span="5">
                                                 <a v-link="{path:'/back/orderDetail/rent/'+rent.rentId}">查看详情</a>
