@@ -57,58 +57,55 @@
                         <Breadcrumb-item href="#">运营管理</Breadcrumb-item>
                         <Breadcrumb-item>采购管理</Breadcrumb-item>
                     </Breadcrumb>
+                </div>
                 <div class="back-content">
                     <div class="back-content-main">
-                        <Tabs type="card">
-                            <Tab-pane label="已有采购单">
-                                <div class="back-order-search">
-                                    <Row type="flex" align="middle" justify="left">
-                                        <i-col span="2">采购单编码：</i-col>
-                                        <i-col span="4">
-                                            <i-input :value.sync="searchProcure"
-                                                     icon="ios-search"
-                                                     style="width: 200px"
-                                                     @on-click="queryBackProcureById"></i-input>
-                                        </i-col>
-                                    </row>
-                                    <div>
-                                        <Row type="flex" align="middle" class="front-order-item-title">
-                                            <i-col span="4">采购单</i-col>
-                                            <i-col span="3">采购日期</i-col>
-                                            <i-col span="4">厂家</i-col>
-                                            <i-col span="2">金额</i-col>
-                                            <i-col span="2">数量</i-col>
-                                            <i-col span="3">状态</i-col>
-                                            <i-col span="3">下单员工</i-col>
-                                            <i-col span="3">更多</i-col>
-                                        </Row>
+                        <div class="back-order-search">
+                            <Row type="flex" align="middle" justify="left">
+                                <i-col span="2">采购单编码：</i-col>
+                                <i-col span="4">
+                                    <i-input :value.sync="searchProcure"
+                                             icon="ios-search"
+                                             style="width: 200px"
+                                             @on-click="queryBackProcureById"></i-input>
+                                </i-col>
+                                <i-col span="2" offset="16">
+                                    <i-button type="primary" @click="addModal=true">采购下单</i-button>
+                                </i-col>
+                            </Row>
+                            <div>
+                                <Row type="flex" align="middle" class="front-order-item-title">
+                                    <i-col span="4">采购单</i-col>
+                                    <i-col span="3">采购日期</i-col>
+                                    <i-col span="4">厂家</i-col>
+                                    <i-col span="2">金额</i-col>
+                                    <i-col span="2">数量</i-col>
+                                    <i-col span="3">状态</i-col>
+                                    <i-col span="3">下单员工</i-col>
+                                    <i-col span="3">更多</i-col>
+                                </Row>
 
-                                        <Row type="flex" align="middle" justify="center"
-                                             class="front-order-item-content" v-for="procure in procureList">
-                                            <i-col span="4">{{procure.procureId}}</i-col>
-                                            <i-col span="3">
-                                                <span class="bold">{{procure.procureTime}}</span>
-                                            </i-col>
-                                            <i-col span="4">{{procure.factory.facName}}</i-col>
-                                            <i-col span="2">{{procure.procurePriceSum}}</i-col>
-                                            <i-col span="2">{{procure.procureCount}}</i-col>
-                                            <i-col span="3">
-                                                <span v-if="procure.procureStatus=='paid'">已付款</span>
-                                                <i-button v-if="procure.procureStatus=='notpay'" @click="updateProcureStatus(procure.procureId,'paid')">付款</i-button>
+                                <Row type="flex" align="middle" justify="center"
+                                     class="front-order-item-content" v-for="procure in procureList">
+                                    <i-col span="4">{{procure.procureId}}</i-col>
+                                    <i-col span="3">
+                                        <span class="bold">{{procure.procureTime}}</span>
+                                    </i-col>
+                                    <i-col span="4">{{procure.factory.facName}}</i-col>
+                                    <i-col span="2">{{procure.procurePriceSum}}</i-col>
+                                    <i-col span="2">{{procure.procureCount}}</i-col>
+                                    <i-col span="3">
+                                        <span v-if="procure.procureStatus=='paid'">已付款</span>
+                                        <i-button v-if="procure.procureStatus=='notpay'" @click="updateProcureStatus(procure.procureId,'paid')">付款</i-button>
 
-                                            </i-col>
-                                            <i-col span="3">{{procure.employee.empName}}</i-col>
-                                            <i-col span="3">
-                                                <a v-link="{path:'/back/procureDetail/'+procure.procureId}">查看详情</a>
-                                            </i-col>
-                                        </Row>
-                                    </div>
-                                </div>
-                            </Tab-pane>
-                            <Tab-pane label="自主采购"></Tab-pane>
-                            <Tab-pane label="定制单采购">
-                            </Tab-pane>
-                        </Tabs>
+                                    </i-col>
+                                    <i-col span="3">{{procure.employee.empName}}</i-col>
+                                    <i-col span="3">
+                                        <a v-link="{path:'/back/procureDetail/'+procure.procureId}">查看详情</a>
+                                    </i-col>
+                                </Row>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="back-copy">
@@ -121,6 +118,25 @@
         <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
         <div>Loading</div>
     </Spin>
+    <Modal
+            :visible.sync="addModal"
+            title="添加采购信息"
+            :loading="addLoading"
+            @on-ok="insertProcure"
+            @on-cancel="addModal = false">
+        <i-form :label-width="80">
+            <Form-item label="厂家">
+                <i-select :model.sync="addProcureList" filterable>
+                    <i-option v-for="factory in factoryList" :value="factory.facId">{{factory.facName }}</i-option>
+                </i-select>
+            </Form-item>
+            <Form-item label="商品">
+                <i-select :model.sync="addProcureList" multiple filterable>
+                    <i-option v-for="product in productList" :value="product.proId">{{ limit.limName }}</i-option>
+                </i-select>
+            </Form-item>
+        </i-form>
+    </Modal>
 </template>
 
 <style scoped>
@@ -143,9 +159,43 @@
                 isLoading:true,
                 procureList:[],
                 searchProcure:'',
+                addModal:false,
+                addLoading:true,
+                //插入
+                procureId:'',
+                procureTime:'',
+                addProcureList:[],
+                factoryList:[],     //员工列表
+                productList:[],   //所有权限列表
             }
         },
         methods: {
+            getNowFormatDate() {
+                var date = new Date();
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                var hour = date.getHours();
+                var minute = date.getMinutes();
+                var second = date.getSeconds();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                if (hour >= 0 && hour <= 9) {
+                    hour = "0" + hour;
+                }
+                if (minute >= 0 && minute <= 9) {
+                    minute = "0" + minute;
+                }
+                if (second >= 0 && second <= 9) {
+                    second = "0" + second;
+                }
+                var currentdate = date.getFullYear() + month + strDate
+                        + hour + minute + second;
+                return currentdate;
+            },
             loginOut(){
                 var self = this;
                 localStorage.removeItem('EMPNAME');
@@ -228,11 +278,43 @@
                     }
                 })
             },
+            queryAllFactory(){
+                var self = this
+                self.isLoading = true
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryAllFactory'
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        self.factoryList = res.data.data;
+                        self.isLoading = false
+                    } else {
+                        self.$Message.success('厂家查询错误！');
+                    }
+                })
+            },
+            queryAllProduct(){
+                var self = this
+                self.isLoading = true
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryAllProduct',
+                    params:data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        self.productList = res.data.data.list;
+                        self.isLoading = false
+                    } else {
+                        self.$Message.success('商品查询错误！');
+                    }
+                })
+            },
             pageChange(num){
                 var self = this;
                 self.page.currentPage = num;
                 self.queryAllFactory();
             }
+
         },
         ready () {
             var self = this;
@@ -243,6 +325,7 @@
                 self.isLogin = false;
             }
             self.queryBackAllProcure();
+            self.queryAllFactory();
 
         }
     }

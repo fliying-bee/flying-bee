@@ -96,7 +96,7 @@
                         </div>
                         <Row type="flex" align="middle" justify="center" class="sureOrder-title">
                             <i-col span="8">商品名</i-col>
-                            <i-col span="4">单价</i-col>
+                            <i-col span="4">进价</i-col>
                             <i-col span="4">数量</i-col>
                             <i-col span="4">型号</i-col>
                             <i-col span="4">小计</i-col>
@@ -186,10 +186,7 @@
                     params:data
                 }).then(function(res){
                     if(res.data.code=="OK"){
-                        self.procureList = [];
-                        if(res.data.data!=null){
-                            self.procure=res.data.data;
-                        }
+                        self.procure=res.data.data;
                         self.$Message.success('查询成功!');
                     }else{
                         self.$Message.error('查询失败！');
