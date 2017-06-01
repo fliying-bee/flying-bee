@@ -28,7 +28,7 @@
 
         </i-col>
     </Row>
-    
+
     <!--首页nav-->
     <div class="front-nav">
         <Menu mode="horizontal" active-key="2-3">

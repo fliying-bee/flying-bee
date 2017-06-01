@@ -315,7 +315,7 @@
                     if(res.data.code=="OK"){
                         self.proId='';
                         self.proDetailData='';
-                        self.addProcureCount(self.editProcureDetailCount,(self.editProcureDetailPrice-0))
+                        self.addProcureCount(self.editProcureDetailCount,(self.editProcureDetailPrice-0)*(self.editProcureDetailCount-0))
                     }else{
                         self.$Message.error('添加采购明细失败！');
                     }
