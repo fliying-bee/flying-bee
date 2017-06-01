@@ -135,7 +135,7 @@
                 userId:'',
                 isLogin:false,
                 isLoading:true,
-                draPicPath:'/src/images/yangtu.png',
+                draPicPath:'/src/images/draft/hunsha6.jpg',
                 draPrice: 0,
                 formValidate: {
                     draName: '',
@@ -216,7 +216,7 @@
                         params:data
                     }).then(function(res){
                         if(res.data.code=="OK"){
-                            self.$router.go('/front/personCen/designManage');
+                            self.$router.go('/front/personCen/draftManage');
                             self.$Message.success('插入成功！');
                         }else{
                             self.$Message.error('插入失败！');

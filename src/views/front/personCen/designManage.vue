@@ -103,8 +103,11 @@
                                         金额：<span>￥{{order.customPriceSum}}</span>
                                     </i-col>
                                 </Row>
-                                <div class="front-order-item-addr">
+                                <div class="front-order-item-addr" style="border-bottom: 0px solid #fff">
                                     地址：{{order.customAddr}}
+                                </div>
+                                <div class="front-order-item-addr">
+                                    定制要求：{{order.customMsg}}
                                 </div>
 
                                 <Row type="flex" align="middle" justify="center" class="front-order-item-content"

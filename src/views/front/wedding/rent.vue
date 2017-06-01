@@ -109,7 +109,7 @@
     </Row>
     <div class="product-card-wrap clearfix">
         <Card class="product-card" v-for="part in partList">
-            <a v-link="{path:'/front/product/rent/'+dress.proId}" target="_blank">
+            <a v-link="{path:'/front/product/rent/'+part.proId}" target="_blank">
                 <img :src="part.proPicPath" class="product-cardpic">
 
                 <div class="product-card-title">

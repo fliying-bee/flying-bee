@@ -167,7 +167,7 @@
                                                       @click="delItem=product,deleteModal=true"></Icon>
                                             </i-col>
                                             <i-col span="3">
-                                                <i-button>查看商品明细</i-button>
+                                                <a v-link="{path:'/back/productDetail/'+product.proId}">查看详情</a>
                                             </i-col>
                                         </Row>
                                         <Page show-total class="page-position"
@@ -325,7 +325,8 @@
                 proDescE:'',
                 proIdE:'',
 
-                proPicPath:'/src/images/yangtu.png',
+                proPicPath:'/src/images/product/hunshayuwei.jpg',
+                proPicPathPart:'/src/images/product/penghua.jpg',
                 formValidate: {
                     proName: '',
                     proBuyPrice: '',
@@ -498,6 +499,7 @@
                 }).then(function(res){
                     if(res.data.code=="OK"){
                         self.addDressLoading = false
+                        self.addDressModal = false
                         self.queryProductDressPage()
                         self.$Message.success('插入成功！');
                     }else{
@@ -515,7 +517,7 @@
                     proBuyPrice:self.formValidate.proBuyPrice,
                     proSalePrice:self.formValidate.proSalePrice,
                     proSellPrice:self.formValidate.proSellPrice,
-                    proPicPath:self.proPicPath,
+                    proPicPath:self.proPicPathPart,
                     proType:'part'
                 };
                 console.log(JSON.stringify(data))
@@ -525,7 +527,8 @@
                     params:data
                 }).then(function(res){
                     if(res.data.code=="OK"){
-                        self.addDressLoading = false
+                        self.addPartLoading = false
+                        self.addPartModal = false
                         self.queryProductPartPage()
                         self.$Message.success('插入成功！');
                     }else{

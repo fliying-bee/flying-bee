@@ -169,8 +169,8 @@
             </Form-item>
             <Form-item label="性别">
                 <Radio-group :model.sync="editEmpSex">
-                    <Radio value="M">男</Radio>
-                    <Radio value="F">女</Radio>
+                    <Radio value="male">男</Radio>
+                    <Radio value="female">女</Radio>
                 </Radio-group>
             </Form-item>
             <Form-item label="联系方式">
