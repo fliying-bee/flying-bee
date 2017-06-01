@@ -333,6 +333,7 @@
                         self.addLoading = false;
                         self.addModal = false;
                         self.facId='';
+                        self.queryBackAllProcure();
                         self.$Message.success('添加成功!');
                     }else{
                         self.$Message.error('添加采购失败！');
