@@ -126,13 +126,8 @@
             @on-cancel="addModal = false">
         <i-form :label-width="80">
             <Form-item label="厂家">
-                <i-select :model.sync="addProcureList" filterable>
+                <i-select :model.sync="facId" filterable>
                     <i-option v-for="factory in factoryList" :value="factory.facId">{{factory.facName }}</i-option>
-                </i-select>
-            </Form-item>
-            <Form-item label="商品">
-                <i-select :model.sync="addProcureList" multiple filterable>
-                    <i-option v-for="product in productList" :value="product.proId">{{ limit.limName }}</i-option>
                 </i-select>
             </Form-item>
         </i-form>
@@ -155,6 +150,8 @@
                     totalRow:0
                 },
                 empName:'',
+                empId:'',
+                facId:'',
                 isLogin:false,
                 isLoading:true,
                 procureList:[],
@@ -166,7 +163,6 @@
                 procureTime:'',
                 addProcureList:[],
                 factoryList:[],     //员工列表
-                productList:[],   //所有权限列表
             }
         },
         methods: {
@@ -293,19 +289,26 @@
                     }
                 })
             },
-            queryAllProduct(){
+            insertProcure(){
                 var self = this
-                self.isLoading = true
+                var procureId = 'P'+self.getNowFormatDate();
+                var data = {
+                    procureId:procureId,
+                    empId:self.empId,
+                    facId:self.facId,
+                };
                 self.$http({
-                    method: 'GET',
-                    url: 'http://127.0.0.1:8080/Spring-study/queryAllProduct',
+                    method:'POST',
+                    url:'http://127.0.0.1:8080/Spring-study/insertProcure',
                     params:data
-                }).then(function (res) {
-                    if (res.data.code == "OK") {
-                        self.productList = res.data.data.list;
-                        self.isLoading = false
-                    } else {
-                        self.$Message.success('商品查询错误！');
+                }).then(function(res){
+                    if(res.data.code=="OK"){
+                        self.addLoading = false;
+                        self.addModal = false;
+                        self.facId='';
+                        self.$Message.success('添加成功!');
+                    }else{
+                        self.$Message.error('添加采购失败！');
                     }
                 })
             },
@@ -323,6 +326,9 @@
                 self.isLogin = true;
             }else{
                 self.isLogin = false;
+            }
+            if(localStorage.getItem('EMPID')) {
+                self.empId = localStorage.getItem('EMPID');
             }
             self.queryBackAllProcure();
             self.queryAllFactory();
