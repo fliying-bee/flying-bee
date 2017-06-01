@@ -139,11 +139,65 @@
     export default {
         components: {},
         data () {
-            return {}
+            return {
+                empName:'',
+                isLogin:false,
+                isLoading:true,
+                empId:''
+            }
         },
-        methods: {},
+        methods: {
+            queryAllEmpLimitById(){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    empId:self.empId
+                };
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryAllEmpLimitById',
+                    params:data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        var empLimitList = res.data.data;
+                        for(var i=0;i<empLimitList.length;i++){
+                            if(empLimitList[i].limId=='L20170601092715'){
+                                break;
+                            }
+                            if(i==empLimitList.length-1){
+                                self.$Message.error('暂无权限！');
+                                self.$router.go('/backIndex');
+                            }
+                        }
+                        self.isLoading = false
+                    } else {
+                        self.$Message.error('查询员工权限失败！');
+                    }
+                })
+            },
+            loginOut(){
+                var self = this;
+                localStorage.removeItem('EMPNAME');
+                localStorage.removeItem('EMPID');
+                self.$Message.success('退出成功！');
+                setTimeout(()=>{
+                    self.$router.go('/login');
+                    self.isLogin = false;
+                },1000);
+            },
+        },
         ready () {
-
+            var self = this;
+            if(localStorage.getItem('EMPNAME')){
+                self.empName = localStorage.getItem('EMPNAME');
+                self.isLogin = true;
+            }else{
+                self.isLogin = false;
+            }
+            if(localStorage.getItem('EMPID')) {
+                self.empId = localStorage.getItem('EMPID');
+            }
+            self.queryAllEmpLimitById()
         }
     }
 </script>

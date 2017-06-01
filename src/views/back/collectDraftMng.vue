@@ -140,9 +140,38 @@
                 isLoading:true,
                 search:'',
                 draftList:[],
+                empId:''
             }
         },
         methods: {
+            queryAllEmpLimitById(){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    empId:self.empId
+                };
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryAllEmpLimitById',
+                    params:data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        var empLimitList = res.data.data;
+                        for(var i=0;i<empLimitList.length;i++){
+                            if(empLimitList[i].limId=='L20170601093010'){
+                                break;
+                            }
+                            if(i==empLimitList.length-1){
+                                self.$Message.error('暂无权限！');
+                                self.$router.go('/backIndex');
+                            }
+                        }
+                        self.isLoading = false
+                    } else {
+                        self.$Message.error('查询员工权限失败！');
+                    }
+                })
+            },
             loginOut(){
                 var self = this;
                 localStorage.removeItem('EMPNAME');
@@ -264,6 +293,10 @@
             }else{
                 self.isLogin = false;
             }
+            if(localStorage.getItem('EMPID')) {
+                self.empId = localStorage.getItem('EMPID');
+            }
+            self.queryAllEmpLimitById()
             self.queryBackAllDraft();
         }
     }

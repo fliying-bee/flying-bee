@@ -211,10 +211,39 @@
                     limName: [
                         {required: true, message: '厂家名不能为空', trigger: 'blur'}
                     ]
-                }
+                },
+                empId:''
             }
         },
         methods: {
+            queryAllEmpLimitById(){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    empId:self.empId
+                };
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryAllEmpLimitById',
+                    params:data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        var empLimitList = res.data.data;
+                        for(var i=0;i<empLimitList.length;i++){
+                            if(empLimitList[i].limId=='L20170601093217'){
+                                break;
+                            }
+                            if(i==empLimitList.length-1){
+                                self.$Message.error('暂无权限！');
+                                self.$router.go('/backIndex');
+                            }
+                        }
+                        self.isLoading = false
+                    } else {
+                        self.$Message.error('查询员工权限失败！');
+                    }
+                })
+            },
             getNowFormatDate() {
                 var date = new Date();
                 var month = date.getMonth() + 1;
@@ -389,6 +418,10 @@
             }else{
                 self.isLogin = false;
             }
+            if(localStorage.getItem('EMPID')) {
+                self.empId = localStorage.getItem('EMPID');
+            }
+            self.queryAllEmpLimitById()
             self.queryAllFactory();
         }
     }
