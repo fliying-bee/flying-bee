@@ -88,13 +88,17 @@
                                         {{user.userName}}
                                     </i-col>
                                     <i-col span="4">
-                                        {{user.userSex}}
+                                        <span v-if="user.userSex==''">--</span>
+                                        <span v-if="user.userSex=='female'">女</span>
+                                        <span v-if="user.userSex=='male'">男</span>
                                     </i-col>
                                     <i-col span="4">
-                                        {{user.userTel}}
+                                        <span v-if="user.userTel!=''">{{user.userTel}}</span>
+                                        <span v-else>--</span>
                                     </i-col>
                                     <i-col span="8">
-                                        {{user.userAddr}}
+                                        <span v-if="user.userAddr!=''">{{user.userAddr}}</span>
+                                        <span v-else>--</span>
                                     </i-col>
                                 </Row>
                                 <Page show-total class="page-position"

@@ -285,72 +285,6 @@
         components: {},
         data () {
             return {
-                options1: {
-                    shortcuts: [
-                        {
-                            text: '今天',
-                            value () {
-                                return new Date();
-                            },
-                            onClick: (picker) => {
-                                this.$Message.info('点击了今天');
-                            }
-                        },
-                        {
-                            text: '昨天',
-                            value () {
-                                const date = new Date();
-                                date.setTime(date.getTime() - 3600 * 1000 * 24);
-                                return date;
-                            },
-                            onClick: (picker) => {
-                                this.$Message.info('点击了昨天');
-                            }
-                        },
-                        {
-                            text: '一周前',
-                            value () {
-                                const date = new Date();
-                                date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-                                return date;
-                            },
-                            onClick: (picker) => {
-                                this.$Message.info('点击了一周前');
-                            }
-                        }
-                    ]
-                },
-                options2: {
-                    shortcuts: [
-                        {
-                            text: '最近一周',
-                            value () {
-                                const end = new Date();
-                                const start = new Date();
-                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                                return [start, end];
-                            }
-                        },
-                        {
-                            text: '最近一个月',
-                            value () {
-                                const end = new Date();
-                                const start = new Date();
-                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                                return [start, end];
-                            }
-                        },
-                        {
-                            text: '最近三个月',
-                            value () {
-                                const end = new Date();
-                                const start = new Date();
-                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                                return [start, end];
-                            }
-                        }
-                    ]
-                },
                 page:{
                     currentPage:1,
                     pageSize:6,
@@ -366,9 +300,37 @@
                 buyList:[],
                 customList:[],
                 rentList:[],
+                empId:''
             }
         },
         methods: {
+            queryAllEmpLimitById(){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    empId:self.empId
+                };
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryAllEmpLimitById',
+                    params:data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        var empLimitList = res.data.data;
+                        for(var i=0;i<empLimitList.length;i++){
+                            if(empLimitList[i].limId==''){
+                                break;
+                            }
+                            if(i==empLimitList.length-1){
+                                self.$router.go('/backIndex');
+                            }
+                        }
+                        self.isLoading = false
+                    } else {
+                        self.$Message.error('查询员工权限失败！');
+                    }
+                })
+            },
             loginOut(){
                 var self = this;
                 localStorage.removeItem('EMPNAME');
@@ -628,6 +590,10 @@
             }else{
                 self.isLogin = false;
             }
+            if(localStorage.getItem('EMPID')) {
+                self.empId = localStorage.getItem('EMPID');
+            }
+//            self.queryAllEmpLimitById()
             self.queryBackAllBuy();
             self.queryBackAllRent();
             self.queryBackAllCustom();

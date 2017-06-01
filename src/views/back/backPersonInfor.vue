@@ -2,8 +2,8 @@
     <!--网页头部-->
     <div class="back-index-header clearfix">
         <div class="back-header-logo">
-            <img src="../../images/guyun_logo_z.png" alt="logo" class="back-header-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
-            <img src="../../images/guyun_logo.png" alt="logo" class="back-header-logopic">
+            <img src="/src/images/guyun_logo_z.png" alt="logo" class="back-header-logopic">&nbsp;&nbsp;&nbsp;&nbsp;
+            <img src="/src/images/guyun_logo.png" alt="logo" class="back-header-logopic">
         </div>
         <div class="back-header-nav">
             <Dropdown v-if="isLogin">
@@ -12,7 +12,7 @@
                     <Icon type="arrow-down-b"></Icon>
                 </i-button>
                 <Dropdown-menu slot="list">
-                    <Dropdown-item v-link="{path:'/back/backPersonInfor'}">个人中心</Dropdown-item>
+                    <Dropdown-item v-link="{path:'/backIndex'}">返回首页</Dropdown-item>
                     <Dropdown-item @click="loginOut()">退出</Dropdown-item>
                 </Dropdown-menu>
             </Dropdown>
@@ -20,93 +20,58 @@
 
         </div>
     </div>
-    <hr style="color: #D7DDE4">
+    <div style="border-bottom: 1px solid #D7DDE4"></div>
     <div class="back-content-main">
         <i-col span="24">
             <Card class="preson-info">
                 <div class="preson-info-div">
-                    <div class="clearfix">
-                        <Icon type="edit" style="font-size: 22px;float: right;"></Icon>
+                    <div class="person-item">
+                        <div class="person-label">
+                            <Icon type="social-snapchat"></Icon>
+                            <span class="person-Info-span">用户名</span>
+                        </div>
+                        <span>{{empData.empName}}</span>
                     </div>
-                    <div >
-                        <Icon type="social-snapchat"></Icon>
-                        <span class="person-Info-span">用户名</span>
-                        <span>张三</span>
-                        <!--<Icon type="edit"></Icon>-->
+                    <div class="person-item">
+                        <div class="person-label">
+                            <Icon type="android-person"></Icon>
+                            <span class="person-Info-span">性别</span>
+                        </div>
+                        <span v-if="empData.empSex==''||empData.empSex==null">--</span>
+                        <span v-if="empData.empSex=='female'">女</span>
+                        <span v-if="empData.empSex=='male'">男</span>
                     </div>
-                    <div>
-                        <Icon type="android-person"></Icon>
-                        <span class="person-Info-span">性别</span>
-                        <span>男</span>
-
-                        <!--<Icon type="female"></Icon>-->
-                        <Icon type="male"></Icon>
-                        <span></span>
-                        <!--<Icon type="edit"></Icon>-->
-                    </div>
-                    <div>
-                        <Icon type="ios-locked"></Icon>
-                        <span class="person-Info-span">密码</span>
+                    <div class="person-item">
+                        <div class="person-label">
+                            <Icon type="ios-locked"></Icon>
+                            <span class="person-Info-span">密码</span>
+                        </div>
                         <span>*******</span>
-                        <!--<Icon type="edit"></Icon>-->
                     </div>
-                    <div>
-                        <Icon type="email"></Icon>
-                        <span class="person-Info-span">邮箱</span>
-                        <span>1870260xxxx@163.com</span>
-                        <!--<Icon type="edit"></Icon>-->
+                    <div class="person-item">
+                        <div class="person-label">
+                            <Icon type="android-phone-portrait"></Icon>
+                            <span class="person-Info-span">手机</span>
+                        </div>
+                        <span v-if="empData.empTel==''||empData.empTel==null">--</span>
+                        <span v-else>{{empData.empTel}}</span>
                     </div>
-                    <div>
-                        <Icon type="android-phone-portrait"></Icon>
-                        <span class="person-Info-span">手机</span>
-                        <span>187-0260-xxxx</span>
-                        <!--<Icon type="edit"></Icon>-->
+                    <div class="person-item">
+                        <div class="person-label">
+                            <Icon type="star"></Icon>
+                            <span class="person-Info-span">权限</span>
+                        </div>
+                        <span v-if="empData.empLimName==''||empData.empLimName==null">--</span>
+                        <span v-else>{{empData.empLimName}}</span>
                     </div>
-                </div>
-                <div>
-                    <Icon type="star"></Icon>
-                    <span class="person-Info-span">权限</span>
-                    <span class="person-Info-address">
-                        权限一：查看订单
-                        <br>
-                        权限二：审核稿件
-                    </span>
-                    <!--<div>-->
-                        <!--<i-form v-ref:form-dynamic :model="formDynamic" :label-width="80">-->
-                            <!--<Form-item-->
-                                    <!--v-for="item in formDynamic.items"-->
-                                    <!--:label="'地址' + ($index + 1)"-->
-                                    <!--:prop="'items.' + $index + '.value'"-->
-                                    <!--:rules="{required: true, message: '项目' + ($index + 1) +'不能为空', trigger: 'blur'}">-->
-                                <!--<Row>-->
-                                    <!--<i-col span="18">-->
-                                        <!--<span v-if="!it">dizji===</span>-->
-                                        <!--<i-input type="text" :value.sync="" v-if="it" placeholder="请输入..."></i-input>-->
-                                    <!--</i-col>-->
-                                    <!--<i-col span="4" offset="1">-->
-                                        <!--<i-button type="ghost" @click="handleRemove(item)">删除</i-button>-->
-                                    <!--</i-col>-->
-                                <!--</Row>-->
-                            <!--</Form-item>-->
-                            <!--<Form-item>-->
-                                <!--<Row>-->
-                                    <!--<i-col span="12">-->
-                                        <!--<i-button type="dashed" long @click="handleAdd" icon="plus-round">新增</i-button>-->
-                                    <!--</i-col>-->
-                                <!--</Row>-->
-                            <!--</Form-item>-->
-                            <!--<Form-item>-->
-                                <!--<i-button type="primary" @click="handleSubmit('formDynamic')">提交</i-button>-->
-                                <!--<i-button type="ghost" @click="handleReset('formDynamic')" style="margin-left: 8px">重置</i-button>-->
-                            <!--</Form-item>-->
-                        <!--</i-form>-->
-                    <!--</div>-->
-                    <!--<Icon type="edit" @click="it=!it"></Icon>-->
-                    <!--<Icon type="ios-plus-outline"></Icon>-->
                 </div>
             </Card>
         </i-col>
     </div>
+    <Spin fix v-if="isLoading">
+        <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+        <div>Loading</div>
+    </Spin>
 </template>
 
 <style scoped>
@@ -125,6 +90,14 @@
     .person-Info-address{
         display: inline-block;
     }
+    .person-item{
+        line-height: 32px;
+        padding: 5px;
+    }
+    .person-label{
+        width: 120px;
+        display: inline-block;
+    }
 </style>
 
 <script>
@@ -132,41 +105,55 @@
         components: {},
         data () {
             return {
-                    it:false,
-                    formDynamic: {
-                        items: [
-                            {
-                                value: ''
-                            }
-                        ]
-                    }
-
+                empName:'',
+                isLogin:false,
+                isLoading:true,
+                empId:'',
+                empData:''
             }
         },
         methods: {
-            handleSubmit (name) {
-                this.$refs[name].validate((valid) => {
-                    if (valid) {
-                        this.$Message.success('提交成功!');
+            loginOut(){
+                var self = this;
+                localStorage.removeItem('EMPNAME');
+                localStorage.removeItem('EMPID');
+                self.$Message.success('退出成功！');
+                setTimeout(()=>{
+                    self.$router.go('/login');
+                self.isLogin = false;
+            },1000);
+            },
+            queryEmployeeById(){
+                var self = this
+                var data = {
+                    empId:self.empId
+                };
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/queryEmployeeById',
+                    params: data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        self.empData = res.data.data;
+                        self.isLoading = false
                     } else {
-                        this.$Message.error('表单验证失败!');
+                        self.$Message.error('员工查询错误！');
                     }
                 })
-            },
-            handleReset (name) {
-                this.$refs[name].resetFields();
-            },
-            handleAdd () {
-                this.formDynamic.items.push({
-                    value: ''
-                });
-            },
-            handleRemove (item) {
-                this.formDynamic.items.$remove(item);
             }
         },
         ready () {
-
+            var self = this;
+            if(localStorage.getItem('EMPNAME')){
+                self.empName = localStorage.getItem('EMPNAME');
+                self.isLogin = true;
+            }else{
+                self.isLogin = false;
+            }
+            if(localStorage.getItem('EMPID')) {
+                self.empId = localStorage.getItem('EMPID');
+            }
+            self.queryEmployeeById()
         }
     }
 </script>

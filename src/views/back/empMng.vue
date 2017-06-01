@@ -86,8 +86,8 @@
                                 <i-col span="3">***********</i-col>
                                 <i-col span="3">
                                     <span v-if="emp.empSex==null">--</span>
-                                    <span v-if="emp.empSex=='F'">女</span>
-                                    <span v-if="emp.empSex=='M'">男</span>
+                                    <span v-if="emp.empSex=='female'">女</span>
+                                    <span v-if="emp.empSex=='male'">男</span>
                                 </i-col>
                                 <i-col span="3">
                                     <span v-if="emp.empTel==null">--</span>

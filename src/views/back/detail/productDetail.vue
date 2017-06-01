@@ -62,29 +62,36 @@
                 <div class="back-content">
                     <div class="back-content-main ">
                         <div class="order-detail">
-                            <Row>
-                                <i-col span="3" >
-                                    <span class="bold">商品编码：</span>
-                                    {{proData.proId}}
-                                </i-col>
-                                <i-col span="3" offset="18">
-                                    <i-button type="primary" @click="addModal=true">添加商品明细</i-button>
-                                </i-col>
-                            </Row>
                             <Row type="flex" align="middle">
                                 <i-col span="2">
                                     <img :src="proData.proPicPath" alt="" class="sureOrder-pic">
                                 </i-col>
+                                <i-col span="3" offset="19">
+                                    <i-button type="primary" @click="addModal=true">添加商品明细</i-button>
+                                </i-col>
+                            </Row>
+                            <Row type="flex" align="middle">
+                                <i-col span="3" >
+                                    <span class="bold">商品编码：</span>
+                                    {{proData.proId}}
+                                </i-col>
+                            </Row>
+                            <Row type="flex" align="middle">
                                 <i-col span="22">
                                     <span class="bold">商品名：</span>
                                     {{proData.proName}}
-                                   ----- {{proData.proCount}}
                                 </i-col>
                             </Row>
                             <Row type="flex" align="middle">
                                 <i-col span="24">
                                     <span class="bold">商品描述：</span>
                                     {{proData.proDesc}}
+                                </i-col>
+                            </Row>
+                            <Row type="flex" align="middle">
+                                <i-col span="3" >
+                                    <span class="bold">商品数量：</span>
+                                    {{proData.proCount}}
                                 </i-col>
                             </Row>
                         </div>
@@ -100,10 +107,10 @@
                             <i-col span="6">{{detail.proDetailCount}}</i-col>
                             <i-col span="6">{{detail.proDetailType}}</i-col>
                             <i-col span="6">
-                                <Icon type="edit" class="front-order-item-delete"
-                                      @click=""></Icon>
+                                <!--<Icon type="edit" class="front-order-item-delete"-->
+                                      <!--@click=""></Icon>-->
                                 <Icon type="ios-trash" class="front-order-item-delete"
-                                      @click=""></Icon>
+                                      @click="delItem=detail,deleteModal=true"></Icon>
                             </i-col>
                         </Row>
                     </div>
@@ -133,6 +140,14 @@
             </Form-item>
         </i-form>
     </Modal>
+    <Modal
+            :visible.sync="deleteModal"
+            title="删除商品明细信息"
+            :loading="deleteLoading"
+            @on-ok="deleteProductDetail"
+            @on-cancel="deleteModal = false">
+        <p>是否确认删除--{{delItem.proDetailType}}</p>
+    </Modal>
 </template>
 
 <style scoped>
@@ -158,7 +173,10 @@
                 addModal:false,
                 addLoading:true,
                 proDetailType:'',
-                proDetailCount:''
+                proDetailCount:'',
+                deleteModal:false,
+                deleteLoading:true,
+                delItem:'',
             }
         },
         methods: {
@@ -276,6 +294,47 @@
                         self.queryProductDetailByProId()
                         self.addLoading = false
                         self.addModal = false
+                        self.isLoading = false
+                    } else {
+                        self.$Message.error('商品库存更新失败！');
+                    }
+                })
+            },
+            deleteProductDetail(){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    proDetailId:self.delItem.proDetailId
+                };
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/deleteProductDetail',
+                    params:data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        self.updateProductCount(self.delItem.proDetailCount)
+                    } else {
+                        self.$Message.error('商品明细删除失败！');
+                    }
+                })
+            },
+            updateProductCount(proCount){
+                var self = this
+                self.isLoading = true
+                var data = {
+                    proId:self.proId,
+                    proCount:proCount
+                };
+                self.$http({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8080/Spring-study/updateProductCount',
+                    params:data
+                }).then(function (res) {
+                    if (res.data.code == "OK") {
+                        self.queryProductById()
+                        self.queryProductDetailByProId()
+                        self.deleteLoading = false
+                        self.deleteModal = false
                         self.isLoading = false
                     } else {
                         self.$Message.error('商品库存更新失败！');
