@@ -318,10 +318,11 @@
                     if (res.data.code == "OK") {
                         var empLimitList = res.data.data;
                         for(var i=0;i<empLimitList.length;i++){
-                            if(empLimitList[i].limId==''){
+                            if(empLimitList[i].limId=='L20170601092715'){
                                 break;
                             }
                             if(i==empLimitList.length-1){
+                                self.$Message.error('暂无权限！');
                                 self.$router.go('/backIndex');
                             }
                         }
@@ -593,7 +594,7 @@
             if(localStorage.getItem('EMPID')) {
                 self.empId = localStorage.getItem('EMPID');
             }
-//            self.queryAllEmpLimitById()
+            self.queryAllEmpLimitById()
             self.queryBackAllBuy();
             self.queryBackAllRent();
             self.queryBackAllCustom();
