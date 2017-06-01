@@ -206,31 +206,6 @@
                     })
                 }
             },
-//            queryBackDraftByCheck(check){
-//                var self = this
-//                self.page.currentPage = 1;
-//                self.isLoading = true
-//                var data = {
-//                    draId:self.search
-//                };
-//                self.$http({
-//                    method:'POST',
-//                    url:'http://127.0.0.1:8080/Spring-study/queryBackDraftById',
-//                    params:data
-//                }).then(function(res){
-//                    if(res.data.code=="OK"){
-//                        self.draftList = [];
-//                        if(res.data.data!=null){
-//                            self.draftList.push(res.data.data)
-//                        }
-//                        self.page.totalRow = self.draftList.length;
-//                        self.isLoading = false
-//                        self.$Message.success('查询成功!');
-//                    }else{
-//                        self.$Message.error('查询失败！');
-//                    }
-//                })
-//            },
             updateDraftCheck(draft,status){
                 var self = this;
                 var data = {
@@ -243,7 +218,7 @@
                     params:data
                 }).then(function(res){
                     if(res.data.code=="OK"){
-                        self.queryBackAll();
+                        self.queryBackAllDraft();
                         self.$Message.success('已审核！');
                     }else{
                         self.$Message.error('审核失败！');
